@@ -1,0 +1,47 @@
+{
+  "name": "pwa",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 8080",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "alchemy-sdk": "^2.3.0",
+    "axios": "^1.2.3",
+    "base-64": "^1.0.0",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "notyf": "^3.10.0",
+    "pinia": "^2.0.29",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@iconify/json": "^2.2.9",
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/compiler-sfc": "^3.2.45",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/test-utils": "^2.2.7",
+    "eslint": "^8.32.0",
+    "eslint-plugin-vue": "^9.9.0",
+    "jsdom": "^21.0.0",
+    "jshint": "^2.13.6",
+    "moment": "^2.29.4",
+    "nft.storage": "^7.0.0",
+    "prettier": "^2.8.3",
+    "prettier-plugin-solidity": "^1.1.1",
+    "sass": "^1.57.1",
+    "solhint-plugin-prettier": "^0.0.5",
+    "start-server-and-test": "^1.15.2",
+    "unplugin-icons": "^0.15.1",
+    "unplugin-vue-components": "^0.22.12",
+    "vite": "^4.0.0",
+    "vite-plugin-fonts": "^0.7.0",
+    "vite-plugin-pwa": "^0.14.1",
+    "vitest": "^0.27.2"
+  }
+}
