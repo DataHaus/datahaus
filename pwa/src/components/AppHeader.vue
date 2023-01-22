@@ -1,6 +1,11 @@
 <template>
   <header id="header">
     <div class="header-title">
+      <img
+        src="../assets/images/DataHaus-Icon.png"
+        width="50"
+        class="header-logo"
+      />
       <router-link :to="{ name: 'home' }" active-class="active" exact
         ><h1>Data<span class="cyan">Haus</span></h1>
       </router-link>
@@ -10,12 +15,6 @@
     </div>
     <div class="header-menu">
       <nav>
-        <router-link :to="{ name: 'home' }" active-class="active" exact
-          >home</router-link
-        >
-        <router-link :to="{ name: 'home' }" active-class="active" exact
-          >storage</router-link
-        >
         <div class="right">
           <ConnectWalletButton v-model="account" btnSize="small" />
         </div>
@@ -25,14 +24,10 @@
 </template>
 <script>
 import { onMounted } from "vue";
-
-/* Import our Pinia Store & Refs */
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
-
 /* Components */
 import ConnectWalletButton from "../components/ConnectWalletButton.vue";
-
 /* LFG */
 export default {
   name: "AppHeader",
@@ -41,15 +36,11 @@ export default {
     /* Init Store */
     const store = useStore();
     const { account } = storeToRefs(store);
-
     /**
      * Get our current 🦊 Metamask account details
      */
     const getCurrentAccount = async () => {
       try {
-        /*
-         * First make sure we have access to window.ethereum
-         */
         const { ethereum } = window;
         if (!ethereum) return;
         /* Get our Current Account */
@@ -83,7 +74,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 44px;
+  padding: 0 22px 0 10px;
   background: $haus-blue;
 
   @include breakpoint($break-ssm) {
@@ -91,10 +82,14 @@ export default {
     flex-direction: column;
   }
 
+  .header-logo {
+    margin-right: 8px;
+  }
+
   .header-title {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
 
     a {
       color: $white;
@@ -123,7 +118,9 @@ export default {
 
     h1 {
       color: $white;
-      font-size: 1.8em;
+      font-size: 1.7em;
+      margin-block-start: 0.67em;
+      margin-block-end: 0.3em;
       span {
         color: $haus-cyan;
       }

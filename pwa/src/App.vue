@@ -1,12 +1,11 @@
 <script>
 /* Components */
 import AppHeader from "./components/AppHeader.vue";
-import AppFooter from "./components/AppFooter.vue";
 import ReloadPrompt from "./components/ReloadPrompt.vue";
 /* LFG */
 export default {
   name: "App",
-  components: [AppHeader, AppFooter, ReloadPrompt],
+  components: [AppHeader, ReloadPrompt],
 };
 </script>
 <template>
@@ -16,6 +15,5 @@ export default {
       <component :is="Component" :key="$route.name" />
     </keep-alive>
   </router-view>
-  <AppFooter />
   <ReloadPrompt />
 </template>

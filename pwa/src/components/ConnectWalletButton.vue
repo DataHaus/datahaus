@@ -1,6 +1,6 @@
 <template>
   <div class="connect-wallet-container">
-    <!-- Metamask Not Connected -->
+    <!-- 🦊 Metamask Not Connected -->
     <button
       v-if="!account"
       @click="connectWallet()"
@@ -10,18 +10,30 @@
           : 'connect-wallet-small-button'
       "
     >
-      connect
+      Connect
     </button>
-    <!-- Metamask Connected -->
+    <!-- 🦊 Metamask Connected -->
     <button
-      v-if="account"
+      v-if="account && $route.name === 'home'"
+      @click="$router.push('/dashboard')"
       :class="
         btnSize === 'large'
           ? 'profile-wallet-button'
           : 'profile-wallet-small-button'
       "
     >
-      {{ account }}
+      <i-mdi-view-dashboard class="icon-color" /> Dashboard
+    </button>
+    <button
+      v-if="account && $route.name !== 'home'"
+      @click="$router.push('/')"
+      :class="
+        btnSize === 'large'
+          ? 'profile-wallet-button'
+          : 'profile-wallet-small-button'
+      "
+    >
+      <i-mdi-home class="icon-color" /> Home
     </button>
   </div>
 </template>
@@ -49,13 +61,11 @@ async function connectWallet() {
       alert("Please connect 🦊 Metamask to continue!");
       return;
     }
-
     const [accountAddress] = await ethereum.request({
       method: "eth_requestAccounts",
     });
     if (accountAddress) {
       store.setAccount(accountAddress);
-      console.log("Account Address", accountAddress);
       emit("update:modelValue", accountAddress);
       store.setLoading(false);
     }
@@ -75,10 +85,9 @@ async function connectWallet() {
   flex-direction: column;
   margin: 0;
   max-width: 550px;
-}
-
-.connect-wallet-container img {
-  padding-bottom: 20px;
+  img {
+    padding-bottom: 20px;
+  }
 }
 
 .connect-wallet-button {
@@ -88,7 +97,7 @@ async function connectWallet() {
   font-weight: bold;
   width: auto;
   height: 55px;
-  border: 1px solid $white;
+  border: 2px solid $white;
   border-radius: 30px;
   padding-left: 60px;
   padding-right: 60px;
@@ -97,7 +106,7 @@ async function connectWallet() {
 
   &:hover {
     color: $haus-cyan;
-    border: 1px solid $haus-cyan;
+    border: 2px solid $haus-cyan;
   }
 }
 
@@ -108,7 +117,7 @@ async function connectWallet() {
   font-weight: bold;
   width: auto;
   height: 35px;
-  border: 1px solid $white;
+  border: 2px solid $white;
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
@@ -118,18 +127,18 @@ async function connectWallet() {
 
   &:hover {
     color: $haus-cyan;
-    border: 1px solid $haus-cyan;
+    border: 2px solid $haus-cyan;
   }
 }
 
 .profile-wallet-button {
-  color: $black;
-  background-color: $white;
+  color: $haus-cyan;
+  background-color: $haus-blue;
   font-size: 18px;
   font-weight: bold;
   width: auto;
   height: 55px;
-  border: 2px solid $haus-blue;
+  border: 2px solid $haus-cyan;
   border-radius: 30px;
   padding-left: 60px;
   padding-right: 60px;
@@ -137,18 +146,22 @@ async function connectWallet() {
   cursor: pointer;
 
   &:hover {
-    color: $haus-blue;
+    color: $white;
+    border: 2px solid $white;
+  }
+  svg {
+    margin-bottom: -3px;
   }
 }
 
 .profile-wallet-small-button {
-  color: $black;
-  background-color: $white;
+  color: $haus-cyan;
+  background-color: $haus-blue;
   font-size: 15px;
   font-weight: bold;
   width: auto;
   height: 35px;
-  border: 2px solid $haus-blue;
+  border: 2px solid $haus-cyan;
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
@@ -157,7 +170,12 @@ async function connectWallet() {
   cursor: pointer;
 
   &:hover {
-    color: $haus-blue;
+    color: $white;
+    border: 2px solid $white;
+  }
+
+  svg {
+    margin-bottom: -3px;
   }
 }
 </style>

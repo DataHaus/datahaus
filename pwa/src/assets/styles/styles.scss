@@ -26,21 +26,7 @@ body,
   flex-direction: column;
 }
 
-.icon-color {
-  color: var(--icon-color);
-}
-.icon {
-  width: 18px;
-  height: 18px;
-  display: block;
-  background-position: center;
-  background-size: contain;
-  cursor: pointer;
 
-  &.no-pointer {
-    cursor: default;
-  }
-}
 
 .notyf .notyf__message {
   font-size: 0.8rem;
@@ -61,6 +47,35 @@ code {
 
 .underlined:hover {
   cursor: pointer;
+}
+
+.link-button {
+  color: $white;
+  background-color: $haus-blue;
+  font-size: 15px;
+  font-weight: bold;
+  width: auto;
+  height: 55px;
+  border: 1px solid $white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  transition: 0.6s;
+  text-decoration: none;
+  cursor: pointer;
+
+  a {
+    font-family: "PPNeueMachina", inter, -apple-system, system-ui, "Segoe UI", Helvetica,
+      "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    letter-spacing: 0.05786em;
+    font-style: normal;
+    text-align: center;
+    transition: 0.6s;
+    text-decoration: none;
+  }
+  &:hover {
+    color: $haus-cyan;
+    border: 1px solid $haus-cyan;
+  }
 }
 
 
@@ -196,52 +211,5 @@ code {
         }
       }
     }
-  }
-
-  body.dark-theme {
-    section#content .main {
-      .main-content {
-        section {
-          &#panel-result {
-            background-color: rgb(9, 16, 29);
-          }
-        }
-      }
-    }
-  }
-}
-
-/* KeyFrames */
-@-webkit-keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@-moz-keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
   }
 }
