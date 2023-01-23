@@ -1,20 +1,39 @@
-# DataHaus
+# 🈴 DataHaus
+
+DataHaus is a decentralized data warehouse built on the Filecoin Virtual Machine which provides a reliable, decentralised data foundation that efficiently handles all data types.
+
+Create storage deals / bounties for your valuable data, the Filecoin storage providers compete to win storage bounties and bring the costs down for the client. In addition you can receive discounts on entire sectors and volume discounts, where the price is further reduced for purchasing multiple sectors at once.
+
+Create subsets of core data sets for batch processing, analytics and AI use cases. DataHaus offers compute over data or COD services
+
+Please visit <https://datahaus.vercel.app/> to view the  🈴 DataHaus web3 application, feel free to connect your metamask wallet.
+
+ETHOnline Showcase: <https://ethglobal.com/showcase/datahaus>
+Github Repo: <https://github.com/DataHaus/datahaus>
+
+Craig Moss
+Twitter: [@webmoss](https://twitter.com/webmoss)
+LinkedIn: <https://www.linkedin.com/in/craig-moss-21822628/>
+GitHub: <https://github.com/webmoss>
 
 ## Deployments
+
+DataHaus uses the fevm-hardhat-kit and is deployed to the Hyperspace Testnet here:
+
+Deployer Address
+0x79bFCD02241719B49Eab19630a62F3c8429F7f6D
+
+f4address (informational only): f410fpg742arec4m3jhvldfrquyxtzbbj673nl3bl2vq
 
 Monday 23 Jan 2023
 Wallet Ethereum Address: 0x79bFCD02241719B49Eab19630a62F3c8429F7f6D
 
-deploying DataCoin...
 deploying "DataCoin" (tx: 0x4685401cc7aae7882dd3235b799c6e6760550eb86ad0166197baf1a7515461bb)...: deployed at 0x293993b2552875c21fa9d9eB2Bd44057d9e62b49 with 21322816 gas
 
-deploying MockMinerAPI...
 deploying "MockMinerAPI" (tx: 0xcbe3da0573e5e16830eb66b567ed578e88a4eb96d8b57307ae948af50d742d0b)...: deployed at 0x0180b9Beb44851dA42cbeA60009c16F24AA05F50 with 33628763 gas
 
-deploying MockMarketAPI...
 deploying "MockMarketAPI" (tx: 0x53babbaf514e5c25bb976b1e9f8c74bbc16edced8ea3414db00034d3f640bb66)...: deployed at 0xf44e7bf473734ca528D0F4095cb988B3EB44B74a with 50614367 gas
 
-Deploying FilecoinMarketConsumer...
 deploying "FilecoinMarketConsumer" (tx: 0x5ce43ade6ff257c9e97359e894d49990cc79cdc276d68d304455b6198be394f2)...: deployed at 0x9c9b64A4bdDC200d4801D861C105A7800dbE1cf3 with 56966955 gas
 
 ## Cloning the FVM Hardhat Kit Repo
