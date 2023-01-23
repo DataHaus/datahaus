@@ -6,12 +6,17 @@ Create storage deals / bounties for your valuable data, the Filecoin storage pro
 
 Create subsets of core data sets for batch processing, analytics and AI use cases. DataHaus offers compute over data or COD services
 
+The Bacalhau Project offers simple, low cost, decentralized tools and data computing that addresses deep rooted gaps in managing big data that unlocks a new collaborative ecosystem.
+
 Please visit <https://datahaus.vercel.app/> to view the  🈴 DataHaus web3 application, feel free to connect your metamask wallet.
+
+DataHaus utilises the Beryx API which indexes and exposes via a public API Filecoin historical and real-time data. Beryx  provides historical transactions of every account, interactions with multisig accounts, fees details and many more.
+<https://docs.zondax.ch/Beryx>
 
 ETHOnline Showcase: <https://ethglobal.com/showcase/datahaus>
 Github Repo: <https://github.com/DataHaus/datahaus>
 
-Craig Moss
+Built by Craig Moss (0xWebMoss)
 Twitter: [@webmoss](https://twitter.com/webmoss)
 LinkedIn: <https://www.linkedin.com/in/craig-moss-21822628/>
 GitHub: <https://github.com/webmoss>

@@ -6,12 +6,6 @@
       <p>0xWebmoss</p>
     </div>
     <ul>
-      <!-- <li>
-        <router-link :to="{ name: 'home' }" active-class="active" exact
-          ><span class="icon"><i-mdi-home /></span>
-          <span class="item">Home</span></router-link
-        >
-      </li> -->
       <li>
         <router-link :to="{ name: 'dashboard' }" active-class="active" exact>
           <span class="icon"><i-mdi-view-dashboard /></span>
@@ -62,6 +56,7 @@ export default {
 
 .sidebar {
   width: 15%;
+  min-width: 200px;
   height: 100%;
   display: flex;
   flex-direction: column;

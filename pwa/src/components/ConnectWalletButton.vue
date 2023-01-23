@@ -41,6 +41,9 @@
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 
+/* Import our Services and APIs */
+import beryxApi from "../services/beryxApi.js";
+
 defineProps({
   currentAccount: String,
   btnSize: {
@@ -66,6 +69,26 @@ async function connectWallet() {
     });
     if (accountAddress) {
       store.setAccount(accountAddress);
+
+      const beryx = new beryxApi();
+      let accountBalance = await beryx.getAccountBalance(accountAddress);
+      console.log("accountBalance", accountBalance);
+
+      // store.setBalance(accountBalance.Value);
+      // console.log("accountBalance.Value", accountBalance.Value);
+
+      // store.setCurrency(accountBalance.Currency.Symbol);
+      // console.log(
+      //   "accountBalance.Currency.Symbol",
+      //   accountBalance.Currency.Symbol
+      // );
+
+      // store.setDecimals(accountBalance.Currency.Decimals);
+      // console.log(
+      //   "accountBalance.Currency.Decimals",
+      //   accountBalance.Currency.Decimals
+      // );
+
       emit("update:modelValue", accountAddress);
       store.setLoading(false);
     }
