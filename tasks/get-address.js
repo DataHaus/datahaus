@@ -34,9 +34,7 @@ async function callRpc(method, params) {
 
 const deployer = new ethers.Wallet(DEPLOYER_PRIVATE_KEY);
 
-
   const pubKey = hexToBytes(deployer.publicKey.slice(2));
-
   const priorityFee = await callRpc("eth_maxPriorityFeePerGas");
 
   const f4Address = fa.newDelegatedEthAddress(deployer.address).toString();

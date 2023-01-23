@@ -81,19 +81,18 @@
         </div>
       </section>
       <section id="cod">
-        <h1>COD <BacalhauWhite /></h1>
+        <h1>COD</h1>
         <div class="subtitle">
           Bacalhau is a network of open compute resources made available to
           serve any data processing workload.
         </div>
         <div class="row">
           <div class="cod-box bg-blue">
-            <h2>Bacalhau Project</h2>
+            <h2>Bacalhau <BacalhauWhite /></h2>
             <p>
-              The Bacalhau Project offers simple, low cost data computing that
-              addresses deep rooted gaps in managing big data. Bacalhau offers
-              low cost, decentralized tools that unlock a new collaborative
-              ecosystem.
+              The Bacalhau Project offers simple, low cost, decentralized tools
+              and data computing that addresses deep rooted gaps in managing big
+              data that unlocks a new collaborative ecosystem.
             </p>
           </div>
           <div class="cod-box bg-cyan">
@@ -451,14 +450,6 @@ section#content {
         font-size: 3.75rem;
         margin-bottom: 20px;
         z-index: 999;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        align-items: center;
-        .svg-container {
-          width: 100px;
-          margin-left: 10px;
-        }
       }
 
       .subtitle {
@@ -497,6 +488,14 @@ section#content {
             color: $white;
             font-size: 2.25rem;
             margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            .svg-container {
+              width: 90px;
+              margin-left: 20px;
+            }
           }
 
           a {

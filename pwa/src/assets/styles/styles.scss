@@ -18,15 +18,14 @@ body {
 html,
 body,
 #app {
+  width: 100%;
   height: 100%;
 }
 
 #app {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
 }
-
-
 
 .notyf .notyf__message {
   font-size: 0.8rem;
@@ -82,6 +81,7 @@ code {
 @media only screen and (max-width: 768px) {
   #app {
     padding: 0;
+    width: 100%;
     height: calc(100%);
 
     #content {

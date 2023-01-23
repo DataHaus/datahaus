@@ -1,8 +1,8 @@
 const util = require("util");
 const request = util.promisify(require("request"));
 
-task("send-coin", "Sends SimpleCoin")
-.addParam("contractaddress", "The SimpleCoin address")
+task("send-coin", "Sends DataCoin")
+.addParam("contractaddress", "The DataCoin address")
 .addParam("amount", "The amount to send")
 .addParam("toaccount", "The account to send to")
 .setAction(async (taskArgs) => {
@@ -10,8 +10,9 @@ task("send-coin", "Sends SimpleCoin")
     const amount = taskArgs.amount
     const toAccount = taskArgs.toaccount
     const networkId = network.name
-    const SimpleCoin = await ethers.getContractFactory("SimpleCoin")
-    //Get signer information
+    const DataCoin = await ethers.getContractFactory("DataCoin")
+    
+    // Get signer information
     const accounts = await ethers.getSigners()
     const signer = accounts[0]
     const priorityFee = await callRpc("eth_maxPriorityFeePerGas")
@@ -35,14 +36,14 @@ task("send-coin", "Sends SimpleCoin")
         return JSON.parse(res.body).result;
       }
 
-    const simpleCoinContract = new ethers.Contract(contractAddr, SimpleCoin.interface, signer)
-    console.log("Sending:", amount, "SimpleCoin to", toAccount)
-    await simpleCoinContract.sendCoin(toAccount, amount, {
+    const DataCoinContract = new ethers.Contract(contractAddr, DataCoin.interface, signer)
+    console.log("Sending ", amount, " DataCoin to ", toAccount)
+    await DataCoinContract.sendCoin(toAccount, amount, {
         gasLimit: 1000000000,
         maxPriorityFeePerGas: priorityFee
     })
-    let result = BigInt(await simpleCoinContract.getBalance(toAccount)).toString()
-    console.log("Total SimpleCoin at:", toAccount, "is", result)
+    let result = BigInt(await DataCoinContract.getBalance(toAccount)).toString()
+    console.log("Total DataCoin at:", toAccount, "is", result)
 })
 
 module.exports = {}
