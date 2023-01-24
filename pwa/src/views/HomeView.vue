@@ -381,7 +381,7 @@ section#content {
           min-height: 325px;
           padding: 3%;
           @include breakpoint($break-ssm) {
-            width: 100%;
+            width: 94%;
           }
         }
 
@@ -501,7 +501,7 @@ section#content {
           border-bottom-left-radius: 20px;
 
           @include breakpoint($break-ssm) {
-            width: 100%;
+            width: 94%;
           }
         }
         .cod-box-two {
@@ -512,7 +512,7 @@ section#content {
           border-bottom-left-radius: 20px;
 
           @include breakpoint($break-ssm) {
-            width: 100%;
+            width: 94%;
           }
         }
         .cod-box-three {
@@ -523,7 +523,7 @@ section#content {
           border-bottom-left-radius: 20px;
 
           @include breakpoint($break-ssm) {
-            width: 100%;
+            width: 94%;
           }
         }
 

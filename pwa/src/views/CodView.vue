@@ -2,8 +2,19 @@
   <section id="content">
     <SidebarView />
     <div class="cod">
-      <h1>Compute Over Data</h1>
-      <p>Run Batch Processing or big data jobs using Balhau.</p>
+      <div class="title-bar">
+        <div class="row">
+          <div class="title-name">
+            <h1>Compute Over Data</h1>
+          </div>
+          <div class="title-actions">
+            <button class="create-button">Create</button>
+            <button class="back-button">Go Back</button>
+          </div>
+        </div>
+        <p>Run Batch Processing or big data jobs using Balhau.</p>
+      </div>
+      <div class="row"></div>
     </div>
   </section>
 </template>
@@ -60,6 +71,100 @@ section#content {
     color: $haus-blue;
     background: $white;
     padding: 20px 40px;
+    overflow: scroll;
+
+    .title-bar {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 0;
+      .row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0;
+        .title-actions {
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          align-items: center;
+          justify-content: space-between;
+          .back-button {
+            color: $white;
+            background-color: $haus-blue;
+            font-size: 15px;
+            font-weight: bold;
+            width: auto;
+            height: 35px;
+            border: 2px solid $haus-blue;
+            border-radius: 30px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-top: 5px;
+            margin-right: 10px;
+            transition: 0.6s;
+            cursor: pointer;
+
+            &:hover {
+              color: $haus-cyan;
+              border: 2px solid $haus-cyan;
+            }
+          }
+          .create-button {
+            color: $white;
+            background-color: $haus-cyan;
+            font-size: 15px;
+            font-weight: bold;
+            width: auto;
+            height: 35px;
+            border: 2px solid $haus-cyan;
+            border-radius: 30px;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-top: 5px;
+            margin-right: 10px;
+            transition: 0.6s;
+            cursor: pointer;
+
+            &:hover {
+              color: $haus-blue;
+              border: 2px solid $haus-blue;
+            }
+          }
+        }
+      }
+    }
+    .row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 30px;
+
+      @include breakpoint($break-ssm) {
+        width: 100%;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+      }
+
+      .column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+    }
   }
 }
 </style>
