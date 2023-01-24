@@ -40,6 +40,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
+import { useRouter } from "vue-router";
 
 /* Import our Services and APIs */
 import beryxApi from "../services/beryxApi.js";
@@ -52,7 +53,7 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue"]);
+const router = useRouter();
 const store = useStore();
 const { account } = storeToRefs(store);
 
@@ -68,25 +69,17 @@ async function connectWallet() {
       method: "eth_requestAccounts",
     });
     if (accountAddress) {
-      store.setAccount(accountAddress);
-
       /* Load Beryx API for Filecoin */
       const beryx = new beryxApi();
-
       let accountBalance = await beryx.getAccountBalance(accountAddress);
-      console.log("accountBalance", accountBalance);
 
-      store.setBalance(accountBalance.value);
-      console.log("accountBalance.Value", accountBalance.value);
-
+      store.setAccount(accountAddress);
+      store.setBalance(accountBalance.amount);
       store.setCurrency(accountBalance.currency);
-      console.log("accountBalance.currency", accountBalance.currency);
-
       store.setDecimals(accountBalance.decimals);
-      console.log("accountBalance.decimals", accountBalance.decimals);
-
-      emit("update:modelValue", accountAddress);
       store.setLoading(false);
+
+      router.push({ name: "dashboard" });
     }
     store.setLoading(false);
   } catch (error) {
@@ -140,6 +133,7 @@ async function connectWallet() {
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
+  margin-top: 5px;
   margin-right: 10px;
   transition: 0.6s;
   cursor: pointer;

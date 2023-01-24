@@ -2,8 +2,8 @@
   <div class="sidebar">
     <div class="profile">
       <img src="../assets/images/0xWebMoss.png" alt="profile_picture" />
-      <h3>Craig Moss</h3>
-      <p>0xWebmoss</p>
+      <h3>{{ currency }} {{ (balance / 1000000000000000000).toFixed(2) }}</h3>
+      <div class="account-address">{{ account }}</div>
     </div>
     <ul>
       <li>
@@ -45,10 +45,17 @@
     </ul>
   </div>
 </template>
-<script>
-export default {
-  name: "AppFooter",
-};
+<script setup>
+import { storeToRefs } from "pinia";
+import { useStore } from "../store";
+
+const store = useStore();
+const { account, balance, currency, decimals } = storeToRefs(store);
+
+console.log("account", account.value);
+console.log("balance", balance.value);
+console.log("currency", currency.value);
+console.log("decimals", decimals.value);
 </script>
 <style lang="scss">
 @import "../assets/styles/variables.scss";
@@ -70,28 +77,37 @@ export default {
   transition: all 0.5s ease;
 
   .profile {
+    width: 75%;
     margin-bottom: 30px;
     text-align: center;
 
     img {
       display: block;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      margin: 0 auto;
+      margin: 0 0 0 -20px;
     }
     h3 {
       color: $white;
-      margin: 0;
+      font-size: 16px;
+      margin: 0 0 5px 0;
+      text-align: left;
     }
 
-    p {
+    .account-address {
+      width: 70px;
       color: $white;
       font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
   ul {
+    border-top: 0.5px solid $white;
+    border-bottom: 0.5px solid $white;
     list-style: none;
     text-decoration: none;
     margin-block-start: 0;

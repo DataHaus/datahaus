@@ -73,7 +73,7 @@ export default {
 #header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   padding: 0 12px 0 12px;
   background: $haus-blue;
 
