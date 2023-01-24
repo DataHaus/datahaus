@@ -31,13 +31,8 @@ export default class beryxApi {
     const results = await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
+
         const data = response.data;
-        console.log("Beryx API Response Data: ", data);
         return data;
       })
       .catch(function (error) {
@@ -45,7 +40,6 @@ export default class beryxApi {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("error.request", error.response);
           store.setErrorCode(error.response.data.error.code);
           store.setErrorStatus(error.response.status);
           store.setErrorMessage(error.response.data.error.message);
@@ -62,12 +56,6 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results);
-    // {
-    //   "robust": "f1pbnvbows4iekaxa6obxqt6tvckqjiakeqdepena",
-    //   "short": "f01003",
-    //   "actor_type": "account"
-    // }
     const accountInfo = {
       robust: results.robust,
       short: results.short,
@@ -105,7 +93,6 @@ export default class beryxApi {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("error.request", error.response);
           store.setErrorCode(error.response.data.error.code);
           store.setErrorStatus(error.response.status);
           store.setErrorMessage(error.response.data.error.message);
@@ -161,7 +148,6 @@ export default class beryxApi {
         accountAddress
       );
       console.log("accountVesting : ", accountVesting);
-
       return accountVesting;
     } catch (error) {
       console.error(error);
@@ -182,13 +168,11 @@ export default class beryxApi {
         accountAddress
       );
       console.log("accountTransactions : ", accountTransactions);
-
       return accountTransactions;
     } catch (error) {
       console.error(error);
       throw error;
     }
-    return;
   }
 
   /**
@@ -212,13 +196,7 @@ export default class beryxApi {
     const results = await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
         const data = response.data;
-        console.log("Beryx API Response Data: ", data);
         return data;
       })
       .catch(function (error) {
@@ -226,7 +204,6 @@ export default class beryxApi {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("error.request", error.response);
           store.setErrorCode(error.response.data.error.code);
           store.setErrorStatus(error.response.status);
           store.setErrorMessage(error.response.data.error.message);
@@ -243,12 +220,6 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results);
-    // {
-    //   "robust": "f1pbnvbows4iekaxa6obxqt6tvckqjiakeqdepena",
-    //   "short": "f01003",
-    //   "actor_type": "account"
-    // }
     const tipset = {
       height: results.height,
       timestamp: results.timestamp,
@@ -284,9 +255,6 @@ export default class beryxApi {
     const options = {
       method: "GET",
       url: this.endpoint + `/tipset/latest`,
-      // params: {
-      //   height: height
-      // },
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + beryxAPIKEY,
@@ -296,13 +264,7 @@ export default class beryxApi {
     const results = await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
         const data = response.data;
-        console.log("Beryx API Response Data: ", data);
         return data;
       })
       .catch(function (error) {
@@ -310,7 +272,6 @@ export default class beryxApi {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("error.request", error.response);
           store.setErrorCode(error.response.data.error.code);
           store.setErrorStatus(error.response.status);
           store.setErrorMessage(error.response.data.error.message);
@@ -327,11 +288,6 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results);
-    // {
-    //   "height": 673,
-    //   "timestamp": "2022-12-08T19:23:28Z"
-    //   }
     const tipset = {
       height: results.height,
       timestamp: results.timestamp,
@@ -361,13 +317,7 @@ export default class beryxApi {
     const results = await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
         const data = response.data;
-        console.log("Beryx API Response Data: ", data);
         return data;
       })
       .catch(function (error) {
@@ -375,7 +325,6 @@ export default class beryxApi {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("error.request", error.response);
           store.setErrorCode(error.response.data.error.code);
           store.setErrorStatus(error.response.status);
           store.setErrorMessage(error.response.data.error.message);
@@ -392,32 +341,9 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results.res);
-    //     {
-    // "res": {
-    // "height": 2101872,
-    // "tx_timestamp": 1661362560,
-    // "tx_hash": "bafy2bzacedb2sckyqgxon7lh4ww3nnxh7p4x6f56ugdjzcbartn3y23qfzudu",
-    // "tx_from": "f01",
-    // "tx_to": "f09",
-    // "amount": 1000,
-    // "status": "OK",
-    // "tx_type": "Send",
-    // "tx_metadata": "string"
-    // },
-    // "TotalPages": 2
-    // }
     const resp = {
-      height: results.res.height,
-      tx_timestamp: results.res.tx_timestamp,
-      tx_hash: results.res.tx_hash,
-      tx_from: results.res.tx_from,
-      tx_to: results.res.tx_to,
-      amount: results.res.amount,
-      status: results.res.status,
-      tx_type: results.res.tx_type,
-      tx_metadata: results.res.tx_metadata,
-      TotalPages: results.TotalPages,
+      transactions: results.Transactions,      
+      totalPages: results.TotalPages,
     };
     return resp;
   }
@@ -444,13 +370,7 @@ export default class beryxApi {
     const results = await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
         const data = response.data;
-        console.log("Beryx API Response Data: ", data);
         return data;
       })
       .catch(function (error) {
@@ -458,7 +378,6 @@ export default class beryxApi {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("error.request", error.response);
           store.setErrorCode(error.response.data.error.code);
           store.setErrorStatus(error.response.status);
           store.setErrorMessage(error.response.data.error.message);
@@ -475,32 +394,9 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results.res);
-    //     {
-    // "res": {
-    // "height": 2101872,
-    // "tx_timestamp": 1661362560,
-    // "tx_hash": "bafy2bzacedb2sckyqgxon7lh4ww3nnxh7p4x6f56ugdjzcbartn3y23qfzudu",
-    // "tx_from": "f01",
-    // "tx_to": "f09",
-    // "amount": 1000,
-    // "status": "OK",
-    // "tx_type": "Send",
-    // "tx_metadata": "string"
-    // },
-    // "TotalPages": 2
-    // }
     const resp = {
-      height: results.res.height,
-      tx_timestamp: results.res.tx_timestamp,
-      tx_hash: results.res.tx_hash,
-      tx_from: results.res.tx_from,
-      tx_to: results.res.tx_to,
-      amount: results.res.amount,
-      status: results.res.status,
-      tx_type: results.res.tx_type,
-      tx_metadata: results.res.tx_metadata,
-      TotalPages: results.TotalPages,
+      transactions: results.Transactions,      
+      totalPages: results.TotalPages,
     };
     return resp;
   }
@@ -527,13 +423,7 @@ export default class beryxApi {
     const results = await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
         const data = response.data;
-        console.log("Beryx API Response Data: ", data);
         return data;
       })
       .catch(function (error) {
@@ -541,7 +431,6 @@ export default class beryxApi {
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("error.request", error.response);
           store.setErrorCode(error.response.data.error.code);
           store.setErrorStatus(error.response.status);
           store.setErrorMessage(error.response.data.error.message);
@@ -558,32 +447,9 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results.res);
-    //     {
-    // "res": {
-    // "height": 2101872,
-    // "tx_timestamp": 1661362560,
-    // "tx_hash": "bafy2bzacedb2sckyqgxon7lh4ww3nnxh7p4x6f56ugdjzcbartn3y23qfzudu",
-    // "tx_from": "f01",
-    // "tx_to": "f09",
-    // "amount": 1000,
-    // "status": "OK",
-    // "tx_type": "Send",
-    // "tx_metadata": "string"
-    // },
-    // "TotalPages": 2
-    // }
     const resp = {
-      height: results.res.height,
-      tx_timestamp: results.res.tx_timestamp,
-      tx_hash: results.res.tx_hash,
-      tx_from: results.res.tx_from,
-      tx_to: results.res.tx_to,
-      amount: results.res.amount,
-      status: results.res.status,
-      tx_type: results.res.tx_type,
-      tx_metadata: results.res.tx_metadata,
-      TotalPages: results.TotalPages,
+      transactions: results.Transactions,      
+      totalPages: results.TotalPages,
     };
     return resp;
   }

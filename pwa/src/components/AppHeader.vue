@@ -74,7 +74,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 12px 0 12px;
+  padding: 0 0 0 12px;
   background: $haus-blue;
 
   @include breakpoint($break-ssm) {

@@ -100,17 +100,8 @@ code {
 
           section {
             width: 100%;
-            border-radius: 1rem;
             margin-bottom: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
-            &#about {
-              width: 100%;
-
-              p {
-                font-size: 0.9rem;
-              }
-            }
             &#panel-upload {
               height: 250px;
               width: 100%;
@@ -161,55 +152,6 @@ code {
               }
             }
           }
-        }
-        .main-content--shadow {
-          width: 100%;
-          height: 250px;
-        }
-      }
-    }
-
-    #footer {
-      padding: 0 0 0.8em 0;
-      border-top: none;
-      flex-direction: column;
-
-      .footer-title {
-        width: 100%;
-        margin-bottom: 8px;
-
-        span {
-          font-size: 0.8em;
-        }
-      }
-
-      .footer-menu {
-        width: 100%;
-
-        nav {
-          text-align: left;
-          padding: 8px 0;
-          width: 100%;
-
-          > a {
-            font-size: 0.83em;
-            margin-right: 12px;
-
-            &.active {
-              font-weight: bold;
-            }
-          }
-          > i {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-          }
-        }
-
-        .icon.icon-lg {
-          position: fixed;
-          top: 1em;
-          right: 1em;
         }
       }
     }

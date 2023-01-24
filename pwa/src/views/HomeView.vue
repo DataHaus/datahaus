@@ -84,18 +84,19 @@
         <h1>COD</h1>
         <div class="subtitle">
           Bacalhau is a network of open compute resources made available to
-          serve any data processing workload.
+          serve any data processing workload that unlocks a new collaborative
+          data processing ecosystem.
         </div>
         <div class="row">
-          <div class="cod-box bg-blue">
+          <div class="cod-box-one bg-blue">
             <h2>Bacalhau <BacalhauWhite /></h2>
             <p>
               The Bacalhau Project offers simple, low cost, decentralized tools
               and data computing that addresses deep rooted gaps in managing big
-              data that unlocks a new collaborative ecosystem.
+              data.
             </p>
           </div>
-          <div class="cod-box bg-cyan">
+          <div class="cod-box-two bg-cyan">
             <h2>IPFS</h2>
             <p>
               All content can be shared using the globally distributed IPFS
@@ -103,7 +104,7 @@
               already stored.
             </p>
           </div>
-          <div class="cod-box bg-white">
+          <div class="cod-box-three bg-white">
             <h2>Compute Over Data</h2>
             <p>
               Bacalhau enables users to run arbitrary docker containers and wasm
@@ -485,18 +486,42 @@ section#content {
         align-items: center;
         justify-content: center;
         margin-bottom: 30px;
+
         @include breakpoint($break-ssm) {
           width: 100%;
           flex-direction: column;
           align-content: center;
           justify-content: center;
         }
-        .cod-box {
-          width: 27.3333333%;
+        .cod-box-one {
+          width: 25%;
           min-height: 320x;
           padding: 3%;
           border-top-left-radius: 20px;
           border-bottom-left-radius: 20px;
+
+          @include breakpoint($break-ssm) {
+            width: 100%;
+          }
+        }
+        .cod-box-two {
+          width: 26.3333333%;
+          min-height: 320x;
+          padding: 3%;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+
+          @include breakpoint($break-ssm) {
+            width: 100%;
+          }
+        }
+        .cod-box-three {
+          width: 28.3333333%;
+          min-height: 320x;
+          padding: 3%;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+
           @include breakpoint($break-ssm) {
             width: 100%;
           }
@@ -513,8 +538,8 @@ section#content {
             align-content: center;
             align-items: center;
             .svg-container {
-              width: 90px;
-              margin-left: 20px;
+              width: 80px;
+              margin-left: 12px;
             }
           }
 

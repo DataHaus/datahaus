@@ -3,7 +3,7 @@
     <div class="profile">
       <img src="../assets/images/0xWebMoss.png" alt="profile_picture" />
       <h3>{{ currency }} {{ (balance / 1000000000000000000).toFixed(2) }}</h3>
-      <div class="account-address">{{ account }}</div>
+      <code class="account-address">{{ account }}</code>
     </div>
     <ul>
       <li>
