@@ -2,36 +2,38 @@
   <section id="content">
     <SidebarView />
     <div class="dashboard">
-      <h1>Dashboard</h1>
-      <p>
-        Create storage deals for your valuable data, Filecoin storage providers
-        compete to win storage bounties and bring the costs down for you the
-        client.
-      </p>
+      <div class="title-bar">
+        <h1>Dashboard</h1>
+        <p>
+          Create storage deals for your valuable data, Filecoin storage
+          providers compete to win storage bounties and bring the costs down for
+          you the client.
+        </p>
+      </div>
       <div class="row">
-        <div class="column">
-          <div class="metric-box">
-            <h4>Account Info</h4>
-            <p>
-              {{ accountInfo.actor_type }}<br />
-              {{ accountInfo.short }}<br />
-              {{ accountInfo.robust }}
-            </p>
-          </div>
-          <div class="metric-box">
-            <h4>Tipset Latest</h4>
-            <p>
-              {{ tipsetLatest.height }}<br />
-              {{ tipsetLatest.timestamp }}
-            </p>
-          </div>
-          <div class="metric-box">
-            <h4>Tipset Height</h4>
-            <p>
-              {{ tipsetHeight.height }}<br />
-              {{ tipsetHeight.timestamp }}
-            </p>
-          </div>
+        <div class="metric-box">
+          <h4>Account Info</h4>
+          <p>
+            {{ accountInfo.actor_type }}<br />
+            {{ accountInfo.short }}<br />
+            {{ accountInfo.robust }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="metric-box">
+          <h4>Tipset Latest</h4>
+          <p>
+            {{ tipsetLatest.height }}<br />
+            {{ tipsetLatest.timestamp }}
+          </p>
+        </div>
+        <div class="metric-box">
+          <h4>Tipset Height</h4>
+          <p>
+            {{ tipsetHeight.height }}<br />
+            {{ tipsetHeight.timestamp }}
+          </p>
         </div>
       </div>
       <div class="row">
@@ -39,17 +41,119 @@
           <div class="metric-box">
             <h4>Transactions by Hash</h4>
             <p>{{ hash }}</p>
-            <p>{{ transactionsByHash.transactions }}</p>
+            <div class="transactions-list">
+              <template
+                v-for="transaction in transactionsByHash.transactions"
+                :key="transaction.name"
+              >
+                <div class="transaction-item">
+                  Height : {{ transaction.height }}
+                </div>
+                <div class="transaction-item">
+                  Timestamp : {{ transaction.tx_timestamp }}
+                </div>
+                <div class="transaction-item">
+                  Hash : {{ transaction.tx_hash }}
+                </div>
+                <div class="transaction-item">
+                  Hash : {{ transaction.tx_hash }}
+                </div>
+                <div class="transaction-item">
+                  From : {{ transaction.tx_from }}
+                </div>
+                <div class="transaction-item">To : {{ transaction.tx_to }}</div>
+                <div class="transaction-item">
+                  Amount : {{ transaction.amount }}
+                </div>
+                <div class="transaction-item">
+                  Status : {{ transaction.status }}
+                </div>
+                <div class="transaction-item">
+                  Type : {{ transaction.tx_type }}
+                </div>
+                <div class="transaction-item">
+                  Metadata : {{ transaction.tx_metadata }}
+                </div>
+              </template>
+            </div>
           </div>
           <div class="metric-box">
             <h4>Transactions by Height</h4>
             <p>{{ tipsetHeight }}</p>
-            <p>{{ transactionsByHeight.transactions }}</p>
+            <div class="transactions-list">
+              <template
+                v-for="transaction in transactionsByHeight.transactions"
+                :key="transaction.name"
+              >
+                <div class="transaction-item">
+                  Height : {{ transaction.height }}
+                </div>
+                <div class="transaction-item">
+                  Timestamp : {{ transaction.tx_timestamp }}
+                </div>
+                <div class="transaction-item">
+                  Hash : {{ transaction.tx_hash }}
+                </div>
+                <div class="transaction-item">
+                  Hash : {{ transaction.tx_hash }}
+                </div>
+                <div class="transaction-item">
+                  From : {{ transaction.tx_from }}
+                </div>
+                <div class="transaction-item">To : {{ transaction.tx_to }}</div>
+                <div class="transaction-item">
+                  Amount : {{ transaction.amount }}
+                </div>
+                <div class="transaction-item">
+                  Status : {{ transaction.status }}
+                </div>
+                <div class="transaction-item">
+                  Type : {{ transaction.tx_type }}
+                </div>
+                <div class="transaction-item">
+                  Metadata : {{ transaction.tx_metadata }}
+                </div>
+              </template>
+            </div>
           </div>
           <div class="metric-box">
             <h4>Transactions by Address</h4>
             <p>{{ account }}</p>
-            <p>{{ transactionsByAddress.transactions }}</p>
+            <div class="transactions-list">
+              <template
+                v-for="transaction in transactionsByAddress.transactions"
+                :key="transaction.name"
+              >
+                <div class="transaction-item">
+                  Height : {{ transaction.height }}
+                </div>
+                <div class="transaction-item">
+                  Timestamp : {{ transaction.tx_timestamp }}
+                </div>
+                <div class="transaction-item">
+                  Hash : {{ transaction.tx_hash }}
+                </div>
+                <div class="transaction-item">
+                  Hash : {{ transaction.tx_hash }}
+                </div>
+                <div class="transaction-item">
+                  From : {{ transaction.tx_from }}
+                </div>
+                <div class="transaction-item">To : {{ transaction.tx_to }}</div>
+                <div class="transaction-item">
+                  Amount : {{ transaction.amount }}
+                </div>
+                <div class="transaction-item">
+                  Status : {{ transaction.status }}
+                </div>
+                <div class="transaction-item">
+                  Type : {{ transaction.tx_type }}
+                </div>
+                <div class="transaction-item">
+                  Metadata : {{ transaction.tx_metadata }}
+                </div>
+              </template>
+            </div>
           </div>
         </div>
       </div>
@@ -156,13 +260,23 @@ section#content {
     background: $white;
     padding: 20px 40px;
     overflow: scroll;
+
+    .title-bar {
+      width: 94%;
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 3%;
+    }
     .row {
       width: 100%;
       display: flex;
       flex-direction: row;
       align-content: center;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       margin-bottom: 30px;
 
       @include breakpoint($break-ssm) {
@@ -179,16 +293,16 @@ section#content {
         align-content: flex-start;
         align-items: flex-start;
         justify-content: flex-start;
+      }
 
-        .metric-box {
-          width: 27.33331%;
-          min-height: 320x;
-          padding: 3%;
-          border-radius: 20px;
+      .metric-box {
+        width: 27.33331%;
+        min-height: 320x;
+        padding: 3%;
+        border-radius: 20px;
 
-          @include breakpoint($break-ssm) {
-            width: 100%;
-          }
+        @include breakpoint($break-ssm) {
+          width: 100%;
         }
       }
     }
