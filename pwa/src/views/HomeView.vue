@@ -288,6 +288,9 @@ section#content {
           width: 1350px;
           object-fit: cover;
           overflow: hidden;
+          @include breakpoint($break-ssm) {
+            width: 100%;
+          }
         }
       }
     }
@@ -347,6 +350,7 @@ section#content {
           width: 100%;
           padding: 0;
           z-index: 998;
+          overflow: hidden;
 
           img,
           svg {
@@ -354,6 +358,10 @@ section#content {
             object-fit: contain;
             overflow: hidden;
             margin: -40px 0 0 -150px;
+            @include breakpoint($break-ssm) {
+              width: 90%;
+              margin: 0 auto;
+            }
           }
         }
       }
@@ -371,6 +379,9 @@ section#content {
           width: 44%;
           min-height: 325px;
           padding: 3%;
+          @include breakpoint($break-ssm) {
+            width: 100%;
+          }
         }
 
         .bg-blue {
@@ -474,12 +485,21 @@ section#content {
         align-items: center;
         justify-content: center;
         margin-bottom: 30px;
+        @include breakpoint($break-ssm) {
+          width: 100%;
+          flex-direction: column;
+          align-content: center;
+          justify-content: center;
+        }
         .cod-box {
           width: 27.3333333%;
           min-height: 320x;
           padding: 3%;
           border-top-left-radius: 20px;
           border-bottom-left-radius: 20px;
+          @include breakpoint($break-ssm) {
+            width: 100%;
+          }
         }
 
         .bg-blue {

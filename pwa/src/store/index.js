@@ -17,6 +17,9 @@ export const useStore = defineStore({
   id: "store",
   state() {
     return {
+      errorCode: null,
+      errorStatus: null,
+      errorMessage: "",
       account: null,
       balance: 0,
       currency: null,
@@ -31,6 +34,15 @@ export const useStore = defineStore({
     };
   },
   getters: {
+    isErrorCode(state) {
+      return state.errorCode;
+    },
+    isErrorStatus(state) {
+      return state.errorStatus;
+    },
+    isErrorMessage(state) {
+      return state.errorMessage;
+    },
     getAccount(state) {
       return state.account;
     },
@@ -60,6 +72,15 @@ export const useStore = defineStore({
     },
   },
   actions: {
+    setErrorCode(value) {
+      this.errorCode = value;
+    },
+    setErrorStatus(value) {
+      this.errorStatus = value;
+    },
+    setErrorMessage(value) {
+      this.errorMessage = value;
+    },
     setAccount(account) {
       this.account = account;
     },
@@ -78,6 +99,7 @@ export const useStore = defineStore({
     setMinting(value) {
       this.minting = value;
     },
+    /* Single Collection */
     setCollection(collection) {
       this.collection = collection;
     },

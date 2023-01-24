@@ -9,6 +9,7 @@
 }
 
 body {
+  width: 100%;
   color: $white;
   background-color: $haus-blue;
   padding: 0;
@@ -88,6 +89,7 @@ code {
       height: auto;
 
       .main {
+        width: 100%;
         align-items: flex-start;
 
         .main-content {

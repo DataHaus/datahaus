@@ -73,8 +73,8 @@ export default {
 #header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 22px 0 10px;
+  align-items: flex-end;
+  padding: 0 12px 0 12px;
   background: $haus-blue;
 
   @include breakpoint($break-ssm) {

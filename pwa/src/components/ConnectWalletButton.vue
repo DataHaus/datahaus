@@ -70,24 +70,20 @@ async function connectWallet() {
     if (accountAddress) {
       store.setAccount(accountAddress);
 
+      /* Load Beryx API for Filecoin */
       const beryx = new beryxApi();
+
       let accountBalance = await beryx.getAccountBalance(accountAddress);
       console.log("accountBalance", accountBalance);
 
-      // store.setBalance(accountBalance.Value);
-      // console.log("accountBalance.Value", accountBalance.Value);
+      store.setBalance(accountBalance.value);
+      console.log("accountBalance.Value", accountBalance.value);
 
-      // store.setCurrency(accountBalance.Currency.Symbol);
-      // console.log(
-      //   "accountBalance.Currency.Symbol",
-      //   accountBalance.Currency.Symbol
-      // );
+      store.setCurrency(accountBalance.currency);
+      console.log("accountBalance.currency", accountBalance.currency);
 
-      // store.setDecimals(accountBalance.Currency.Decimals);
-      // console.log(
-      //   "accountBalance.Currency.Decimals",
-      //   accountBalance.Currency.Decimals
-      // );
+      store.setDecimals(accountBalance.decimals);
+      console.log("accountBalance.decimals", accountBalance.decimals);
 
       emit("update:modelValue", accountAddress);
       store.setLoading(false);
