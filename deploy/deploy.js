@@ -76,7 +76,7 @@ module.exports = async ({ deployments }) => {
     console.log("Deploying DataHausDeals...")
     await deployLogError("DataHausDeals", {
         from: deployer.address,
-        args: [],
+        // args: [],
         // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
         maxPriorityFeePerGas: priorityFee,
         log: true,
