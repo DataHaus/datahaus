@@ -1,21 +1,22 @@
 # 🈴 DataHaus
 
-DataHaus is a decentralized data warehouse built on the Filecoin Virtual Machine which provides a reliable, decentralised data foundation that efficiently handles all data types.
+DataHaus is a decentralised data economy, built on the Filecoin Virtual Machine, which provides a reliable web3 data foundation that efficiently handles all data types and uses cases found in the "normal" web2 world today.
 
-Create storage deals / bounties for your valuable data, the Filecoin storage providers compete to win storage bounties and bring the costs down for the client. In addition you can receive discounts on entire sectors and volume discounts, where the price is further reduced for purchasing multiple sectors at once.
+Project Overview
 
-Receive dynamic NFTs on Storage deals that serve as Proof-of-Deal (PODS). A defi element will be incorporated for staking the NFT's to give incentives to data holders and storage providers or miners
+1. Upload your valuable data to IPFS for truly decentralised storage and build your own data collections.
+2. Create datasets for batch processing, analytics and AI use cases. Bacalhau offers Compute Over Data or COD services.
+3. Create storage deals / bounties for your valuable datasets, the Filecoin storage providers compete to win storage bounties and bring the costs down for the client.
+4. Receive discounts and bid for entire sectors and volume discounts, where the price is further reduced for purchasing multiple sectors at once.
+5. Receive dynamic NFTs for completed storage deals that serve as a Proof-of-Deal (PODS).
+6. A defi element will be incorporated for staking the NFT's to give incentives to data holders and storage providers or miners. An ERC-20 called datacoin can be offered for additional rewards and staking pools, etc.
+7. Build a dashboard view to browse Filecoin data like latest block heights, tipset and more. Browse and view your account transactions and search global Filecoin transaction in a sleek user-interface.
+8. Incorporate various API's like Beryx API for example to utilise the FEVM to it's fullest potential as everyday user, big or small business and storage providers or miners.
 
-Create subsets of core data sets for batch processing, analytics and AI use cases. DataHaus offers compute over data or COD services
+Please visit our web3 application and feel free to connect your metamask wallet, and enjoy our project entry for the Filecoin space Warp hackathon 2023.
 
-The Bacalhau Project offers simple, low cost, decentralized tools and data computing that addresses deep rooted gaps in managing big data that unlocks a new collaborative ecosystem.
-
-Please visit <https://datahaus.vercel.app/> to view the  🈴 DataHaus web3 application, feel free to connect your metamask wallet.
-
-DataHaus utilises the Beryx API which indexes and exposes via a public API Filecoin historical and real-time data. Beryx  provides historical transactions of every account, interactions with multisig accounts, fees details and many more.
-<https://docs.zondax.ch/Beryx>
-
-ETHOnline Showcase: <https://ethglobal.com/showcase/datahaus>
+Demo web3 App: <https://datahaus.vercel.app/>
+ETHOnline Showcase: <https://ethglobal.com/showcase/datahaus-jvhhb>
 Github Repo: <https://github.com/DataHaus/datahaus>
 
 Built by Craig Moss (0xWebMoss)
@@ -23,7 +24,92 @@ Twitter: [@webmoss](https://twitter.com/webmoss)
 LinkedIn: <https://www.linkedin.com/in/craig-moss-21822628/>
 GitHub: <https://github.com/webmoss>
 
-## Deployments
+## How it's made
+
+The DataHaus web3 application is built for the Filecoin Virtual Machine.
+The web3 application uses the following technologies in it's software life cycle:
+
+Hardhat - Hardhat takes care of all our deployments and smart contract compilation
+Solidity - Smart contracts written using Solidity
+Filecoin
+IPFS
+Foundry
+Bacalhau
+Beryx API
+Lighthouse API
+Spheron
+and testing
+Vue.js
+Pinia
+CSS, SASS, SCSS
+
+## Resources
+
+### DataDAO Example - Deal Bounty Contract
+
+<https://github.com/lotus-web3/deal-bounty-contract>
+<https://github.com/lotus-web3/client-contract>
+
+Deal Bounty Contract contains a solidity contract template that lists data bounties to claim, and pays out the bounty upon the deal proven to be made with the builtin filecoin builtin market.
+
+Repo contains:
+
+1. [A solidity contract template](https://github.com/lotus-web3/client-contract/blob/main/src/DealClient.sol#L15) that stores data with the filecoin builtin deal market
+2. [A tiny mock market](https://github.com/lotus-web3/client-contract/blob/main/src/DealClient.sol#L7) contract for prototyping against a realistic filecoin market
+3. [Low level solidity CBOR parsing functions](https://github.com/lotus-web3/client-contract/blob/main/src/CBORParse.sol#L129) of general use reading filecoin native data
+
+With [FIP 44](https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0044.md) landing in nv17 the builtin storage market actor can delegate authorization of a deal proposal to an arbitrary fvm contract.  This allows any filecoin contract to act as a client of the storage market.  This hook is enough to get a long way towards supporting data DAOs and other programmable storage projects.  While we expect more powerful builtin actors APIs to exist in the near future which will further expand the set of supported functionalities, the builtin market interface has the advantage of existing today.
+
+![PublishStorageDeals](https://user-images.githubusercontent.com/5515260/202312700-d47d90a0-245d-4a90-afc4-f2a3a0c3960e.png)
+
+#### The Storage Deal Flow
+
+In the DealRewarder.sol smart contract, all deal making happens outside of the smart contact. The smart contract itself does not initiate the making of any deals itself, but incentivizes other parties to make those deals and supply the resultant deal ID back to the smart contract to verify.
+
+Storing Data and Making Deals on Filecoin
+There are many ways you can store data on Filecoin, NFT.Storage for example would return a content indentifier or CID for your uploaded file or digital asset.
+
+#### Core Idea
+
+A deal bounty contract consists a list of the data CIDs that it incentives to store on Filecoin. Once a storage deals is made for the listed data, the data bounty hunter can claim the data bounty by providing the deal ID. The contract will check with the Filecoin storage market to confirm whether the supplied deal ID is activated and stores the claimed data. Once validated, the deal bounty contract will pay the bounty hunter out.
+
+On successful completion of the Storage bounty, an ERC-721 NFT will be minted containing the details of the transaction. A defi element can be attached to further incentivise the storage providers and users of the data economy.
+
+<img src="/img/dealmaking.png" width="50%">
+<img src="/img/addbounty.png" width="50%">
+<img src="/img/claimdatabounty.png" width="50%">
+
+### Deal Bounty Contract Modular Breakdown
+
+The deal bounty contract consists of four conceptual steps:
+
+Step   |   Who   |    What is happening  |   Why
+--- | --- | --- | ---
+Deploy | contract owner   | address that deployed contracts is the owner of the contract, and the individual that can call addCID  | create a contract and setting up rules to follow
+AddCID | data pinners     | set up data cids that the contract will incentivize in deals      | add request for a deal in the filecoin network, "store data" function
+Fund   | contract funders |  add FIL to the contract to later pay out deals        | ensure the deal actually gets stored by providing funds for bounty hunter and (indirect) storage provider
+Claim  | bounty hunter    | claim the incentive to complete the cycle                    | pay back the bounty hunter for doing work for the contract
+
+## Bacalhau
+
+The Bacalhau Project offers simple, low cost, decentralized tools and data computing that addresses deep rooted gaps in managing big data that unlocks a new collaborative ecosystem.
+
+## Beryx API
+
+DataHaus utilises the Beryx API which indexes and exposes via a public API Filecoin historical and real-time data. Beryx  provides historical transactions of every account, interactions with multisig accounts, fees details and many more.
+<https://docs.zondax.ch/Beryx>
+
+## Filecoin
+
+Filecoin Blue Prints <https://docs.filecoin.io/developers/smart-contracts/about/blueprints/#solution-architecture-1>
+
+## Foundry
+
+The DataHaus smart contracts are developed using Foundry<https://github.com/foundry-rs> and built on the Lotus open-source examples provided here <https://github.com/lotus-web3>
+
+Please see lotus/client-contract and lots/deal-bounty-contract in the DataHaus root for these cloned repos which serve as examples in the DataHaus smart contracts.
+
+## 1st Test Deployment
 
 DataHaus uses the fevm-hardhat-kit and is deployed to the Hyperspace Testnet here:
 

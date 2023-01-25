@@ -53,12 +53,57 @@ module.exports = async ({ deployments }) => {
 
     console.log("Wallet Ethereum Address:", deployer.address)
     const chainId = network.config.chainId
-    const tokenToBeMinted = networkConfig[chainId]["tokenToBeMinted"]
+    // const tokenToBeMinted = networkConfig[chainId]["tokenToBeMinted"]
 
-    console.log("deploying DataCoin...")
+    console.log("Deploying DataCoin at ", deployer.address)
     await deployLogError("DataCoin", {
         from: deployer.address,
-        args: [tokenToBeMinted],
+        // args: [tokenToBeMinted],
+        // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
+        maxPriorityFeePerGas: priorityFee,
+        log: true,
+    })
+
+    console.log("Deploying DataNFT...")
+    await deployLogError("DataNFT", {
+        from: deployer.address,
+        args: [],
+        // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
+        maxPriorityFeePerGas: priorityFee,
+        log: true,
+    })
+
+    console.log("Deploying DataHausDeals...")
+    await deployLogError("DataHausDeals", {
+        from: deployer.address,
+        args: [],
+        // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
+        maxPriorityFeePerGas: priorityFee,
+        log: true,
+    })
+
+    console.log("Deploying DealClient...")
+    await deployLogError("DealClient", {
+        from: deployer.address,
+        args: [],
+        // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
+        maxPriorityFeePerGas: priorityFee,
+        log: true,
+    })
+
+    console.log("Deploying DealRewarder...")
+    await deployLogError("DealRewarder", {
+        from: deployer.address,
+        args: [],
+        // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
+        maxPriorityFeePerGas: priorityFee,
+        log: true,
+    })
+    
+    console.log("Deploying CBORParse...")
+    await deployLogError("CBORParse", {
+        from: deployer.address,
+        args: [],
         // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
         maxPriorityFeePerGas: priorityFee,
         log: true,
@@ -81,15 +126,5 @@ module.exports = async ({ deployments }) => {
         maxPriorityFeePerGas: priorityFee,
         log: true,
     })
-
-    console.log("Deploying FilecoinMarketConsumer...")
-    await deployLogError("FilecoinMarketConsumer", {
-        from: deployer.address,
-        args: [],
-        // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
-        maxPriorityFeePerGas: priorityFee,
-        log: true,
-    })
-
 }
 
