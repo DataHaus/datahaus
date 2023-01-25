@@ -4,6 +4,8 @@ DataHaus is a decentralized data warehouse built on the Filecoin Virtual Machine
 
 Create storage deals / bounties for your valuable data, the Filecoin storage providers compete to win storage bounties and bring the costs down for the client. In addition you can receive discounts on entire sectors and volume discounts, where the price is further reduced for purchasing multiple sectors at once.
 
+Receive dynamic NFTs on Storage deals that serve as Proof-of-Deal (PODS). A defi element will be incorporated for staking the NFT's to give incentives to data holders and storage providers or miners
+
 Create subsets of core data sets for batch processing, analytics and AI use cases. DataHaus offers compute over data or COD services
 
 The Bacalhau Project offers simple, low cost, decentralized tools and data computing that addresses deep rooted gaps in managing big data that unlocks a new collaborative ecosystem.

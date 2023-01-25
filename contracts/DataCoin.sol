@@ -1,41 +1,43 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 
-error DataCoin__NotEnoughBalance();
+contract DataCoin is ERC20, Ownable, ERC20Permit, ERC20Votes {
 
-contract DataCoin {
-	mapping (address => uint) balances;
-	uint256 private i_tokensToBeMinted;
+    mapping (address => uint) balances;
 
+    constructor() ERC20("DataCoin", "DATA") ERC20Permit("DataCoin") {
+        _mint(msg.sender, 1000000000 * 10 ** decimals());
+    }
 
-	constructor(uint256 tokensToBeMinted) {
-		balances[tx.origin] = tokensToBeMinted;
-		i_tokensToBeMinted= tokensToBeMinted;
-	}
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
 
-	function sendCoin(address receiver, uint amount) public returns(bool sufficient) {
-		if (balances[msg.sender] < amount) {
-						// return false;
-		revert DataCoin__NotEnoughBalance();
-		}
+    // The following functions are overrides required by Solidity.
 
-		balances[msg.sender] -= amount;
-		balances[receiver] += amount;
-		return true;
-	}
+    function _afterTokenTransfer(address from, address to, uint256 amount)
+        internal
+        override(ERC20, ERC20Votes)
+    {
+        super._afterTokenTransfer(from, to, amount);
+    }
 
-	function getBalanceInEth(address addr) public view returns(uint){
-		return getBalance(addr) * 2;
-	}
+    function _mint(address to, uint256 amount)
+        internal
+        override(ERC20, ERC20Votes)
+    {
+        super._mint(to, amount);
+    }
 
-	function getBalance(address addr) public view returns(uint) {
-		return balances[addr];
-	}
-
-	function getMintedTokenBalance() public view returns(uint256){
-		return i_tokensToBeMinted;
-	}
-
-
+    function _burn(address account, uint256 amount)
+        internal
+        override(ERC20, ERC20Votes)
+    {
+        super._burn(account, amount);
+    }
 }
