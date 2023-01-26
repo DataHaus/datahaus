@@ -30,15 +30,19 @@ The DataHaus web3 application is built for the Filecoin Virtual Machine.
 The web3 application uses the following technologies in it's software life cycle:
 
 Hardhat - Hardhat takes care of all our deployments and smart contract compilation
+Foundry - Foundry is a smart contract development toolchain. <https://book.getfoundry.sh/>
 Solidity - Smart contracts written using Solidity
-Filecoin
-IPFS
-Foundry
-Bacalhau
-Beryx API
-Lighthouse API
+Filecoin - Filecoin is a peer-to-peer network that allows anyone to store and retrieve data on the internet <https://docs.filecoin.io/>
+IPFS - A peer-to-peer hypermedia protocol
+designed to preserve and grow humanity's knowledge
+by making the web upgradeable, resilient, and more open. <https://ipfs.tech/>
+Nft.Storage - Free decentralized storage and bandwidth for NFTs on IPFS and Filecoin. <https://nft.storage/>
+Web3.Storage - Use decentralized protocols to liberate your data. <https://web3.storage/>
+Estuary - A reliable way to upload public data onto Filecoin and pin it to IPFS. <https://docs.estuary.tech/>
+Lighthouse API - Lighthouse allows users to store their files on the decentralized network for lifetime at a fixed price <https://www.lighthouse.storage/>
+Bacalhau - Simple, low cost, compute that unlocks an open, collaborative ecosystem. <https://www.bacalhau.org/>
+Beryx Filecoin API - <https://docs.zondax.ch/>
 Spheron
-and testing
 Vue.js
 Pinia
 CSS, SASS, SCSS

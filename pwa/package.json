@@ -18,7 +18,8 @@
     "notyf": "^3.10.0",
     "pinia": "^2.0.29",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "web3.storage": "^4.4.0"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.9",

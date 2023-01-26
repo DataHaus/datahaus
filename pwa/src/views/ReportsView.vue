@@ -98,7 +98,7 @@ section#content {
           .back-button {
             color: $white;
             background-color: $haus-blue;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             width: auto;
             height: 35px;
@@ -119,7 +119,7 @@ section#content {
           .create-button {
             color: $white;
             background-color: $haus-cyan;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             width: auto;
             height: 35px;

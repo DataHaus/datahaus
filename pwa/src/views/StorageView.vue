@@ -8,29 +8,49 @@
             <h1>Storage Solutions</h1>
           </div>
           <div class="title-actions">
-            <button class="create-button">Create</button>
-            <button class="back-button">Go Back</button>
+            <button @click="$router.push('deals')" class="create-button">
+              <i-mdi-stackoverflow /> Deals
+            </button>
+            <button @click="$router.push('cod')" class="back-button">
+              <i-mdi-computer /> COD
+            </button>
           </div>
         </div>
-        <p>Upload your valuable data to IPFS and get a Content Identifier</p>
+        <p>
+          1. Upload your valuable data on IPFS, NFT.Storage, Web3.Storage,
+          Estuary or LightHouse.<br />
+          2. Select your data storage requirements like data replication or
+          encrypted or not. <br />
+          3. Receive your Content Identifier or CID once your data is safely
+          stored.<br />
+          4. Create a Storage Seal for your valuable files and datasets for
+          further data processing. <br />
+          5. Filecoin storage providers compete to win storage bounties and
+          bring the costs down for you the client.
+        </p>
       </div>
-      <div class="row"></div>
+      <div class="row">
+        <PanelUpload />
+        <PanelResult />
+      </div>
     </div>
   </section>
 </template>
 <script>
 import { provide } from "vue";
 import { Notyf } from "notyf";
+
 /* Components */
-// import PanelUpload from "../components/VUpload/PanelUpload.vue";
-// import PanelResult from "../components/VUpload/PanelResult.vue";
+import PanelUpload from "../components/PanelUpload.vue";
+import PanelResult from "../components/PanelResult.vue";
+
 /* LFG */
 export default {
-  name: "UploadView",
-  // components: {
-  //   PanelUpload,
-  //   PanelResult,
-  // },
+  name: "StorageView",
+  components: {
+    PanelUpload,
+    PanelResult,
+  },
   setup() {
     const NotfyProvider = new Notyf({
       duration: 2000,
@@ -104,9 +124,14 @@ section#content {
           align-items: center;
           justify-content: space-between;
           .back-button {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
             color: $white;
             background-color: $haus-blue;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             width: auto;
             height: 35px;
@@ -119,15 +144,24 @@ section#content {
             transition: 0.6s;
             cursor: pointer;
 
+            .icon-color {
+              margin: 0 5px 0 0;
+            }
+
             &:hover {
               color: $haus-cyan;
               border: 2px solid $haus-cyan;
             }
           }
           .create-button {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
             color: $white;
             background-color: $haus-cyan;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             width: auto;
             height: 35px;
@@ -140,6 +174,10 @@ section#content {
             transition: 0.6s;
             cursor: pointer;
 
+            .icon-color {
+              margin: 0 3px 0 0;
+            }
+
             &:hover {
               color: $haus-blue;
               border: 2px solid $haus-blue;
@@ -149,6 +187,32 @@ section#content {
       }
     }
     .row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 30px;
+
+      @include breakpoint($break-ssm) {
+        width: 100%;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+      }
+
+      .column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+    }
+
+    .storage-option-row {
       width: 100%;
       display: flex;
       flex-direction: row;
