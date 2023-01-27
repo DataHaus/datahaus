@@ -18,11 +18,13 @@
         <div class="dropzone-box" @click="openSelectFile">
           <!-- Uploader Icon -->
           <i-mdi-timer-sand v-if="isUploading" class="icon-color" />
-          <div v-else class="sponsors-logo">
+          <div v-else class="upload-logo">
             <img alt="DataHaus" src="../assets/images/DataHaus-Icon.png" />
           </div>
-
-          <i-mdi-upload class="icon-color" />
+          <!-- <i-mdi-arrow-up-bold-circle-outline
+            v-if="!isUploading"
+            class="icon-color"
+          /> -->
           <!-- END Uploader Icon -->
           <span>Drop files here or click to upload</span>
           <div class="dropzone-is-loading" :class="{ active: isUploading }">
@@ -53,17 +55,9 @@ import { useStore } from "../store";
 import { uploadBlob } from "../services/ipfs.js";
 import { fileSize } from "../services/helpers";
 
-/* Logos */
-import IPFS from "../assets/svgs/IPFS.vue";
-import NFTStorage from "../assets/svgs/NFTStorage.vue";
-
 /* LFG */
 export default {
   name: "PanelUpload",
-  components: {
-    IPFS,
-    NFTStorage,
-  },
   setup() {
     const notyf = inject("notyf");
     // Init Store
@@ -226,7 +220,7 @@ section#panel-upload {
       .dropzone-box {
         background-color: rgba(0, 0, 0, 0.2);
         .icon-color {
-          color: $white;
+          color: $grey-40;
         }
       }
     }
@@ -240,14 +234,13 @@ section#panel-upload {
       display: flex;
       flex-direction: column;
       align-items: center;
-      // margin-top: 15px;
       padding: 0.8rem;
       border-radius: 0.5rem;
       text-align: center;
       background-color: $haus-blue;
 
-      .sponsors-logo {
-        margin-bottom: 1rem;
+      .upload-logo {
+        margin: 20px auto 10px;
 
         img {
           height: 100px;
@@ -259,13 +252,13 @@ section#panel-upload {
       }
 
       .icon-color {
-        color: $white;
+        color: $grey-30;
       }
 
       svg {
-        height: 48px;
-        width: 48px;
-        margin-bottom: 1rem;
+        height: 30px;
+        width: 30px;
+        margin-bottom: 5px;
       }
 
       span {

@@ -8,11 +8,11 @@
             <h1>Storage Solutions</h1>
           </div>
           <div class="title-actions">
-            <button @click="$router.push('deals')" class="create-button">
-              <i-mdi-stackoverflow /> Deals
+            <button @click="createCollection()" class="back-button">
+              <i-mdi-plus /> Collection
             </button>
-            <button @click="$router.push('cod')" class="back-button">
-              <i-mdi-computer /> COD
+            <button @click="createDeals()" class="create-button">
+              <i-mdi-plus /> Deal
             </button>
           </div>
         </div>
@@ -37,8 +37,12 @@
   </section>
 </template>
 <script>
-import { provide } from "vue";
+import { ref, provide } from "vue";
 import { Notyf } from "notyf";
+
+/* Import our Pinia Store */
+// import { storeToRefs } from "pinia";
+import { useStore } from "../store";
 
 /* Components */
 import PanelUpload from "../components/PanelUpload.vue";
@@ -52,6 +56,16 @@ export default {
     PanelResult,
   },
   setup() {
+    const store = useStore();
+
+    // eslint-disable-next-line no-unused-vars
+    // const { collection } = storeToRefs(store);
+
+    const tag = ref("");
+    const title = ref("");
+    const description = ref("");
+    const selectedFileCIDS = ref([]);
+
     const NotfyProvider = new Notyf({
       duration: 2000,
       position: {
@@ -69,9 +83,51 @@ export default {
             tagName: "i",
           },
         },
+        {
+          type: "success",
+          background: "green",
+          duration: 20000,
+          dismissible: true,
+          icon: {
+            className: "icon icon-success",
+            tagName: "i",
+          },
+        },
+        {
+          type: "error",
+          background: "indianred",
+          duration: 10000,
+          dismissible: true,
+          icon: {
+            className: "icon icon-error",
+            tagName: "i",
+          },
+        },
       ],
     });
     provide("notyf", NotfyProvider);
+
+    const createDeals = () => {
+      console.log("createDeals Clicked");
+    };
+    const createCollection = () => {
+      console.log("createCollection Clicked");
+
+      // DEV NOTE: Need to add a form for this still
+      let newCollection = {
+        tag: tag.value,
+        title: title.value,
+        description: description.value,
+        CIDS: selectedFileCIDS.value,
+      };
+      console.log("newCollection", newCollection);
+      store.setCollection(newCollection);
+    };
+
+    return {
+      createDeals,
+      createCollection,
+    };
   },
 };
 </script>
@@ -159,7 +215,7 @@ section#content {
             align-content: center;
             align-items: center;
             justify-content: center;
-            color: $white;
+            color: $haus-blue;
             background-color: $haus-cyan;
             font-size: 14px;
             font-weight: bold;
@@ -175,11 +231,10 @@ section#content {
             cursor: pointer;
 
             .icon-color {
-              margin: 0 3px 0 0;
+              margin: 0 5px 0 0;
             }
 
             &:hover {
-              color: $haus-blue;
               border: 2px solid $haus-blue;
             }
           }
@@ -210,6 +265,13 @@ section#content {
         align-items: flex-start;
         justify-content: flex-start;
       }
+    }
+
+    p {
+      font-size: 14px;
+      color: $haus-blue;
+      line-height: 16px;
+      margin-bottom: 20px;
     }
 
     .storage-option-row {

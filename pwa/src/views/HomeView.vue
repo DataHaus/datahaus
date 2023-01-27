@@ -126,6 +126,7 @@ import { Notyf } from "notyf";
 // import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 
+/* Components */
 import BacalhauWhite from "../assets/svgs/BacalhauWhite.vue";
 
 /* Create an instance of Notyf with settings */

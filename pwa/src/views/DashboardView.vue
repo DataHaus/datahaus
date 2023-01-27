@@ -420,7 +420,7 @@ section#content {
             align-content: center;
             align-items: center;
             justify-content: center;
-            color: $white;
+            color: $haus-blue;
             background-color: $haus-cyan;
             font-size: 14px;
             font-weight: bold;
@@ -439,7 +439,6 @@ section#content {
             }
 
             &:hover {
-              color: $haus-blue;
               border: 2px solid $haus-blue;
             }
           }

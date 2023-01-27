@@ -8,8 +8,8 @@
             <h1>Storage Deals / Bounties</h1>
           </div>
           <div class="title-actions">
-            <button class="create-button">Create</button>
             <button class="back-button">Go Back</button>
+            <button class="create-button">Create</button>
           </div>
         </div>
         <p>Filecoin storage providers can compete to win storage bounties.</p>
@@ -117,7 +117,7 @@ section#content {
             }
           }
           .create-button {
-            color: $white;
+            color: $haus-blue;
             background-color: $haus-cyan;
             font-size: 14px;
             font-weight: bold;
@@ -133,7 +133,6 @@ section#content {
             cursor: pointer;
 
             &:hover {
-              color: $haus-blue;
               border: 2px solid $haus-blue;
             }
           }
