@@ -21,11 +21,6 @@
           <div v-else class="upload-logo">
             <img alt="DataHaus" src="../assets/images/DataHaus-Icon.png" />
           </div>
-          <!-- <i-mdi-arrow-up-bold-circle-outline
-            v-if="!isUploading"
-            class="icon-color"
-          /> -->
-          <!-- END Uploader Icon -->
           <span>Drop files here or click to upload</span>
           <div class="dropzone-is-loading" :class="{ active: isUploading }">
             <div class="dropzone-loading--bar"></div>
@@ -159,13 +154,21 @@ export default {
 @import "../assets/styles/mixins.scss";
 
 section#panel-upload {
-  width: 400px;
+  width: 360px;
   height: 100%;
-  padding: 20px 20px 0 0;
+  padding: 0 20px 0 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 15px;
 
   @include breakpoint($break-ssm) {
-    margin-top: 0;
-    padding-top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   .panel-upload-options {
@@ -176,7 +179,7 @@ section#panel-upload {
     align-content: flex-start;
     align-items: flex-start;
     justify-content: flex-start;
-    margin-top: 15px;
+    margin: 15px auto 0 20px;
 
     .upload-option {
       width: 40%;
@@ -188,7 +191,7 @@ section#panel-upload {
       justify-content: center;
       border-radius: 20px;
       border: 2px solid $haus-blue;
-      margin: 0 5px 10px 5px;
+      margin: 0 10px 10px 10px;
       cursor: pointer;
 
       &:hover {
@@ -200,6 +203,7 @@ section#panel-upload {
 
   .panel-upload--content,
   .panel-upload--content .panel-upload--dropzone {
+    width: 100%;
     height: auto;
   }
 
@@ -230,7 +234,7 @@ section#panel-upload {
     }
 
     .dropzone-box {
-      width: 80%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;

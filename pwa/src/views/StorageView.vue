@@ -254,7 +254,7 @@ section#content {
         width: 100%;
         flex-direction: column;
         align-content: center;
-        justify-content: center;
+        justify-content: flex-start;
       }
 
       .column {

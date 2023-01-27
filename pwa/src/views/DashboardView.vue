@@ -47,13 +47,13 @@
         <div class="metric-box">
           <h3>Latest Tipset Height</h3>
           <p>
-            {{ latestTipset.height }}
+            {{ latestTipsetHeight }}
           </p>
         </div>
         <div class="metric-box">
           <h3>Latest Tipset Time</h3>
           <p>
-            {{ latestTipset.timestamp }}
+            {{ latestTipsetTime }}
           </p>
         </div>
       </div>
@@ -261,8 +261,18 @@ const NotfyProvider = new Notyf({
 provide("notyf", NotfyProvider);
 
 /* Computed Values for Dashboard */
-const latestTipset = computed(() => {
-  return tipsetLatest.value;
+const latestTipsetHeight = computed(() => {
+  return tipsetLatest.value.height;
+});
+const latestTipsetTime = computed(() => {
+  const date = new Date(tipsetLatest.value.timestamp);
+  return new Intl.DateTimeFormat("en-ZA", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    // timeZone: "Africa/Johannesburg",
+  }).format(date);
 });
 
 async function searchFn() {
