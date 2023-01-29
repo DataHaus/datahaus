@@ -1,23 +1,25 @@
 <template>
   <section id="panel-result">
     <div class="panel-result--content">
-      <SearchResult
+      <SearchDeals
         :search="search"
-        :count="files.length"
+        :count="deals.length"
         @onChanged="onSearchChanged"
       />
 
       <div class="content-file--items">
-        <div class="content-file--item empty" v-if="files.length === 0">
+        <div class="content-file--item empty" v-if="deals.length === 0">
           <span v-if="search !== ''"
-            >No results found. Try another file name.</span
+            >No results found. Try another deal / bounty name.</span
           >
-          <span v-else>List of files that you upload will appear here.</span>
+          <span v-else
+            >List of available storage deals / bounties will appear here.</span
+          >
         </div>
 
         <div
           class="content-file--item"
-          v-for="(item, index) in files"
+          v-for="(item, index) in deals"
           :key="index"
         >
           <div class="item-content">
@@ -39,8 +41,11 @@
             </div>
             <div class="item-icon"></div>
             <div class="item-action">
-              <a title="Create deal" @click="createSingleDeal(item)">
-                <i-ri-file-list-3-line class="icon-color" />
+              <a title="Accept deal" @click="acceptSingleDeal(item)">
+                <i-mdi-checkbox-multiple-marked class="icon-color" />
+              </a>
+              <a title="Run COD service" @click="createSingleCOD(item)">
+                <i-ri-external-link-fill class="icon-color" />
               </a>
             </div>
           </div>
@@ -51,10 +56,10 @@
                 type="text"
                 readonly
                 @focus="$event.target.select()"
-                :value="generateLink(item)"
+                :value="`PID: ${item.cid}`"
               />
             </label>
-            <a title="Copy link" @click="copyFileLink(item)">
+            <a title="Copy PID" @click="copyPID(item)">
               <i-ri-clipboard-line class="icon-color" />
             </a>
           </div>
@@ -70,12 +75,12 @@ import { useStore } from "../store";
 /* Import our helpers */
 import { fileSize, copyToClipboard, generateLink } from "../services/helpers";
 /* Components */
-import SearchResult from "../components/SearchResult.vue";
+import SearchDeals from "./SearchDeals.vue";
 /* LFG */
 export default {
-  name: "PanelResult",
+  name: "DealsList",
   components: {
-    SearchResult,
+    SearchDeals,
   },
   setup() {
     /* Inject Notyf */
@@ -87,16 +92,25 @@ export default {
     /**
      * Create a Deal with single CID
      */
-    const createSingleDeal = (item) => {
+    const acceptSingleDeal = (item) => {
       const cid = item.cid;
       console.log("Create SingleDeal CID", cid);
       notyf.success(`Storage deal processing ${item.cid}`);
     };
 
     /**
+     * Run a COD Service with single CID
+     */
+    const createSingleCOD = (item) => {
+      const cid = item.cid;
+      console.log("Create Single CID COD service", cid);
+      notyf.success(`COD service processing ${item.cid}`);
+    };
+
+    /**
      * Copy to Clipboard function
      */
-    const copyFileLink = (item) => {
+    const copyPID = (item) => {
       const url = generateLink(item);
       copyToClipboard(url);
       notyf.success("Link copied to clipboard!");
@@ -105,8 +119,8 @@ export default {
     const onSearchChanged = ($event) => {
       search.value = $event.target.value;
     };
-    /* Filters files to find by search value */
-    const files = computed(() =>
+    /* Filters deals to find by search value */
+    const deals = computed(() =>
       store.results
         .slice()
         .reverse()
@@ -120,10 +134,11 @@ export default {
 
     return {
       search,
-      files,
+      deals,
       fileSize,
-      createSingleDeal,
-      copyFileLink,
+      acceptSingleDeal,
+      createSingleCOD,
+      copyPID,
       generateLink,
       onSearchChanged,
     };

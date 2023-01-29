@@ -256,6 +256,26 @@ const NotfyProvider = new Notyf({
         tagName: "i",
       },
     },
+    {
+      type: "success",
+      background: "green",
+      duration: 20000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-success",
+        tagName: "i",
+      },
+    },
+    {
+      type: "error",
+      background: "indianred",
+      duration: 10000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-error",
+        tagName: "i",
+      },
+    },
   ],
 });
 provide("notyf", NotfyProvider);
@@ -328,7 +348,7 @@ section#content {
   flex-direction: row;
 
   .dashboard {
-    width: 100%;
+    width: 96%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -337,7 +357,7 @@ section#content {
     justify-content: flex-start;
     color: $haus-blue;
     background: $white;
-    padding: 20px 40px;
+    padding: 1% 2% 2% 2%;
     overflow: scroll;
 
     .title-bar {

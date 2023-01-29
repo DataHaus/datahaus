@@ -8,8 +8,12 @@
             <h1>Reports &amp; Data Analysis</h1>
           </div>
           <div class="title-actions">
-            <button class="back-button">Go Back</button>
-            <button class="create-button">Create</button>
+            <button class="back-button">
+              <i-mdi-plus class="icon-color" /> Back
+            </button>
+            <button class="create-button">
+              <i-mdi-plus class="icon-color" /> Create
+            </button>
           </div>
         </div>
         <p>Filecoin Network Reporting and Data Collection Analysis.</p>
@@ -42,6 +46,26 @@ export default {
             tagName: "i",
           },
         },
+        {
+          type: "success",
+          background: "green",
+          duration: 20000,
+          dismissible: true,
+          icon: {
+            className: "icon icon-success",
+            tagName: "i",
+          },
+        },
+        {
+          type: "error",
+          background: "indianred",
+          duration: 10000,
+          dismissible: true,
+          icon: {
+            className: "icon icon-error",
+            tagName: "i",
+          },
+        },
       ],
     });
     provide("notyf", NotfyProvider);
@@ -61,7 +85,7 @@ section#content {
   flex-direction: row;
 
   .reporting {
-    width: 100%;
+    width: 96%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -70,7 +94,7 @@ section#content {
     justify-content: flex-start;
     color: $haus-blue;
     background: $white;
-    padding: 20px 40px;
+    padding: 1% 2% 2% 2%;
     overflow: scroll;
 
     .title-bar {
@@ -96,6 +120,11 @@ section#content {
           align-items: center;
           justify-content: space-between;
           .back-button {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
             color: $white;
             background-color: $haus-blue;
             font-size: 14px;
@@ -111,12 +140,20 @@ section#content {
             transition: 0.6s;
             cursor: pointer;
 
+            .icon-color {
+              margin: 0 5px 0 0;
+            }
             &:hover {
               color: $haus-cyan;
               border: 2px solid $haus-cyan;
             }
           }
           .create-button {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
             color: $haus-blue;
             background-color: $haus-cyan;
             font-size: 14px;
@@ -131,7 +168,9 @@ section#content {
             margin-right: 10px;
             transition: 0.6s;
             cursor: pointer;
-
+            .icon-color {
+              margin: 0 5px 0 0;
+            }
             &:hover {
               border: 2px solid $haus-blue;
             }

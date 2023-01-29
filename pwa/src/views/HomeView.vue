@@ -121,14 +121,9 @@
 <script setup>
 import { onMounted } from "vue";
 import { Notyf } from "notyf";
-
-/* Import our Pinia Store */
-// import { storeToRefs } from "pinia";
 import { useStore } from "../store";
-
 /* Components */
 import BacalhauWhite from "../assets/svgs/BacalhauWhite.vue";
-
 /* Create an instance of Notyf with settings */
 var notyf = new Notyf({
   duration: 5000,
@@ -171,7 +166,6 @@ var notyf = new Notyf({
 });
 
 const store = useStore();
-// const { account } = storeToRefs(store);
 
 async function checkIfWalletIsConnected() {
   try {
@@ -196,6 +190,7 @@ onMounted(async () => {
   await checkIfWalletIsConnected();
 });
 </script>
+
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";

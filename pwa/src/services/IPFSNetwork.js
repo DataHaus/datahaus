@@ -11,9 +11,14 @@ export default class IPFSNetwork {
   async storeBlob(blob) {
     const infuraKey = import.meta.env.VITE_INFURA_API_KEY;
     const infuraSecret = import.meta.env.VITE_INFURA_API_SECRET;
-    const url = new URL("/api/v0/add?stream-channels=true", this.endpoint);
+
+    const url = new URL("/api/v0/pin/add?stream-channels=true", this.endpoint);
 
     console.log("Blob: ", blob);
+    
+    console.log("infuraKey", infuraKey);
+    console.log("infuraSecret", infuraSecret);
+
     if (blob.size === 0) {
       throw new Error("Content size is 0, make sure to provide some content");
     }
@@ -21,17 +26,15 @@ export default class IPFSNetwork {
     const formData = new FormData();
     formData.append("file", blob);
 
-    console.log("infuraKey", infuraKey);
-    console.log("infuraSecret", infuraSecret);
-
     const request = await fetch(url.toString(), {
       method: "POST",
       headers: new Headers({
-        Authorization: "Basic " + encode(infuraKey.toString() + ":" + infuraSecret.toString()),
+        Authorization: "Basic " + encode(infuraKey + ":" + infuraSecret),
         "Content-Type": "application/json",
       }),
       body: formData,
     });
+
     console.log("request: ", request);
     const result = await request.json();
 

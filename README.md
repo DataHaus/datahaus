@@ -1,17 +1,20 @@
 # 🈴 DataHaus
 
-DataHaus is a decentralised data economy, built on the Filecoin Virtual Machine, which provides a reliable web3 data foundation that efficiently handles all data types and uses cases found in the "normal" web2 world today.
+DataHaus is a decentralised data economy, built on Filecoin, which provides a reliable web3 data foundation to efficiently handle all data types and uses cases.
 
 Project Overview
 
-1. Upload your valuable data to IPFS for truly decentralised storage and build your own data collections.
-2. Create datasets for batch processing, analytics and AI use cases. Bacalhau offers Compute Over Data or COD services.
+1. Upload your valuable files and data to IPFS, NFT.Storage, Web3.Storage, Estuary for 6x data replication or LightHouse for data encyption. DataHaus offers truly decentralised storage options.
+2. Create collections of big or small datasets, useful for batch processing, analytics and AI use cases. Bacalhau offers Compute Over Data or COD services.
 3. Create storage deals / bounties for your valuable datasets, the Filecoin storage providers compete to win storage bounties and bring the costs down for the client.
 4. Receive discounts and bid for entire sectors and volume discounts, where the price is further reduced for purchasing multiple sectors at once.
-5. Receive dynamic NFTs for completed storage deals that serve as a Proof-of-Deal (PODS).
-6. A defi element will be incorporated for staking the NFT's to give incentives to data holders and storage providers or miners. An ERC-20 called datacoin can be offered for additional rewards and staking pools, etc.
-7. Build a dashboard view to browse Filecoin data like latest block heights, tipset and more. Browse and view your account transactions and search global Filecoin transaction in a sleek user-interface.
-8. Incorporate various API's like Beryx API for example to utilise the FEVM to it's fullest potential as everyday user, big or small business and storage providers or miners.
+5. Receive dynamic NFTs for completed storage deals that serve as Proof-of-Deal or POD's'.
+6. A defi element will be incorporated for staking the dNFT's, this offers further incentives to data holders and storage providers or miners. Our ERC-20 datacoin, will be incorporated for additional miner rewards, etc.
+7. Our dashboard allows user to browse Filecoin data including latest block heights and time, get block info by tipset, transaction id and more.
+8. View your account transactions and search global Filecoin transaction in a sleek user-interface.
+9. Incorporate various API's like Beryx API and Filrep to utilise the FEVM to it's fullest potential as a everyday user, big or small business and storage providers or miners.
+
+<img src="/img/flowchart.png" width="50%">
 
 Please visit our web3 application and feel free to connect your metamask wallet, and enjoy our project entry for the Filecoin space Warp hackathon 2023.
 
@@ -42,12 +45,22 @@ Estuary - A reliable way to upload public data onto Filecoin and pin it to IPFS.
 Lighthouse API - Lighthouse allows users to store their files on the decentralized network for lifetime at a fixed price <https://www.lighthouse.storage/>
 Bacalhau - Simple, low cost, compute that unlocks an open, collaborative ecosystem. <https://www.bacalhau.org/>
 Beryx Filecoin API - <https://docs.zondax.ch/>
+Filrep API - <https://filrep.io/api>
 Spheron
 Vue.js
 Pinia
 CSS, SASS, SCSS
 
 ## Resources
+
+Filecoin Blueprints - Data DAO's and Perpetual Storage Solutions
+<https://docs.filecoin.io/developers/smart-contracts/about/blueprints/#solution-architecture-1>
+
+Estuary
+<https://docs.filecoin.io/developers/storage-helpers/estuary/>
+
+Lighthouse Makes Permanent Storage on Filecoin Easy and Affordable
+<https://filecoin.io/blog/posts/lighthouse-makes-permanent-storage-on-filecoin-easy-and-affordable/>
 
 ### DataDAO Example - Deal Bounty Contract
 

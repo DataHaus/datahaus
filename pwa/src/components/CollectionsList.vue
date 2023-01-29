@@ -1,7 +1,7 @@
 <template>
   <section id="panel-result">
     <div class="panel-result--content">
-      <SearchResult
+      <SearchCollections
         :search="search"
         :count="files.length"
         @onChanged="onSearchChanged"
@@ -12,7 +12,9 @@
           <span v-if="search !== ''"
             >No results found. Try another file name.</span
           >
-          <span v-else>List of files that you upload will appear here.</span>
+          <span v-else
+            >List of available files and collections will appear here.</span
+          >
         </div>
 
         <div
@@ -39,8 +41,8 @@
             </div>
             <div class="item-icon"></div>
             <div class="item-action">
-              <a title="Create deal" @click="createSingleDeal(item)">
-                <i-ri-file-list-3-line class="icon-color" />
+              <a title="Create COD Job" @click="createSingleCODJob(item)">
+                <i-mdi-locker class="icon-color" />
               </a>
             </div>
           </div>
@@ -51,10 +53,10 @@
                 type="text"
                 readonly
                 @focus="$event.target.select()"
-                :value="generateLink(item)"
+                :value="`CID: ${item.cid}`"
               />
             </label>
-            <a title="Copy link" @click="copyFileLink(item)">
+            <a title="Copy CID" @click="copyCID(item)">
               <i-ri-clipboard-line class="icon-color" />
             </a>
           </div>
@@ -70,12 +72,12 @@ import { useStore } from "../store";
 /* Import our helpers */
 import { fileSize, copyToClipboard, generateLink } from "../services/helpers";
 /* Components */
-import SearchResult from "../components/SearchResult.vue";
+import SearchCollections from "./SearchCollections.vue";
 /* LFG */
 export default {
-  name: "PanelResult",
+  name: "CollectionsList",
   components: {
-    SearchResult,
+    SearchCollections,
   },
   setup() {
     /* Inject Notyf */
@@ -85,26 +87,27 @@ export default {
     const search = ref("");
 
     /**
-     * Create a Deal with single CID
+     * Create a COD service job Deal with a single CID
      */
-    const createSingleDeal = (item) => {
+    const createSingleCODJob = (item) => {
       const cid = item.cid;
-      console.log("Create SingleDeal CID", cid);
-      notyf.success(`Storage deal processing ${item.cid}`);
+      console.log("Create single COD Job CID : ", cid);
+      notyf.success(`COD service started ${item.cid}`);
     };
 
     /**
-     * Copy to Clipboard function
+     * Copy CID to Clipboard function
      */
-    const copyFileLink = (item) => {
-      const url = generateLink(item);
-      copyToClipboard(url);
-      notyf.success("Link copied to clipboard!");
+    const copyCID = (item) => {
+      copyToClipboard(item.cid);
+      notyf.success("CID copied to clipboard!");
     };
+
     /* Update search value */
     const onSearchChanged = ($event) => {
       search.value = $event.target.value;
     };
+
     /* Filters files to find by search value */
     const files = computed(() =>
       store.results
@@ -122,8 +125,8 @@ export default {
       search,
       files,
       fileSize,
-      createSingleDeal,
-      copyFileLink,
+      createSingleCODJob,
+      copyCID,
       generateLink,
       onSearchChanged,
     };

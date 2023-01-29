@@ -19,15 +19,15 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'cod' }" active-class="active" exact>
-          <span class="icon"><i-mdi-computer /></span>
-          <span class="item">COD</span>
-        </router-link>
-      </li>
-      <li>
         <router-link :to="{ name: 'deals' }" active-class="active" exact>
           <span class="icon"><i-mdi-stackoverflow /></span>
           <span class="item">Deals</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'cod' }" active-class="active" exact>
+          <span class="icon"><i-mdi-locker-multiple /></span>
+          <span class="item">COD</span>
         </router-link>
       </li>
       <li>
@@ -63,7 +63,7 @@
 
 .sidebar {
   width: 15%;
-  min-width: 200px;
+  min-width: 180px;
   height: 100%;
   display: flex;
   flex-direction: column;

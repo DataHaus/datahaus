@@ -2,6 +2,7 @@ import { Web3Storage } from 'web3.storage';
 
 const web3StorageApiKey = import.meta.env.VITE_WEB3_STORAGE_KEY;
 
+
 /**
  * Upload Blob to Web3 Storage
  *
@@ -12,9 +13,12 @@ const web3StorageApiKey = import.meta.env.VITE_WEB3_STORAGE_KEY;
  * @returns {Promise<SafeAsync>}
  */
 export const uploadBlob = async (file) => {
-  // Web3.Storage Construct with token and endpoint
-  const client = new Web3Storage({ token: web3StorageApiKey });
 
+  /* Web3.Storage Construct with token and endpoint */
+  const client = new Web3Storage({ token: web3StorageApiKey });
+  console.log("web3StorageApiKey : ", web3StorageApiKey);
+
+  let dealsInfo = null;
   let detail = getCidDetail({ cid: null, file });
 
   /* Max 50MB Upload size*/
@@ -24,14 +28,14 @@ export const uploadBlob = async (file) => {
 
   try {
     /* Pack files into a CAR and send to web3.storage */
-    const rootCid = await client.put(fileInput.files) // Promise<CIDString>
-    console.log("Web3.Storage CID: ", cid);
+    const rootCid = await client.put(file) // Promise<CIDString>
+    console.log("Web3.Storage CID: ", rootCid);
 
     /* Get info on the Filecoin deals that the CID is stored in */
-    const dealsInfo = await client.status(rootCid) // Promise<Status | undefined>
+    dealsInfo = await client.status(rootCid) // Promise<Status | undefined>
     let details = [];
 
-    // Fetch and verify files from web3.storage
+    /* Fetch and verify files from web3.storage */
     const res = await client.get(rootCid) // Promise<Web3Response | null>
     const files = await res.files() // Promise<Web3File[]>
     
@@ -42,7 +46,6 @@ export const uploadBlob = async (file) => {
       /* Load our results into and Array indexed by the rootCid */
       details[rootCid] = getCidDetail({ rootCid, file });
       console.log('details[rootCid]',details[rootCid]);
-      
     }
     
     return { error: false, data: details, dealsInfo: dealsInfo };

@@ -8,46 +8,109 @@
             <h1>Compute Over Data</h1>
           </div>
           <div class="title-actions">
-            <button class="back-button">Go Back</button>
-            <button class="create-button">Create</button>
+            <button @click="createJob()" class="back-button">
+              <i-mdi-locker-multiple class="icon-color" /> Create Job
+            </button>
+            <button @click="viewOptions()" class="create-button">
+              <i-mdi-plus class="icon-color" /> Options
+            </button>
           </div>
         </div>
-        <p>Run Batch Processing or big data jobs using Balhau.</p>
+        <h2><BacalhauBlue /> Bacalhau</h2>
+        <p>
+          Bacalhau offers simple, low cost, decentralized data computing and
+          tools that address deep rooted gaps in managing data. Run all your
+          batch processing and big data jobs with Bacalhau.
+        </p>
       </div>
-      <div class="row"></div>
+      <div class="row">
+        <CollectionsList />
+      </div>
     </div>
   </section>
 </template>
-<script>
-import { provide } from "vue";
+<script setup>
+import { ref, provide } from "vue";
+import { storeToRefs } from "pinia";
+import { useStore } from "../store";
 import { Notyf } from "notyf";
+
+/* Components */
+import CollectionsList from "../components/CollectionsList.vue";
+import BacalhauBlue from "../assets/svgs/BacalhauBlue.vue";
+
+const store = useStore();
+const { account, collection, collections } = storeToRefs(store);
+
+console.log("account", account.value);
+console.log("collection", collection.value);
+console.log("collections", collections.value);
+
+const pid = ref(null);
+const collectionRef = ref(null);
+const isRunning = ref(false);
+const jobAccepted = ref(null);
+
+console.log("pid", pid.value);
+console.log("collectionRef", collectionRef.value);
+console.log("isRunning", isRunning.value);
+console.log("jobAccepted", jobAccepted.value);
+
 /* LFG */
-export default {
-  name: "CodView",
-  setup() {
-    const NotfyProvider = new Notyf({
-      duration: 2000,
-      position: {
-        x: "center",
-        y: "bottom",
-      },
-      types: [
-        {
-          type: "loading",
-          background: "orange",
-          duration: 0,
-          dismissible: true,
-          icon: {
-            className: "icon icon-loading",
-            tagName: "i",
-          },
-        },
-      ],
-    });
-    provide("notyf", NotfyProvider);
+const NotfyProvider = new Notyf({
+  duration: 2000,
+  position: {
+    x: "center",
+    y: "bottom",
   },
+  types: [
+    {
+      type: "loading",
+      background: "orange",
+      duration: 0,
+      dismissible: true,
+      icon: {
+        className: "icon icon-loading",
+        tagName: "i",
+      },
+    },
+    {
+      type: "success",
+      background: "green",
+      duration: 10000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-success",
+        tagName: "i",
+      },
+    },
+    {
+      type: "error",
+      background: "indianred",
+      duration: 10000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-error",
+        tagName: "i",
+      },
+    },
+  ],
+});
+provide("notyf", NotfyProvider);
+
+const createJob = () => {
+  console.log("Create Job Clicked");
+  NotfyProvider.success("Create Job Clicked");
+  // NotfyProvider.success(`Collection created ${newCollection.title}`);
+};
+
+const viewOptions = () => {
+  console.log("View Options Clicked");
+  NotfyProvider.success("View Options Clicked");
+  // NotfyProvider.success(`Collection created ${newCollection.title}`);
 };
 </script>
+
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
@@ -61,7 +124,7 @@ section#content {
   flex-direction: row;
 
   .cod {
-    width: 100%;
+    width: 96%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -70,7 +133,7 @@ section#content {
     justify-content: flex-start;
     color: $haus-blue;
     background: $white;
-    padding: 20px 40px;
+    padding: 1% 2% 2% 2%;
     overflow: scroll;
 
     .title-bar {
@@ -96,6 +159,11 @@ section#content {
           align-items: center;
           justify-content: space-between;
           .back-button {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
             color: $white;
             background-color: $haus-blue;
             font-size: 14px;
@@ -111,12 +179,21 @@ section#content {
             transition: 0.6s;
             cursor: pointer;
 
+            .icon-color {
+              margin: 0 10px 0 0;
+            }
+
             &:hover {
               color: $haus-cyan;
               border: 2px solid $haus-cyan;
             }
           }
           .create-button {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
             color: $haus-blue;
             background-color: $haus-cyan;
             font-size: 14px;
@@ -132,10 +209,27 @@ section#content {
             transition: 0.6s;
             cursor: pointer;
 
+            .icon-color {
+              margin: 0 10px 0 0;
+            }
+
             &:hover {
               border: 2px solid $haus-blue;
             }
           }
+        }
+      }
+      h2 {
+        color: $haus-blue;
+        font-size: 2.25rem;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        .svg-container {
+          width: 65px;
+          margin: 0 10px 3px 0;
         }
       }
     }
@@ -162,6 +256,20 @@ section#content {
         align-content: flex-start;
         align-items: flex-start;
         justify-content: flex-start;
+      }
+
+      h2 {
+        color: $haus-blue;
+        font-size: 2.25rem;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        .svg-container {
+          width: 65px;
+          margin: 3px 10px 0 0;
+        }
       }
     }
   }

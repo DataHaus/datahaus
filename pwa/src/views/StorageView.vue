@@ -9,24 +9,25 @@
           </div>
           <div class="title-actions">
             <button @click="createCollection()" class="back-button">
-              <i-mdi-plus /> Collection
+              <i-mdi-folder-multiple-outline class="icon-color" /> Collection
             </button>
             <button @click="createDeals()" class="create-button">
-              <i-mdi-plus /> Deal
+              <i-mdi-plus class="icon-color" /> PODS
             </button>
           </div>
         </div>
         <p>
-          1. Upload your valuable data on IPFS, NFT.Storage, Web3.Storage,
+          1. Upload your valuable data to IPFS, NFT.Storage, Web3.Storage,
           Estuary or LightHouse.<br />
-          2. Select your data storage requirements like data replication or
-          encrypted or not. <br />
+          2. Manage your data storage requirements, select replication and
+          encryption options.<br />
           3. Receive your Content Identifier or CID once your data is safely
           stored.<br />
-          4. Create a Storage Seal for your valuable files and datasets for
-          further data processing. <br />
+          4. Create storage deals for your valuable data and receive your
+          Proof-of-deal NFT.<br />
           5. Filecoin storage providers compete to win storage bounties and
-          bring the costs down for you the client.
+          bring the costs down for you the client.<br />
+          6. Visit COD for your data processing needs.
         </p>
       </div>
       <div class="row">
@@ -108,10 +109,13 @@ export default {
     provide("notyf", NotfyProvider);
 
     const createDeals = () => {
-      console.log("createDeals Clicked");
+      console.log("Create Deals Clicked");
+      NotfyProvider.success("Create Deals Clicked");
+      // NotfyProvider.success(`Collection created ${newCollection.title}`);
     };
+
     const createCollection = () => {
-      console.log("createCollection Clicked");
+      console.log("Create collection Clicked");
 
       // DEV NOTE: Need to add a form for this still
       let newCollection = {
@@ -122,6 +126,7 @@ export default {
       };
       console.log("newCollection", newCollection);
       store.setCollection(newCollection);
+      NotfyProvider.success(`Collection created ${newCollection.title}`);
     };
 
     return {
@@ -144,7 +149,7 @@ section#content {
   flex-direction: row;
 
   .storage {
-    width: 100%;
+    width: 96%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -153,7 +158,7 @@ section#content {
     justify-content: flex-start;
     color: $haus-blue;
     background: $white;
-    padding: 20px 40px;
+    padding: 1% 2% 2% 2%;
     overflow: scroll;
 
     .title-bar {
@@ -201,7 +206,7 @@ section#content {
             cursor: pointer;
 
             .icon-color {
-              margin: 0 5px 0 0;
+              margin: 0 10px 0 0;
             }
 
             &:hover {

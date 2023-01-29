@@ -20,7 +20,6 @@ export const uploadBlob = async (file) => {
   try {
     const cid = await storeBlob(file);
     console.log("NFT Storage CID: ", cid);
-
     detail = getCidDetail({ cid, file });
     return { error: false, data: detail };
   } catch (error) {

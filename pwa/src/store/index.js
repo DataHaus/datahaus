@@ -10,6 +10,7 @@ db.data ||= {
   version: "0.0.1",
   results: [],
   collections: [],
+  deals: [],
 };
 
 /* LFG */
@@ -29,6 +30,8 @@ export const useStore = defineStore({
       collection: [],
       collections: [],
       collectionsResults: db.data.collections,
+      deals: [],
+      dealsResults: db.data.deals,
       files: [],
       results: db.data.results,
     };
@@ -67,6 +70,9 @@ export const useStore = defineStore({
     getCollectionsResults(state) {
       return state.collectionsResults;
     },
+    getDealsResults(state) {
+      return state.dealsResults;
+    },
     getResults(state) {
       return state.results;
     },
@@ -103,7 +109,7 @@ export const useStore = defineStore({
     setCollection(collection) {
       this.collection = collection;
     },
-    /* Collections */
+    /* Collections Local Storage */
     resetCollections() {
       this.collections = [];
     },
@@ -118,7 +124,22 @@ export const useStore = defineStore({
       db.data.collectionsResults = [...this.collectionsResults];
       db.write();
     },
-    /* IPFS Uploader */
+    /* Deals Local Storage */
+    resetDeals() {
+      this.deals = [];
+    },
+    addDeals(...deal) {
+      this.deals.push(...deal);
+    },
+    addDealsResults(...deal) {
+      this.dealsResults.push(...deal);
+      this.dealsResults = this.dealsResults.filter(function (pid) {
+        return !!pid;
+      });
+      db.data.dealsResults = [...this.dealsResults];
+      db.write();
+    },
+    /* Uploaded Files Storage  */
     resetFiles() {
       this.files = [];
     },

@@ -15,13 +15,13 @@
           ref="fileRef"
           @change="onFileChangedHandler"
         />
-        <div class="dropzone-box" @click="openSelectFile">
+        <div class="dropzone-box" @click="openSelectFile()">
           <!-- Uploader Icon -->
           <i-mdi-timer-sand v-if="isUploading" class="icon-color" />
           <div v-else class="upload-logo">
             <img alt="DataHaus" src="../assets/images/DataHaus-Icon.png" />
           </div>
-          <span>Drop files here or click to upload</span>
+          <span>Drop files or click to upload</span>
           <div class="dropzone-is-loading" :class="{ active: isUploading }">
             <div class="dropzone-loading--bar"></div>
           </div>
@@ -47,7 +47,9 @@
 <script>
 import { ref, computed, inject } from "vue";
 import { useStore } from "../store";
-import { uploadBlob } from "../services/ipfs.js";
+// import { uploadBlob } from "../services/ipfs.js";
+// import { uploadBlob } from "../services/nftStorage.js";
+import { uploadBlob } from "../services/web3Storage.js";
 import { fileSize } from "../services/helpers";
 
 /* LFG */
@@ -55,13 +57,15 @@ export default {
   name: "PanelUpload",
   setup() {
     const notyf = inject("notyf");
-    // Init Store
+    /* Init Store */
     const store = useStore();
+
     // File Uploader
     const fileRef = ref(null);
     const isDragged = ref(false);
     const finished = ref(0);
     const isUploading = ref(false);
+
     /**
      * Drag n Drop File Manager
      */
@@ -81,19 +85,25 @@ export default {
     const onDragLeave = () => {
       isDragged.value = false;
     };
+
     /**
+     * File Uploader to store blob
      * @param {File} file
      */
     const uploadFileHandler = async (file) => {
+      /* Currently set to Web3.Storage */
       const result = await uploadBlob(file);
       finished.value++;
+
       const { error } = result;
       if (error && error instanceof Error) notyf.error(error.message);
 
       return result;
     };
+
     const onFileChangedHandler = async () => {
       isUploading.value = true;
+      console.log("fileRef.value.files", fileRef.value.files);
       store.addFiles(...fileRef.value.files);
       const files = store.files.map((file) => uploadFileHandler(file));
       try {
@@ -101,9 +111,7 @@ export default {
         const successfully = results.filter(({ error }) => !error);
         console.log("successfully", successfully);
         if (successfully.length > 0) {
-          notyf.success(
-            `${successfully.length} files successfully uploaded to IPFS`
-          );
+          notyf.success(`${successfully.length} files successfully uploaded`);
         }
         store.addResults(...successfully.map(({ error, data: file }) => file));
         store.resetFiles();
@@ -118,6 +126,7 @@ export default {
         isUploading.value = false;
       }
     };
+
     const fileCount = computed(() => {
       return store.files.length;
     });
@@ -154,7 +163,7 @@ export default {
 @import "../assets/styles/mixins.scss";
 
 section#panel-upload {
-  width: 360px;
+  width: 270px;
   height: 100%;
   padding: 0 20px 0 0;
   display: flex;
@@ -182,7 +191,7 @@ section#panel-upload {
     margin: 15px auto 0 20px;
 
     .upload-option {
-      width: 40%;
+      width: 100%;
       height: 40px;
       display: flex;
       flex-direction: column;
@@ -191,12 +200,16 @@ section#panel-upload {
       justify-content: center;
       border-radius: 20px;
       border: 2px solid $haus-blue;
-      margin: 0 10px 10px 10px;
+      margin: 0 20px 15px 20px;
       cursor: pointer;
 
       &:hover {
         color: $haus-cyan;
         border: 2px solid $haus-cyan;
+      }
+
+      @include breakpoint($break-ssm) {
+        width: 100%;
       }
     }
   }
@@ -212,9 +225,9 @@ section#panel-upload {
     display: flex;
     align-content: center;
     align-items: center;
-    justify-content: flex-start;
-    cursor: pointer;
+    justify-content: center;
     overflow: hidden;
+    cursor: pointer;
 
     &.active {
       > * {
@@ -222,7 +235,7 @@ section#panel-upload {
       }
 
       .dropzone-box {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: $haus-blue;
         .icon-color {
           color: $grey-40;
         }
@@ -234,7 +247,7 @@ section#panel-upload {
     }
 
     .dropzone-box {
-      width: 100%;
+      width: 240px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -244,7 +257,7 @@ section#panel-upload {
       background-color: $haus-blue;
 
       .upload-logo {
-        margin: 20px auto 10px;
+        margin: 10px auto;
 
         img {
           height: 100px;
@@ -254,18 +267,16 @@ section#panel-upload {
           }
         }
       }
-
       .icon-color {
         color: $grey-30;
       }
-
       svg {
         height: 30px;
         width: 30px;
         margin-bottom: 5px;
       }
-
       span {
+        margin: 5px 0 0 0;
         color: $white;
         font-size: 0.8rem;
       }
@@ -276,7 +287,11 @@ section#panel-upload {
       position: absolute;
       display: flex;
       bottom: 1rem;
-      left: 6rem;
+      left: 3rem;
+
+      @include breakpoint($break-ssm) {
+        left: 2rem;
+      }
 
       .dropzone-detail {
         color: $white;
