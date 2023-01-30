@@ -27,6 +27,7 @@
                 class="cid"
                 name="contentCID"
                 :value="item.cid"
+                @input="$emit('onChecked', $event)"
               />
             </div>
             <div class="item-detail">

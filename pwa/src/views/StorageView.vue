@@ -8,7 +8,7 @@
             <h1>Storage Solutions</h1>
           </div>
           <div class="title-actions">
-            <button @click="createCollection()" class="back-button">
+            <button @click="showHideModal()" class="back-button">
               <i-mdi-folder-multiple-outline class="icon-color" /> Collection
             </button>
             <button @click="createDeals()" class="create-button">
@@ -32,7 +32,13 @@
       </div>
       <div class="row">
         <PanelUpload />
-        <PanelResult />
+        <PanelResult @onChecked="onSelectedChecked" />
+        <CollectionsModalPopup
+          :showModal="showModal"
+          :selectedFileCIDS="selectedFileCIDS"
+          @closeModal="showHideModal()"
+          @saveModal="createCollection()"
+        />
       </div>
     </div>
   </section>
@@ -42,12 +48,13 @@ import { ref, provide } from "vue";
 import { Notyf } from "notyf";
 
 /* Import our Pinia Store */
-// import { storeToRefs } from "pinia";
+import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 
 /* Components */
 import PanelUpload from "../components/PanelUpload.vue";
 import PanelResult from "../components/PanelResult.vue";
+import CollectionsModalPopup from "../components/CollectionsModalPopup.vue";
 
 /* LFG */
 export default {
@@ -55,16 +62,15 @@ export default {
   components: {
     PanelUpload,
     PanelResult,
+    CollectionsModalPopup,
   },
   setup() {
     const store = useStore();
 
     // eslint-disable-next-line no-unused-vars
-    // const { collection } = storeToRefs(store);
+    const { collection, collections } = storeToRefs(store);
 
-    const tag = ref("");
-    const title = ref("");
-    const description = ref("");
+    const showModal = ref(false);
     const selectedFileCIDS = ref([]);
 
     const NotfyProvider = new Notyf({
@@ -108,30 +114,50 @@ export default {
     });
     provide("notyf", NotfyProvider);
 
+    /* Update search value */
+    const onSelectedChecked = ($event) => {
+      console.log("$event.target.value", $event.target.value);
+      let cid = $event.target.value;
+      console.log("cid", cid);
+      console.log("selectedFileCIDS.value", selectedFileCIDS.value);
+      selectedFileCIDS.value.push(...[cid]);
+      console.log("selectedFileCIDS.value", selectedFileCIDS.value);
+    };
+
+    const showHideModal = () => {
+      showModal.value = !showModal.value;
+    };
+
+    const createCollection = () => {
+      console.log("Create collection Clicked");
+      // showModal.value = true;
+
+      // DEV NOTE: Need to add a form for this still
+      // let newCollection = {
+      //   tag: tag.value,
+      //   title: title.value,
+      //   description: description.value,
+      //   CIDS: selectedFileCIDS.value,
+      // };
+      console.log("collection", collection.value);
+      store.addCollections(collection.value);
+      console.log("collections", collections.value);
+      // NotfyProvider.success(`Collection created ${collection.title}`);
+    };
+
     const createDeals = () => {
       console.log("Create Deals Clicked");
       NotfyProvider.success("Create Deals Clicked");
       // NotfyProvider.success(`Collection created ${newCollection.title}`);
     };
 
-    const createCollection = () => {
-      console.log("Create collection Clicked");
-
-      // DEV NOTE: Need to add a form for this still
-      let newCollection = {
-        tag: tag.value,
-        title: title.value,
-        description: description.value,
-        CIDS: selectedFileCIDS.value,
-      };
-      console.log("newCollection", newCollection);
-      store.setCollection(newCollection);
-      NotfyProvider.success(`Collection created ${newCollection.title}`);
-    };
-
     return {
-      createDeals,
+      showModal,
+      selectedFileCIDS,
+      onSelectedChecked,
+      showHideModal,
       createCollection,
+      createDeals,
     };
   },
 };
