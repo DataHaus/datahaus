@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useStore } from "../store";
 
-// https://filrep.io/api
-// const beryxAPIKEY = import.meta.env.VITE_BERYX_API_KEY;
-
-export default class beryxApi {
+export default class filrepApi {
   constructor() {
     this.endpoint = new URL("https://api.filrep.io/api/v1/");
   }
@@ -14,7 +11,7 @@ export default class beryxApi {
    * @param {String} offset - Number of miners to be skipped. Example: 0
    * @param {String} limit - The length of response Example: 10
    * @param {String} sortBy - Sorting option. Valid: "uptime", "rawPower", "qualityAdjPower", "freeSpace", "score", "averageStorageDealsPrice", "noPenalties", "dataStored"
-   * @param {String} order
+   * @param {String} order - Option to order miners. Valid: "asc", "desc"
    * @param {String} search
    * @param {String} region
    * @returns {Promise<String|Error>}
@@ -22,7 +19,7 @@ export default class beryxApi {
   async getMiners(offset, limit, sortBy, order, search, region) {
     const options = {
       method: "GET",
-      url: this.endpoint + `miners/`,
+      url: this.endpoint + `miners`,
       params: {
         offset: offset,
         limit: limit,

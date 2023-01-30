@@ -25,20 +25,13 @@
           Proof-of-Deal.<br />
         </p>
       </div>
-      <div class="row miner-stats">
-        <h3>{{ totalMiners }} Total Miners</h3>
-        <h3>Top Miner Address {{ topMiner.address }}</h3>
-        <!-- <h3>Overall Score {{ topMiner.uptime }}</h3> -->
-        <h3>Score {{ topMiner.uptimeAverage }}</h3>
-        <!-- <h3>Price {{ topMiner.price }}</h3> -->
-        <h3>Raw Power {{ topMiner.rawPower }}</h3>
-        <h3>Free Space {{ topMiner.freeSpace }}</h3>
-        <!-- <h3>City {{ topMiner.city }}</h3> -->
-        <!-- <h3>Region {{ topMiner.region }}</h3> -->
-      </div>
+      <div class="row"></div>
       <div class="row">
-        <DealsList />
+        {{ miners.miners }}
       </div>
+      <!-- <div class="row">
+        <DealsList />
+      </div> -->
     </div>
   </section>
 </template>
@@ -49,9 +42,8 @@ import { useStore } from "../store";
 import { Notyf } from "notyf";
 
 /* Import our Services and APIs */
-import filrepApi from "../services/filrepApi.js";
+import filrepApi from "../services/filrepApi";
 
-/* Components */
 import DealsList from "../components/DealsList.vue";
 
 const store = useStore();
@@ -61,11 +53,8 @@ console.log("account", account.value);
 console.log("deals", deals.value);
 
 const miners = ref([]);
-const totalMiners = ref({});
-const topMiner = ref({});
-
-const offset = ref(0); // Number of miners to be skipped. Example: 0
-const limit = ref(3); // The length of response Example: 10
+const offset = ref(); // Number of miners to be skipped. Example: 0
+const limit = ref(); // The length of response Example: 10
 const sortByOptions = ref([
   "uptime",
   "rawPower",
@@ -165,20 +154,8 @@ const getMiners = async () => {
   const filrep = new filrepApi();
 
   /* Get Miners Details */
-  miners.value = await filrep.getMiners(
-    offset.value,
-    limit.value,
-    sortBy.value,
-    order.value,
-    search.value,
-    region.value
-  );
-
-  console.log("Miners", miners.value.miners);
-  console.log("Pagination: ", miners.value.pagination);
-
-  totalMiners.value = miners.value.pagination.total;
-  topMiner.value = miners.value.miners[0];
+  miners.value = await filrep.getMiners(0, 10, "score", "desc", null, null);
+  console.log("miners.value", miners.value.miners);
 };
 
 onMounted(async () => {
@@ -218,6 +195,7 @@ section#content {
       align-items: flex-start;
       justify-content: flex-start;
       padding: 0;
+
       .row {
         width: 100%;
         display: flex;
@@ -226,12 +204,14 @@ section#content {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 0;
+
         .title-actions {
           display: flex;
           flex-direction: row;
           align-content: center;
           align-items: center;
           justify-content: space-between;
+
           .back-button {
             display: flex;
             flex-direction: row;
@@ -263,6 +243,7 @@ section#content {
               border: 2px solid $haus-cyan;
             }
           }
+
           .create-button {
             display: flex;
             flex-direction: row;
@@ -296,6 +277,7 @@ section#content {
         }
       }
     }
+
     .row {
       width: 100%;
       display: flex;
@@ -303,7 +285,7 @@ section#content {
       align-content: center;
       align-items: center;
       justify-content: flex-start;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
 
       @include breakpoint($break-ssm) {
         width: 100%;
@@ -320,24 +302,6 @@ section#content {
         align-items: flex-start;
         justify-content: flex-start;
       }
-
-      h3 {
-        width: 100%;
-        color: $haus-blue;
-        font-size: 16px;
-        margin: 0;
-        text-align: center;
-        margin-block-start: 0;
-        margin-block-end: 0;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        font-weight: bold;
-      }
-    }
-    .miner-stats {
-      border-top: 1px solid $haus-blue;
-      border-bottom: 1px solid $haus-blue;
-      padding: 10px 20px;
     }
   }
 }

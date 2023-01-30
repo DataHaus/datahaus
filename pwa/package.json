@@ -9,6 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@lighthouse-web3/sdk": "^0.1.12",
     "@zondax/beryx": "^0.8.1",
     "alchemy-sdk": "^2.3.0",
     "axios": "^1.2.3",

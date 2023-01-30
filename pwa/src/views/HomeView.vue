@@ -5,19 +5,20 @@
         <div class="left">
           <h1>Data<span class="cyan">Haus</span></h1>
           <p>
-            DataHaus is a decentralized data warehouse built on the Filecoin
-            Virtual Machine which provides a reliable data foundation that
-            efficiently handles all data types.
+            DataHaus is a decentralised data economy, built on Filecoin, which
+            provides a reliable web3 data foundation to efficiently handle all
+            data types and uses cases.
           </p>
           <p>
-            A powerful and dynamic distributed cloud storage network for your
-            data. Create and tune strategies to suit your big data needs in
-            redundancy, retrieval speed, and cost.
+            Filecoin is a powerful and dynamic distributed cloud storage network
+            for your data. Create and tune strategies to suit your big and small
+            data needs in redundancy, retrieval speed, data processing and cost.
           </p>
           <p>
             <a href="#about" title="Learn More" class="link-button"
-              >Learn More</a
+              >Solutions</a
             >
+            <a href="#about" title="Learn More" class="link-button">Options</a>
             <a href="/#cod" title="Learn More" class="link-button">COD</a>
           </p>
         </div>
@@ -46,7 +47,7 @@
               Filecoin is an open-source cloud storage marketplace, protocol,
               and incentive layer. Filecoin combines with IPFS, a peer-to-peer
               distributed network protocol, to make a more efficient and secure
-              web free from corporate control.
+              web, free from corporate control.
             </p>
           </div>
           <div class="about-box bg-cyan">
@@ -76,6 +77,59 @@
               and decentralization to provide storage that is more tamper
               resistant to malware and bad actor exploits than traditional
               storage.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="providers">
+        <h1>Storage Options</h1>
+        <div class="subtitle">
+          Choose were and how your data is stored with one or more of our
+          integrated storage platforms. Upload all your valuable data assets
+          like videos, music files, NFT data or large encrypted datasets for
+          batch processing.
+        </div>
+        <div class="row">
+          <div class="providers-box bg-cyan">
+            <h2>IPFS</h2>
+            <p>
+              A peer-to-peer hypermedia protocol designed to preserve and grow
+              humanity's knowledge by making the web upgradeable, resilient, and
+              more open.
+            </p>
+          </div>
+          <div class="providers-box">
+            <h2>NFT.Storage</h2>
+            <p>
+              Free decentralized storage and bandwidth for NFTs on IPFS and
+              Filecoin.
+            </p>
+          </div>
+          <div class="providers-box">
+            <h2>Web3.Storage</h2>
+            <p>Use decentralized protocols to liberate your data.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="providers-box">
+            <h2>Estuary</h2>
+            <p>
+              A reliable way to upload public data onto Filecoin and pin it to
+              IPFS. 6x data replication
+            </p>
+          </div>
+          <div class="providers-box">
+            <h2>LightHouse</h2>
+            <p>
+              Lighthouse allows users to store and encrypt / decrypt their files
+              on the decentralized network for lifetime at a fixed price
+            </p>
+          </div>
+          <div class="providers-box bg-cyan">
+            <h2>The DataHaus<br />Data Economy</h2>
+            <p>
+              DataHaus will continue to develop and integrate the latest and
+              best Web3 services for the Filecoin data economy.
             </p>
           </div>
         </div>
@@ -427,6 +481,126 @@ section#content {
             color: $haus-blue;
             font-size: 2.25rem;
             margin-bottom: 20px;
+          }
+
+          a {
+            color: $haus-blue;
+            font-weight: bold;
+            text-decoration: none;
+          }
+
+          p {
+            color: $haus-blue;
+            line-height: 1.7;
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+
+    section#providers {
+      background: $white;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 3% 0 3%;
+
+      h1 {
+        color: $haus-blue;
+        font-size: 3.25rem;
+        margin-bottom: 20px;
+        z-index: 999;
+      }
+
+      .subtitle {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20%;
+        color: $haus-blue;
+        line-height: 1.7;
+        text-align: center;
+        margin-bottom: 50px;
+        z-index: 999;
+      }
+
+      .row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 30px;
+
+        @include breakpoint($break-ssm) {
+          width: 100%;
+          flex-direction: column;
+          align-content: center;
+          justify-content: center;
+        }
+        .providers-box {
+          min-height: 270px;
+          margin: 0 1%;
+          padding: 2%;
+          border-radius: 20px;
+
+          display: flex;
+          flex-direction: column;
+          align-content: center;
+          align-items: center;
+          justify-content: center;
+          background-color: $haus-blue;
+
+          h2 {
+            color: $white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            .svg-container {
+              width: 80px;
+              margin-left: 12px;
+            }
+          }
+
+          a {
+            color: $white;
+            font-weight: bold;
+            text-decoration: none;
+          }
+
+          p {
+            color: $white;
+            line-height: 1.7;
+            margin-bottom: 20px;
+          }
+          @include breakpoint($break-ssm) {
+            width: 96%;
+          }
+        }
+
+        .providers-box.bg-cyan {
+          background-color: $haus-cyan;
+
+          h2 {
+            color: $haus-blue;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            .svg-container {
+              width: 80px;
+              margin-left: 12px;
+            }
           }
 
           a {

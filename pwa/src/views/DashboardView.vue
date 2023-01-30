@@ -542,7 +542,7 @@ section#content {
       }
       .metric-box {
         width: 42%;
-        min-height: 320x;
+        min-height: 30px;
         padding: 0 3% 0 3%;
         border-radius: 40px;
         border: 2px solid $haus-cyan;

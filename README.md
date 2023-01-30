@@ -39,13 +39,13 @@ Filecoin - Filecoin is a peer-to-peer network that allows anyone to store and re
 IPFS - A peer-to-peer hypermedia protocol
 designed to preserve and grow humanity's knowledge
 by making the web upgradeable, resilient, and more open. <https://ipfs.tech/>
-Nft.Storage - Free decentralized storage and bandwidth for NFTs on IPFS and Filecoin. <https://nft.storage/>
+NFT.Storage - Free decentralized storage and bandwidth for NFTs on IPFS and Filecoin. <https://nft.storage/>
 Web3.Storage - Use decentralized protocols to liberate your data. <https://web3.storage/>
 Estuary - A reliable way to upload public data onto Filecoin and pin it to IPFS. <https://docs.estuary.tech/>
 Lighthouse API - Lighthouse allows users to store their files on the decentralized network for lifetime at a fixed price <https://www.lighthouse.storage/>
 Bacalhau - Simple, low cost, compute that unlocks an open, collaborative ecosystem. <https://www.bacalhau.org/>
 Beryx Filecoin API - <https://docs.zondax.ch/>
-Filrep API - <https://filrep.io/api>
+Filrep API - Miner Reputation API <https://filrep.io/api>
 Spheron
 Vue.js
 Pinia

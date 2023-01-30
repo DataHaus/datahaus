@@ -2,7 +2,6 @@ import { Web3Storage } from 'web3.storage';
 
 const web3StorageApiKey = import.meta.env.VITE_WEB3_STORAGE_KEY;
 
-
 /**
  * Upload Blob to Web3 Storage
  *
