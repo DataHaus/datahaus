@@ -1,5 +1,13 @@
 <template>
   <section id="panel-upload">
+    <div class="panel-upload-options">
+      <h3>Storage Options</h3>
+      <button class="upload-option active">IPFS</button>
+      <button class="upload-option">NFT.Storage</button>
+      <button class="upload-option">Web3.Storage</button>
+      <button class="upload-option">Estuary</button>
+      <button class="upload-option">LightHouse</button>
+    </div>
     <div class="content panel-upload--content">
       <div
         class="panel-upload--dropzone"
@@ -34,13 +42,6 @@
           <div class="dropzone-detail">{{ fileSize(result.size) }}</div>
         </div>
       </div>
-    </div>
-    <div class="panel-upload-options">
-      <div class="upload-option">IPFS</div>
-      <div class="upload-option">NFT.Storage</div>
-      <div class="upload-option">Web3.Storage</div>
-      <div class="upload-option">Estuary</div>
-      <div class="upload-option">LightHouse</div>
     </div>
   </section>
 </template>
@@ -185,14 +186,26 @@ section#panel-upload {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-content: flex-start;
+    align-content: center;
     align-items: flex-start;
     justify-content: flex-start;
-    margin: 15px auto 0 20px;
+    margin: 0 auto;
+
+    h3 {
+      width: 100%;
+      display: block;
+      font-size: 1.17em;
+      margin-block-start: 0em;
+      margin-block-end: 0.5em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+      text-align: center;
+    }
 
     .upload-option {
-      width: 100%;
-      height: 40px;
+      width: 80%;
+      height: 35px;
       display: flex;
       flex-direction: column;
       align-content: center;
@@ -200,7 +213,7 @@ section#panel-upload {
       justify-content: center;
       border-radius: 20px;
       border: 2px solid $haus-blue;
-      margin: 0 20px 15px 20px;
+      margin: 0 auto 10px;
       cursor: pointer;
 
       &:hover {
@@ -211,6 +224,11 @@ section#panel-upload {
       @include breakpoint($break-ssm) {
         width: 100%;
       }
+    }
+    .upload-option.active {
+      color: $haus-blue;
+      background: $haus-cyan;
+      border: 2px solid $haus-blue;
     }
   }
 

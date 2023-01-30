@@ -8,12 +8,12 @@
             <h1>Storage Deals / Bounties</h1>
           </div>
           <div class="title-actions">
-            <button @click="placeBid()" class="back-button">
-              <i-mdi-coin class="icon-color" /> Place Bid
+            <button @click="showHideModal()" class="back-button">
+              <i-mdi-cards-outline class="icon-color" /> Create Deal
             </button>
-            <button @click="viewPods()" class="create-button">
+            <!-- <button @click="viewPods()" class="create-button">
               <i-mdi-cards-outline class="icon-color" /> PODs
-            </button>
+            </button> -->
           </div>
         </div>
         <p>
@@ -25,7 +25,7 @@
           Proof-of-Deal.<br />
         </p>
       </div>
-      <div class="row miner-stats">
+      <div class="miner-stats">
         <h3>{{ totalMiners }} Total Miners</h3>
         <h3>Top Miner Address {{ topMiner.address }}</h3>
         <!-- <h3>Overall Score {{ topMiner.uptime }}</h3> -->
@@ -37,25 +37,34 @@
         <!-- <h3>Region {{ topMiner.region }}</h3> -->
       </div>
       <div class="row">
-        <DealsList />
+        <DealsList @onChecked="onSelectedChecked" />
+        <DealsModalPopup
+          :showModal="showModal"
+          :selectedFilePIDS="selectedFilePIDS"
+          @closeModal="showHideModal()"
+          @saveModal="createDeal()"
+        />
       </div>
     </div>
   </section>
 </template>
 <script setup>
 import { ref, provide, onMounted } from "vue";
+import { Notyf } from "notyf";
+
+/* Import our Pinia Store */
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
-import { Notyf } from "notyf";
 
 /* Import our Services and APIs */
 import filrepApi from "../services/filrepApi.js";
 
 /* Components */
 import DealsList from "../components/DealsList.vue";
+import DealsModalPopup from "../components/DealsModalPopup.vue";
 
 const store = useStore();
-const { account, deals } = storeToRefs(store);
+const { account, deal, deals } = storeToRefs(store);
 
 console.log("account", account.value);
 console.log("deals", deals.value);
@@ -105,6 +114,9 @@ console.log("pid", pid.value);
 console.log("dealRef", dealRef.value);
 console.log("isUploaded", isUploaded.value);
 console.log("dealAccepted", dealAccepted.value);
+
+const showModal = ref(false);
+const selectedFilePIDS = ref([]);
 
 /* LFG */
 const NotfyProvider = new Notyf({
@@ -179,6 +191,37 @@ const getMiners = async () => {
 
   totalMiners.value = miners.value.pagination.total;
   topMiner.value = miners.value.miners[0];
+};
+
+/* Update Deals Checkbox with PID */
+const onSelectedChecked = ($event) => {
+  console.log("$event.target.value", $event.target.value);
+  let pid = $event.target.value;
+  console.log("pid", pid);
+  console.log("selectedFilePIDS.value", selectedFilePIDS.value);
+  selectedFilePIDS.value.push(...[pid]);
+  console.log("selectedFilePIDS.value", selectedFilePIDS.value);
+};
+
+const showHideModal = () => {
+  showModal.value = !showModal.value;
+};
+
+const createDeal = () => {
+  console.log("Create Deal Clicked");
+
+  // DEV NOTE: Need to add a form for this still
+  // let newCollection = {
+  //   tag: tag.value,
+  //   title: title.value,
+  //   description: description.value,
+  //   PIDS: selectedFilePIDS.value,
+  // };
+  console.log("deal", deal.value);
+  store.addDeals(deal.value);
+  console.log("deals", deals.value);
+  showModal.value = false;
+  NotfyProvider.success(`${deal.title} deal created!`);
 };
 
 onMounted(async () => {
@@ -320,11 +363,30 @@ section#content {
         align-items: flex-start;
         justify-content: flex-start;
       }
+    }
+    .miner-stats {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 20px;
 
+      @include breakpoint($break-ssm) {
+        width: 100%;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+      }
+
+      border-top: 1px solid $haus-blue;
+      border-bottom: 1px solid $haus-blue;
+      padding: 10px 20px;
       h3 {
         width: 100%;
         color: $haus-blue;
-        font-size: 16px;
+        font-size: 14px;
         margin: 0;
         text-align: center;
         margin-block-start: 0;
@@ -333,11 +395,6 @@ section#content {
         margin-inline-end: 0px;
         font-weight: bold;
       }
-    }
-    .miner-stats {
-      border-top: 1px solid $haus-blue;
-      border-bottom: 1px solid $haus-blue;
-      padding: 10px 20px;
     }
   }
 }

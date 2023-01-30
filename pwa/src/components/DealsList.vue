@@ -42,11 +42,8 @@
             </div>
             <div class="item-icon"></div>
             <div class="item-action">
-              <a title="Accept deal" @click="acceptSingleDeal(item)">
-                <i-mdi-checkbox-multiple-marked class="icon-color" />
-              </a>
-              <a title="Run COD service" @click="createSingleCOD(item)">
-                <i-ri-external-link-fill class="icon-color" />
+              <a title="Place Bid" @click="placeSingleDealBid(item)">
+                <i-mdi-coin class="icon-color" />
               </a>
             </div>
           </div>
@@ -93,19 +90,10 @@ export default {
     /**
      * Create a Deal with single CID
      */
-    const acceptSingleDeal = (item) => {
+    const placeSingleDealBid = (item) => {
       const cid = item.cid;
       console.log("Create SingleDeal CID", cid);
       notyf.success(`Storage deal processing ${item.cid}`);
-    };
-
-    /**
-     * Run a COD Service with single CID
-     */
-    const createSingleCOD = (item) => {
-      const cid = item.cid;
-      console.log("Create Single CID COD service", cid);
-      notyf.success(`COD service processing ${item.cid}`);
     };
 
     /**
@@ -137,8 +125,7 @@ export default {
       search,
       deals,
       fileSize,
-      acceptSingleDeal,
-      createSingleCOD,
+      placeSingleDealBid,
       copyPID,
       generateLink,
       onSearchChanged,

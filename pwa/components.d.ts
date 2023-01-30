@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     ConnectWalletButton: typeof import('./src/components/ConnectWalletButton.vue')['default']
     copy: typeof import('./src/components/SearchResult copy.vue')['default']
     DealsList: typeof import('./src/components/DealsList.vue')['default']
+    DealsModalPopup: typeof import('./src/components/DealsModalPopup.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IMdiArrowUp: typeof import('~icons/mdi/arrow-up')['default']
     IMdiArrowUpBold: typeof import('~icons/mdi/arrow-up-bold')['default']

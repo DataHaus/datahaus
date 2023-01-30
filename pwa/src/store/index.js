@@ -28,6 +28,7 @@ export const useStore = defineStore({
       loading: false,
       minting: false,
       collection: [],
+      deal: {},
       collections: [],
       collectionsResults: db.data.collections,
       deals: [],
@@ -66,6 +67,9 @@ export const useStore = defineStore({
     },
     getCollection(state) {
       return state.collection;
+    },
+    getDeal(state) {
+      return state.deal;
     },
     getCollectionsResults(state) {
       return state.collectionsResults;
@@ -123,6 +127,10 @@ export const useStore = defineStore({
       });
       db.data.collectionsResults = [...this.collectionsResults];
       db.write();
+    },
+    /* Single Deal */
+    setDeal(deal) {
+      this.deal = deal;
     },
     /* Deals Local Storage */
     resetDeals() {

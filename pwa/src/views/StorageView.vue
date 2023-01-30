@@ -11,9 +11,9 @@
             <button @click="showHideModal()" class="back-button">
               <i-mdi-folder-multiple-outline class="icon-color" /> Collection
             </button>
-            <button @click="createDeals()" class="create-button">
+            <!-- <button @click="createDeals()" class="create-button">
               <i-mdi-plus class="icon-color" /> PODS
-            </button>
+            </button> -->
           </div>
         </div>
         <p>
@@ -67,7 +67,6 @@ export default {
   setup() {
     const store = useStore();
 
-    // eslint-disable-next-line no-unused-vars
     const { collection, collections } = storeToRefs(store);
 
     const showModal = ref(false);
@@ -114,7 +113,7 @@ export default {
     });
     provide("notyf", NotfyProvider);
 
-    /* Update search value */
+    /* Update Files Checkbox with CID */
     const onSelectedChecked = ($event) => {
       console.log("$event.target.value", $event.target.value);
       let cid = $event.target.value;
@@ -142,14 +141,15 @@ export default {
       console.log("collection", collection.value);
       store.addCollections(collection.value);
       console.log("collections", collections.value);
-      // NotfyProvider.success(`Collection created ${collection.title}`);
+      showModal.value = false;
+      NotfyProvider.success(`${collection.title} collection created!`);
     };
 
-    const createDeals = () => {
-      console.log("Create Deals Clicked");
-      NotfyProvider.success("Create Deals Clicked");
-      // NotfyProvider.success(`Collection created ${newCollection.title}`);
-    };
+    // const createDeals = () => {
+    //   console.log("Create Deals Clicked");
+    //   NotfyProvider.success("Create Deals Clicked");
+    //   // NotfyProvider.success(`Collection created ${newCollection.title}`);
+    // };
 
     return {
       showModal,
@@ -157,7 +157,7 @@ export default {
       onSelectedChecked,
       showHideModal,
       createCollection,
-      createDeals,
+      // createDeals,
     };
   },
 };

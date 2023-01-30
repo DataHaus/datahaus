@@ -8,7 +8,7 @@
         aria-describedby="modalDescription"
       >
         <header class="modal-header" id="modalTitle">
-          Create Collection
+          Create Deal
           <button
             type="button"
             class="btn-close"
@@ -48,21 +48,21 @@
               />
             </div>
             <div class="input-row">
-              <label for="name">Content Identifiers</label>
-              <template v-for="(item, index) in selectedFileCIDS" :key="index">
+              <label for="name">Piece Identifiers</label>
+              <template v-for="(item, index) in selectedFilePIDS" :key="index">
                 <input
                   type="text"
                   name="cids"
-                  placeholder="Enter your a comma seprated list of CIDs"
+                  placeholder="Enter your a comma seprated list of PIDs"
                   :value="item"
                   readonly
                 />
               </template>
               <input
-                v-if="!selectedFileCIDS || selectedFileCIDS.length === 0"
+                v-if="!selectedFilePIDS || selectedFilePIDS.length === 0"
                 type="text"
                 name="cids"
-                placeholder="Enter your single CID"
+                placeholder="Enter your single PID"
                 :value="form.cid"
               />
             </div>
@@ -95,13 +95,13 @@
 import { useStore } from "../store";
 /* LFG */
 export default {
-  name: "CollectionsModalPopup",
+  name: "DealsModalPopup",
   props: {
     showModal: {
       type: Boolean,
       default: false,
     },
-    selectedFileCIDS: {
+    selectedFilePIDS: {
       type: Array,
     },
   },
@@ -111,7 +111,7 @@ export default {
         tag: "",
         title: "",
         description: "",
-        CIDS: this.selectedFileCIDS,
+        PIDS: this.selectedFilePIDS,
       },
     };
   },
@@ -124,7 +124,7 @@ export default {
     saveModal() {
       const store = useStore();
       const { form } = this;
-      store.setCollection(form);
+      store.setDeal(form);
       this.resetForm();
       this.$emit("saveModal");
     },
@@ -133,7 +133,7 @@ export default {
         tag: "",
         title: "",
         description: "",
-        CIDS: [],
+        PIDS: [],
       };
     },
   },
