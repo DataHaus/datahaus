@@ -299,7 +299,7 @@ export default {
 }
 
 .modal-footer {
-  padding: 0 0 10px 0;
+  padding: 0 10px 10px 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -362,7 +362,7 @@ export default {
   width: auto;
   height: 35px;
   border: 2px solid $haus-cyan;
-  border-radius: 30px;
+  border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
   margin-top: 5px;

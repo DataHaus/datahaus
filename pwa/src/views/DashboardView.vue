@@ -12,14 +12,14 @@
               type="text"
               v-model="searchValue"
               class="search-input"
-              placeholder="Search Hyperspace by Transaction ID / Tipset / Address / Contract"
+              placeholder="Search by Transaction ID / Tipset / Address / Contract"
             />
-            <button @click="searchFn()" class="search-button">
+            <button @click="searchFn()" class="create-button">
               <i-mdi-magnify class="icon-color" />Search
             </button>
-            <button @click="$router.push('storage')" class="create-button">
-              <i-mdi-file-outline class="icon-color" />File Storage
-            </button>
+            <!-- <button @click="$router.push('storage')" class="create-button">
+              <i-mdi-file-outline class="icon-color" />Storage
+            </button> -->
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
         <div class="account-box">
           <h3>
             Balance {{ currency }}
-            {{ (balance / 1000000000000000000).toFixed(2) }}
+            {{ balance / 1000000000000000000 }}
           </h3>
           <div class="profile">
             <div class="account-address">ETH Address : {{ account }}</div>
@@ -328,6 +328,8 @@ onMounted(async () => {
   /* Load Beryx API for Filecoin */
   const beryx = new beryxApi();
   accountInfo.value = await beryx.getAccountInfo(account.value);
+  let accountBalance = await beryx.getAccountBalance(account.value);
+  store.setBalance(accountBalance.amount);
   transactionsByAddress.value = await beryx.getTransactionsByAddress(
     account.value,
     1
@@ -391,7 +393,7 @@ section#content {
             border-radius: 30px;
             letter-spacing: 1px;
             font-size: 13px;
-            min-width: 510px;
+            min-width: 420px;
             padding: 11px 10px 9px;
             margin: 0 10px 0 0;
             text-align: left;
@@ -583,7 +585,7 @@ section#content {
           font-size: 16px;
           font-weight: 900;
           margin: 0 0 20px 0;
-          text-align: center;
+          text-align: left;
 
           @include breakpoint($break-ssm) {
             width: 94%;
@@ -598,6 +600,8 @@ section#content {
           width: 100%;
           display: flex;
           flex-direction: row;
+          font-size: 13px;
+          font-weight: 400;
           margin-bottom: 5px;
         }
       }
@@ -606,7 +610,7 @@ section#content {
         display: flex;
         flex-direction: column;
         margin-bottom: 20px;
-        padding: 3% 3% 2% 3%;
+        padding: 2% 3% 1% 3%;
         border: 1px solid $haus-blue;
         border-radius: 10px;
       }

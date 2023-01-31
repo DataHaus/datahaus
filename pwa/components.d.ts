@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     2: typeof import('./src/components/SearchResult copy 2.vue')['default']
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    CodModalPopup: typeof import('./src/components/CodModalPopup.vue')['default']
     CollectionsList: typeof import('./src/components/CollectionsList.vue')['default']
     CollectionsModalPopup: typeof import('./src/components/CollectionsModalPopup.vue')['default']
     ConnectWalletButton: typeof import('./src/components/ConnectWalletButton.vue')['default']

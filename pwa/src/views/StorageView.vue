@@ -8,7 +8,7 @@
             <h1>Storage Solutions</h1>
           </div>
           <div class="title-actions">
-            <button @click="showHideModal()" class="back-button">
+            <button @click="showHideModal()" class="create-button">
               <i-mdi-folder-multiple-outline class="icon-color" /> Collection
             </button>
             <!-- <button @click="createDeals()" class="create-button">

@@ -8,12 +8,12 @@
             <h1>Compute Over Data</h1>
           </div>
           <div class="title-actions">
-            <button @click="createJob()" class="back-button">
-              <i-mdi-locker-multiple class="icon-color" /> Create Job
+            <button @click="showHideModal()" class="create-button">
+              <i-mdi-locker-multiple class="icon-color" /> Run Job
             </button>
-            <button @click="viewOptions()" class="create-button">
+            <!-- <button @click="viewOptions()" class="create-button">
               <i-mdi-plus class="icon-color" /> Options
-            </button>
+            </button> -->
           </div>
         </div>
         <h2><BacalhauBlue /> Bacalhau</h2>
@@ -24,23 +24,32 @@
         </p>
       </div>
       <div class="row">
-        <CollectionsList />
+        <CollectionsList @onChecked="onSelectedChecked" />
+        <CodModalPopup
+          :showModal="showModal"
+          :selectedFilePIDS="selectedFilePIDS"
+          @closeModal="showHideModal()"
+          @saveModal="createCodJob()"
+        />
       </div>
     </div>
   </section>
 </template>
 <script setup>
-import { ref, provide } from "vue";
-import { storeToRefs } from "pinia";
-import { useStore } from "../store";
+import { ref, provide, onMounted } from "vue";
 import { Notyf } from "notyf";
 
+/* Import our Pinia Store */
+import { storeToRefs } from "pinia";
+import { useStore } from "../store";
+
 /* Components */
-import CollectionsList from "../components/CollectionsList.vue";
 import BacalhauBlue from "../assets/svgs/BacalhauBlue.vue";
+import CollectionsList from "../components/CollectionsList.vue";
+import CodModalPopup from "../components/CodModalPopup.vue";
 
 const store = useStore();
-const { account, collection, collections } = storeToRefs(store);
+const { account, cod, collection, collections } = storeToRefs(store);
 
 console.log("account", account.value);
 console.log("collection", collection.value);
@@ -55,6 +64,9 @@ console.log("pid", pid.value);
 console.log("collectionRef", collectionRef.value);
 console.log("isRunning", isRunning.value);
 console.log("jobAccepted", jobAccepted.value);
+
+const showModal = ref(false);
+const selectedFilePIDS = ref([]);
 
 /* LFG */
 const NotfyProvider = new Notyf({
@@ -98,17 +110,46 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-const createJob = () => {
-  console.log("Create Job Clicked");
-  NotfyProvider.success("Create Job Clicked");
-  // NotfyProvider.success(`Collection created ${newCollection.title}`);
+// const createJob = () => {
+//   console.log("Create Job Clicked");
+//   NotfyProvider.success("Create Job Clicked");
+//   // NotfyProvider.success(`Collection created ${newCollection.title}`);
+// };
+
+// const viewOptions = () => {
+//   console.log("View Options Clicked");
+//   NotfyProvider.success("View Options Clicked");
+//   // NotfyProvider.success(`Collection created ${newCollection.title}`);
+// };
+
+/* Update Deals Checkbox with PID */
+const onSelectedChecked = ($event) => {
+  console.log("$event.target.value", $event.target.value);
+  let pid = $event.target.value;
+  console.log("pid", pid);
+  console.log("selectedFilePIDS.value", selectedFilePIDS.value);
+  selectedFilePIDS.value.push(...[pid]);
+  console.log("selectedFilePIDS.value", selectedFilePIDS.value);
 };
 
-const viewOptions = () => {
-  console.log("View Options Clicked");
-  NotfyProvider.success("View Options Clicked");
-  // NotfyProvider.success(`Collection created ${newCollection.title}`);
+const showHideModal = () => {
+  showModal.value = !showModal.value;
 };
+
+const createCodJob = () => {
+  console.log("Create Deal Clicked");
+  console.log("cod", cod.value);
+  showModal.value = false;
+  NotfyProvider.success(`${cod.value.title} started!`);
+};
+
+const getDeals = async () => {
+  console.log("Get deals on mount");
+};
+
+onMounted(async () => {
+  await getDeals();
+});
 </script>
 
 <style lang="scss" scoped>

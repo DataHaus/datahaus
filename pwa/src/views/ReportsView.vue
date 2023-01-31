@@ -18,7 +18,9 @@
         </div>
         <p>Filecoin Network Reporting and Data Collection Analysis.</p>
       </div>
-      <div class="row"></div>
+      <div class="row">
+        <h2>More coming soon!!!</h2>
+      </div>
     </div>
   </section>
 </template>

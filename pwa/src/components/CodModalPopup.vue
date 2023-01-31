@@ -8,7 +8,7 @@
         aria-describedby="modalDescription"
       >
         <header class="modal-header" id="modalTitle">
-          Create Deal
+          Create COD Job
           <button
             type="button"
             class="btn-close"
@@ -25,7 +25,7 @@
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a tag, eg. deal-one"
+                placeholder="Enter a tag, eg. job-one"
                 v-model="form.tag"
               />
             </div>
@@ -34,7 +34,7 @@
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a name,eg. My Storage Deal"
+                placeholder="Enter a name,eg. My Cod Job"
                 v-model="form.name"
               />
             </div>
@@ -95,7 +95,7 @@
 import { useStore } from "../store";
 /* LFG */
 export default {
-  name: "DealsModalPopup",
+  name: "CodModalPopup",
   props: {
     showModal: {
       type: Boolean,
@@ -124,7 +124,7 @@ export default {
     saveModal() {
       const store = useStore();
       const { form } = this;
-      store.setDeal(form);
+      store.setCod(form);
       this.resetForm();
       this.$emit("saveModal");
     },

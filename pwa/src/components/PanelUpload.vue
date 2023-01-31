@@ -2,11 +2,41 @@
   <section id="panel-upload">
     <div class="panel-upload-options">
       <h3>Storage Options</h3>
-      <button class="upload-option active">IPFS</button>
-      <button class="upload-option">NFT.Storage</button>
-      <button class="upload-option">Web3.Storage</button>
-      <button class="upload-option">Estuary</button>
-      <button class="upload-option">LightHouse</button>
+      <button
+        @click="setUploadType('ipfs')"
+        class="upload-option"
+        :class="uploadType === 'ipfs' ? 'active' : ''"
+      >
+        IPFS
+      </button>
+      <button
+        @click="setUploadType('nftStorage')"
+        class="upload-option"
+        :class="uploadType === 'nftStorage' ? 'active' : ''"
+      >
+        NFT.Storage
+      </button>
+      <button
+        @click="setUploadType('web3Storage')"
+        class="upload-option"
+        :class="uploadType === 'web3Storage' ? 'active' : ''"
+      >
+        Web3.Storage
+      </button>
+      <button
+        @click="setUploadType('estuary')"
+        class="upload-option"
+        :class="uploadType === 'estuary' ? 'active' : ''"
+      >
+        Estuary
+      </button>
+      <button
+        @click="setUploadType('lighthouse')"
+        class="upload-option"
+        :class="uploadType === 'lighthouse' ? 'active' : ''"
+      >
+        LightHouse
+      </button>
     </div>
     <div class="content panel-upload--content">
       <div
@@ -61,11 +91,16 @@ export default {
     /* Init Store */
     const store = useStore();
 
-    // File Uploader
+    /* File Uploader */
+    const uploadType = ref("ipfs");
     const fileRef = ref(null);
     const isDragged = ref(false);
     const finished = ref(0);
     const isUploading = ref(false);
+
+    const setUploadType = (type) => {
+      uploadType.value = type;
+    };
 
     /**
      * Drag n Drop File Manager
@@ -142,6 +177,7 @@ export default {
     });
 
     return {
+      uploadType,
       isUploading,
       finished,
       fileRef,
@@ -154,6 +190,7 @@ export default {
       onDropHandler,
       openSelectFile,
       onFileChangedHandler,
+      setUploadType,
     };
   },
 };
@@ -212,13 +249,16 @@ section#panel-upload {
       align-items: center;
       justify-content: center;
       border-radius: 20px;
+      color: $haus-cyan;
+      background: $haus-blue;
       border: 2px solid $haus-blue;
       margin: 0 auto 10px;
       cursor: pointer;
 
       &:hover {
-        color: $haus-cyan;
-        border: 2px solid $haus-cyan;
+        color: $haus-blue;
+        background: $haus-cyan;
+        border: 2px solid $haus-blue;
       }
 
       @include breakpoint($break-ssm) {

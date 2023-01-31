@@ -8,7 +8,7 @@
             <h1>Storage Deals / Bounties</h1>
           </div>
           <div class="title-actions">
-            <button @click="showHideModal()" class="back-button">
+            <button @click="showHideModal()" class="create-button">
               <i-mdi-cards-outline class="icon-color" /> Create Deal
             </button>
             <!-- <button @click="viewPods()" class="create-button">
@@ -160,17 +160,17 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-const placeBid = () => {
-  console.log("Place Bid Clicked");
-  NotfyProvider.success("Place Bid Clicked");
-  // NotfyProvider.success(`Collection created ${newCollection.title}`);
-};
+// const placeBid = () => {
+//   console.log("Place Bid Clicked");
+//   NotfyProvider.success("Place Bid Clicked");
+//   // NotfyProvider.success(`Collection created ${newCollection.title}`);
+// };
 
-const viewPods = () => {
-  console.log("View PODS Clicked");
-  NotfyProvider.success("View PODS Clicked");
-  // NotfyProvider.success(`Collection created ${newCollection.title}`);
-};
+// const viewPods = () => {
+//   console.log("View PODS Clicked");
+//   NotfyProvider.success("View PODS Clicked");
+//   // NotfyProvider.success(`Collection created ${newCollection.title}`);
+// };
 
 const getMiners = async () => {
   /* Load Filerep API for Filecoin */
