@@ -62,6 +62,9 @@ Estuary
 Lighthouse Makes Permanent Storage on Filecoin Easy and Affordable
 <https://filecoin.io/blog/posts/lighthouse-makes-permanent-storage-on-filecoin-easy-and-affordable/>
 
+Bacalhau and Stable Diffusion
+<https://developerally.com/>
+
 ### DataDAO Example - Deal Bounty Contract
 
 <https://github.com/lotus-web3/deal-bounty-contract>

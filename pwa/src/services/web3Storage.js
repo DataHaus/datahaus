@@ -11,7 +11,7 @@ const web3StorageApiKey = import.meta.env.VITE_WEB3_STORAGE_KEY;
  * @param {File} file
  * @returns {Promise<SafeAsync>}
  */
-export const uploadBlob = async (file) => {
+export const uploadBlobWeb3Storage = async (file) => {
 
   /* Web3.Storage Construct with token and endpoint */
   const client = new Web3Storage({ token: web3StorageApiKey });

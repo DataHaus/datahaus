@@ -78,9 +78,12 @@
 <script>
 import { ref, computed, inject } from "vue";
 import { useStore } from "../store";
-// import { uploadBlob } from "../services/ipfs.js";
-// import { uploadBlob } from "../services/nftStorage.js";
-import { uploadBlob } from "../services/web3Storage.js";
+// import { uploadBlobIPFS } from "../services/ipfs.js";
+import { uploadBlobNFTStorage } from "../services/nftStorage.js";
+// import { uploadBlobWeb3Storage } from "../services/web3Storage.js";
+// import { uploadBlobEstuaryStorage } from "../services/estuaryStorage.js";
+// import { uploadBlobLightHouse } from "../services/lighthouse.js";
+
 import { fileSize } from "../services/helpers";
 
 /* LFG */
@@ -92,12 +95,12 @@ export default {
     const store = useStore();
 
     /* File Uploader */
-    const uploadType = ref("ipfs");
     const fileRef = ref(null);
     const isDragged = ref(false);
     const finished = ref(0);
     const isUploading = ref(false);
 
+    const uploadType = ref("nftStorage");
     const setUploadType = (type) => {
       uploadType.value = type;
     };
@@ -127,10 +130,9 @@ export default {
      * @param {File} file
      */
     const uploadFileHandler = async (file) => {
-      /* Currently set to Web3.Storage */
-      const result = await uploadBlob(file);
+      /* Currently set to NFT.Storage */
+      const result = await uploadBlobNFTStorage(file);
       finished.value++;
-
       const { error } = result;
       if (error && error instanceof Error) notyf.error(error.message);
 
@@ -140,12 +142,15 @@ export default {
     const onFileChangedHandler = async () => {
       isUploading.value = true;
       console.log("fileRef.value.files", fileRef.value.files);
+
       store.addFiles(...fileRef.value.files);
       const files = store.files.map((file) => uploadFileHandler(file));
+
       try {
         let results = await Promise.all(files);
         const successfully = results.filter(({ error }) => !error);
         console.log("successfully", successfully);
+
         if (successfully.length > 0) {
           notyf.success(`${successfully.length} files successfully uploaded`);
         }

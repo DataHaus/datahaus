@@ -9,7 +9,7 @@ import IPFSNetwork from "../services/IPFSNetwork";
  * @param {File} file
  * @returns {Promise<SafeAsync>}
  */
-export const uploadBlob = async (file) => {
+export const uploadBlobIPFS = async (file) => {
   const client = new IPFSNetwork();
   let detail = getCidDetail({ cid: null, file });
 

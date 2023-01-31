@@ -20,7 +20,7 @@ export default class estuaryStorage {
    * Body filename -  Filenam to use for upload
    * @returns {Promise<String|Error>}
    */
-  async storeBlob(
+  async uploadBlobEstuaryStorage(
     blob,
     coluuid = null,
     replication = null,

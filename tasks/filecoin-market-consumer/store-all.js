@@ -23,7 +23,7 @@ task(
     async function callRpc(method, params) {
         var options = {
           method: "POST",
-          url: "https://api.hyperspace.node.glif.io/rpc/v0",
+          url: "https://api.hyperspace.node.glif.io/rpc/v1",
           // url: "http://localhost:1234/rpc/v0",
           headers: {
             "Content-Type": "application/json",
@@ -38,8 +38,6 @@ task(
         const res = await request(options);
         return JSON.parse(res.body).result;
       }
-
-        
         const filecoinMarketConsumer = new ethers.Contract(contractAddr, FilecoinMarketConsumer.interface, signer)
         const dealID = taskArgs.dealid
         await filecoinMarketConsumer.storeAll(dealID, {

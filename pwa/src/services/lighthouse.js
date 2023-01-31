@@ -18,7 +18,7 @@ const progressCallback = (progressData) => {
  * @param {File} file
  * @returns {Promise<SafeAsync>}
  */
-export const uploadBlob = async (file) => {
+export const uploadBlobLightHouse = async (file) => {
   let detail = getCidDetail({ cid: null, file });
 
   /* Max 50MB Upload size*/

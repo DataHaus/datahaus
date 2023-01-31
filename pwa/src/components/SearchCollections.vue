@@ -5,7 +5,7 @@
       type="text"
       id="search"
       class="search-input"
-      placeholder="Search files and collections"
+      placeholder="Search collections"
       :value="search"
       @input="$emit('onChanged', $event)"
     />

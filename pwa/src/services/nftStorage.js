@@ -1,4 +1,7 @@
-import { storeBlob } from "../services/nftStorage";
+import { NFTStorage } from "nft.storage";
+
+const NFT_STORAGE_KEY = import.meta.env.VITE_NFT_STORAGE_KEY;
+
 
 /**
  * Upload Blob to NFT Storage
@@ -9,7 +12,7 @@ import { storeBlob } from "../services/nftStorage";
  * @param {File} file
  * @returns {Promise<SafeAsync>}
  */
-export const uploadBlob = async (file) => {
+export const uploadBlobNFTStorage = async (file) => {
   let detail = getCidDetail({ cid: null, file });
 
   /* Max 50MB Upload size*/
@@ -18,7 +21,15 @@ export const uploadBlob = async (file) => {
   }
 
   try {
-    const cid = await storeBlob(file);
+    console.log("NFT Storage file: ", file);
+
+    if (file.size === 0) {
+      throw new Error("Content size is 0, make sure to provide some content");
+    }
+
+    const client = new NFTStorage({ token: NFT_STORAGE_KEY });
+    const cid = await client.storeBlob(file);
+
     console.log("NFT Storage CID: ", cid);
 
     detail = getCidDetail({ cid, file });
