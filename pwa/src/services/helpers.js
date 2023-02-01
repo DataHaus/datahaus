@@ -86,6 +86,14 @@ export const generateLink = (item, isShorten = false) => {
   return `https://cloudflare-ipfs.com/ipfs/${item.cid}`;
 };
 
+// const ipfsHttpGatewayLink = `.ipfs.nftstorage.link/`;
+/* Helper function - manipulating the returned CID into a http link using IPFS gateway */
+// export const createIPFSgatewayLink = (el) => {
+//   const link = el[1].split("/");
+//   const fetchURL = `https://${link[2]}${ipfsHttpGatewayLink}${link[3]}`;
+//   return fetchURL;
+// };
+
 /**
  * Check if website is running on PWA mode
  * @returns {Boolean}

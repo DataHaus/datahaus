@@ -21,8 +21,6 @@ export const uploadBlobNFTStorage = async (file) => {
   }
 
   try {
-    console.log("NFT Storage file: ", file);
-
     if (file.size === 0) {
       throw new Error("Content size is 0, make sure to provide some content");
     }
@@ -34,6 +32,25 @@ export const uploadBlobNFTStorage = async (file) => {
 
     detail = getCidDetail({ cid, file });
     return { error: false, data: detail };
+  } catch (error) {
+    return { error, data: detail };
+  }
+};
+
+
+/** 
+* Fetch pinning info from NFT.Storage
+* @param {String} cid - IPFS content identifier CID
+*/ 
+export const fetchCIDStatus = async (cid) => {
+  console.log("NFT Storage CID: ", cid);
+  try {
+    const client = new NFTStorage({ token: NFT_STORAGE_KEY });
+    const cidStatus = await client.status(cid);
+
+    console.log("NFT Storage CID: ", cid);
+    
+    return { error: false, cidStatus: cidStatus };
   } catch (error) {
     return { error, data: detail };
   }

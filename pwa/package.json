@@ -35,6 +35,7 @@
     "jsdom": "^21.0.0",
     "jshint": "^2.13.6",
     "moment": "^2.29.4",
+    "multiformats": "^11.0.1",
     "nft.storage": "^7.0.0",
     "prettier": "^2.8.3",
     "prettier-plugin-solidity": "^1.1.1",
