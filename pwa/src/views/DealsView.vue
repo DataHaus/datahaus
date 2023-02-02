@@ -61,7 +61,7 @@ import filrepApi from "../services/filrepApi.js";
 
 /* Components */
 import DealsList from "../components/DealsList.vue";
-import DealsModalPopup from "../components/DealsModalPopup.vue";
+import DealsModalPopup from "../components/modals/DealsModalPopup.vue";
 
 const store = useStore();
 const { account, deal, deals } = storeToRefs(store);

@@ -94,7 +94,7 @@ export default {
     const search = ref("");
 
     /**
-     * Create a Collection with a single CID
+     * Create a Collection with a single File
      */
     const createSingleCollection = (item) => {
       emit("onNewCollectionClick", item);

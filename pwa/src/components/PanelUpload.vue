@@ -73,10 +73,29 @@
         </div>
       </div>
     </div>
+    <div v-if="collections.length > 0" class="panel-collections">
+      <h3>Storage Collections</h3>
+      <div
+        class="collection-item"
+        v-for="(item, index) in collections"
+        :key="index"
+      >
+        <div class="collection-name">{{ item.name }}</div>
+        <button
+          type="button"
+          class="collection-view"
+          @click="viewSingleCollection(item)"
+          aria-label="View collection"
+        >
+          <i-ri-file-list-3-line class="icon-color" />
+        </button>
+      </div>
+    </div>
   </section>
 </template>
 <script>
 import { ref, computed, inject } from "vue";
+import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 
 // import { uploadBlobIPFS } from "../services/ipfs.js";
@@ -90,10 +109,12 @@ import { fileSize } from "../services/helpers";
 /* LFG */
 export default {
   name: "PanelUpload",
-  setup() {
+  emits: ["onCollectionClick"],
+  setup(props, { emit }) {
     const notyf = inject("notyf");
     /* Init Store */
     const store = useStore();
+    const { collections } = storeToRefs(store);
 
     /* File Uploader */
     const fileRef = ref(null);
@@ -124,6 +145,13 @@ export default {
     };
     const onDragLeave = () => {
       isDragged.value = false;
+    };
+
+    /**
+     * Create a Collection with a single File
+     */
+    const viewSingleCollection = (item) => {
+      emit("onCollectionClick", item);
     };
 
     /**
@@ -189,6 +217,7 @@ export default {
     });
 
     return {
+      collections,
       uploadType,
       isUploading,
       finished,
@@ -203,6 +232,7 @@ export default {
       openSelectFile,
       onFileChangedHandler,
       setUploadType,
+      viewSingleCollection,
     };
   },
 };
@@ -416,6 +446,54 @@ section#panel-upload {
             infinite;
           animation-delay: 1.15s;
         }
+      }
+    }
+  }
+
+  .panel-collections {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    h3 {
+      width: 100%;
+      display: block;
+      font-size: 1.17em;
+      margin-block-start: 1em;
+      margin-block-end: 0.5em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .collection-item {
+      width: 94%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: center;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 15px;
+      border: 1px solid $haus-cyan;
+      padding: 3% 3% 2% 3%;
+      margin-bottom: 5px;
+      transition: 0.6s;
+      cursor: pointer;
+
+      .collection-view {
+        border: none;
+        color: $haus-blue;
+        font-size: 16px;
+        padding: 2px;
+        font-weight: bold;
+        background: transparent;
+        cursor: pointer;
       }
     }
   }

@@ -28,7 +28,7 @@
         </p>
       </div>
       <div class="row">
-        <PanelUpload />
+        <PanelUpload @onCollectionClick="viewSingleCollection" />
         <PanelResult
           @onChecked="onSelectedChecked"
           @onNewCollectionClick="createSingleCollection"
@@ -36,8 +36,8 @@
         <CollectionsModalPopup
           :showModal="showModal"
           :selectedFileCIDS="selectedFileCIDS"
-          @closeModal="showHideModal()"
-          @saveModal="createCollection()"
+          @closeModal="showHideModal"
+          @saveModal="createCollection"
         />
       </div>
     </div>
@@ -54,7 +54,7 @@ import { useStore } from "../store";
 /* Components */
 import PanelUpload from "../components/PanelUpload.vue";
 import PanelResult from "../components/PanelResult.vue";
-import CollectionsModalPopup from "../components/CollectionsModalPopup.vue";
+import CollectionsModalPopup from "../components/modals/CollectionsModalPopup.vue";
 
 /* LFG */
 export default {
@@ -66,7 +66,6 @@ export default {
   },
   setup() {
     const store = useStore();
-
     const { collection } = storeToRefs(store);
 
     const showModal = ref(false);
@@ -129,10 +128,19 @@ export default {
     };
 
     /**
-     * Create a Collection with single CID
+     * Create a Collection with a single CID
      */
     const createSingleCollection = (item) => {
       console.log("Create single collection item : ", item);
+      selectedFileCIDS.value.push(...[item.cid]);
+      showModal.value = true;
+    };
+
+    /**
+     * View a Collection
+     */
+    const viewSingleCollection = (item) => {
+      console.log("View a single collection : ", item);
       selectedFileCIDS.value.push(...[item.cid]);
       showModal.value = true;
     };
@@ -151,6 +159,7 @@ export default {
       onSelectedChecked,
       showHideModal,
       createSingleCollection,
+      viewSingleCollection,
       createCollection,
     };
   },

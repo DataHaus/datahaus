@@ -93,7 +93,7 @@ export default {
     const search = ref("");
 
     /**
-     * Create a COD service job Deal with a single CID
+     * Create a COD job with a single File
      */
     const createSingleCODJob = (item) => {
       emit("onJobClick", item);

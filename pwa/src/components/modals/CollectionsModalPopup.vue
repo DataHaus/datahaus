@@ -8,7 +8,7 @@
         aria-describedby="modalDescription"
       >
         <header class="modal-header" id="modalTitle">
-          Create Deal
+          Create Collection
           <button
             type="button"
             class="btn-close"
@@ -21,21 +21,21 @@
         <section class="modal-body" id="modalDescription">
           <div class="form-container">
             <div class="input-row mb-10">
-              <label for="name">Tag*</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter a tag, eg. deal-one"
-                v-model="form.tag"
-              />
-            </div>
-            <div class="input-row mb-10">
               <label for="name">Name*</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a name,eg. My Storage Deal"
+                placeholder="Enter a name,eg. My Collection"
                 v-model="form.name"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="name">Tag*</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter a tag, eg. collection-one"
+                v-model="form.tag"
               />
             </div>
             <div class="input-row mb-10">
@@ -47,24 +47,18 @@
                 v-model="form.description"
               />
             </div>
-            <div class="input-row">
-              <label for="name">Piece Identifiers</label>
-              <template v-for="(item, index) in selectedFilePIDS" :key="index">
-                <input
-                  type="text"
-                  name="cids"
-                  placeholder="Enter your a comma seprated list of PIDs"
-                  :value="item"
-                  readonly
-                />
+            <div v-if="selectedFileCIDS.length > 0" class="input-row">
+              <label for="name">Selected CIDs</label>
+              <template v-for="(item, index) in selectedFileCIDS" :key="index">
+                <div class="cid-hash">{{ item }}</div>
               </template>
-              <input
-                v-if="!selectedFilePIDS || selectedFilePIDS.length === 0"
-                type="text"
-                name="cids"
-                placeholder="Enter your single PID"
-                :value="form.cid"
-              />
+            </div>
+            <div v-else class="input-row">
+              <label for="name">No CIDs Selected</label>
+              <div class="cid-hash">
+                Please go back and select the files you want to add to the
+                collection
+              </div>
             </div>
           </div>
         </section>
@@ -92,16 +86,16 @@
 </template>
 <script>
 /* Import our Pinia Store */
-import { useStore } from "../store";
+import { useStore } from "../../store";
 /* LFG */
 export default {
-  name: "DealsModalPopup",
+  name: "CollectionsModalPopup",
   props: {
     showModal: {
       type: Boolean,
       default: false,
     },
-    selectedFilePIDS: {
+    selectedFileCIDS: {
       type: Array,
     },
   },
@@ -109,9 +103,9 @@ export default {
     return {
       form: {
         tag: "",
-        title: "",
+        name: "",
         description: "",
-        PIDS: this.selectedFilePIDS,
+        cids: this.selectedFileCIDS,
       },
     };
   },
@@ -124,16 +118,16 @@ export default {
     saveModal() {
       const store = useStore();
       const { form } = this;
-      store.setDeal(form);
+      store.setCollection(form);
       this.resetForm();
       this.$emit("saveModal");
     },
     resetForm() {
       this.form = {
         tag: "",
-        title: "",
+        name: "",
         description: "",
-        PIDS: [],
+        cids: [],
       };
     },
   },
@@ -141,8 +135,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/styles/variables.scss";
-@import "../assets/styles/mixins.scss";
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/mixins.scss";
 
 .modal-backdrop {
   position: fixed;
@@ -160,7 +154,7 @@ export default {
   width: 450px;
   background: $white;
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 10px 10px 10px 20px;
   box-shadow: 2px 2px 25px 6px rgba(43, 43, 43, 0.1);
   overflow-x: auto;
   display: flex;
@@ -169,14 +163,12 @@ export default {
 
 .modal-header {
   position: relative;
-
   color: $haus-blue;
   font-size: 20px;
   font-weight: bold;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .modal-body {
@@ -200,6 +192,21 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .cid-hash {
+        width: 94%;
+        height: 10px;
+        color: $haus-blue;
+        background-color: #fdfdfd;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 9px;
+        line-height: 12px;
+        margin-bottom: 5px;
+        padding: 2% 3%;
+        text-align: left;
+      }
     }
 
     label {
