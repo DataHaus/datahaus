@@ -79,15 +79,17 @@
         class="collection-item"
         v-for="(item, index) in collections"
         :key="index"
+        @click="viewSingleCollection(item)"
       >
         <div class="collection-name">{{ item.name }}</div>
+        <div class="collection-count">{{ item.cids.length }} files</div>
         <button
           type="button"
           class="collection-view"
           @click="viewSingleCollection(item)"
           aria-label="View collection"
         >
-          <i-ri-file-list-3-line class="icon-color" />
+          <i-mdi-folder-outline class="icon-color" />
         </button>
       </div>
     </div>
@@ -485,6 +487,20 @@ section#panel-upload {
       margin-bottom: 5px;
       transition: 0.6s;
       cursor: pointer;
+
+      .collection-name {
+        color: $haus-blue;
+        font-size: 14px;
+      }
+      .collection-count {
+        margin-right: 5px;
+        font-size: 12px;
+        color: $haus-blue;
+        .files {
+          color: $grey-60;
+          font-size: 12px;
+        }
+      }
 
       .collection-view {
         border: none;

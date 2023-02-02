@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div v-if="showModal" class="modal-backdrop">
+    <div v-if="showViewModal" class="modal-backdrop">
       <div
         class="modal"
         role="dialog"
@@ -8,11 +8,11 @@
         aria-describedby="modalDescription"
       >
         <header class="modal-header" id="modalTitle">
-          Create COD Job
+          View Collection
           <button
             type="button"
             class="btn-close"
-            @click="closeModal()"
+            @click="closeViewModal()"
             aria-label="Close modal"
           >
             x
@@ -21,19 +21,44 @@
         <section class="modal-body" id="modalDescription">
           <div class="form-container">
             <div class="input-row mb-10">
-              <label for="name">Input Prompt*</label>
+              <label for="name">Name</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a prompt input,eg. My Cod Job"
-                v-model="form.prompt"
+                placeholder="Enter a name,eg. My Collection"
+                :value="collection.name"
               />
             </div>
-            <div class="input-row">
-              <label for="name">Content Identifiers</label>
-              <template v-for="(item, index) in selectedFileCIDS" :key="index">
+            <div class="input-row mb-10">
+              <label for="name">Tag</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter a tag, eg. collection-one"
+                :value="collection.tag"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="description">Description</label>
+              <textarea
+                type="text"
+                name="description"
+                placeholder="Enter a short description"
+                :value="collection.description"
+              />
+            </div>
+            <div v-if="collection.cids.length > 0" class="input-row">
+              <label for="name">Selected CIDs</label>
+              <template v-for="(item, index) in collection.cids" :key="index">
                 <div class="cid-hash">{{ item }}</div>
               </template>
+            </div>
+            <div v-else class="input-row">
+              <label for="name">No CIDs Selected</label>
+              <div class="cid-hash">
+                Please go back and select the files you want to add to the
+                collection
+              </div>
             </div>
           </div>
         </section>
@@ -41,18 +66,13 @@
           <button
             type="button"
             class="btn-blue"
-            @click="cancelModal()"
-            aria-label="Cancel modal"
+            @click="closeViewModal()"
+            aria-label="Close modal"
           >
             Cancel
           </button>
-          <button
-            :disabled="!form.prompt"
-            type="button"
-            class="btn-green"
-            @click="runCodeService()"
-          >
-            Run Job
+          <button type="button" class="btn-green" @click="closeViewModal()">
+            Done
           </button>
         </footer>
       </div>
@@ -60,60 +80,22 @@
   </transition>
 </template>
 <script>
-/* Import our Services and APIs */
-import bacalhauCod from "../../services/bacalhauCod";
 /* LFG */
 export default {
-  name: "CodModalPopup",
+  name: "ViewCollectionModalPopup",
   props: {
-    showModal: {
+    showViewModal: {
       type: Boolean,
       default: false,
     },
-    selectedFileCIDS: {
-      type: Array,
+    collection: {
+      type: Object,
     },
   },
-  data() {
-    return {
-      form: {
-        prompt: "",
-        cids: this.selectedFileCIDS,
-      },
-    };
-  },
-  emits: ["closeModal", "cancelModal", "saveModal"],
+  emits: ["closeViewModal"],
   methods: {
-    async runCodeService() {
-      const { form } = this;
-      let prompt = form.prompt;
-      let hash = form.cids[0];
-
-      console.log("prompt", prompt);
-      console.log("hash", hash);
-
-      /* Load Bacalhau */
-      const bacalhau = new bacalhauCod();
-      let response = await bacalhau.callBacalhauJob(prompt, hash);
-
-      // let response = await bacalhau.getImageBlob(hash);
-      // let response = await bacalhau.getExampleImage();
-
-      console.log("bacalhau response", response);
-    },
-    closeModal() {
-      this.resetForm();
-      this.$emit("closeModal", false);
-    },
-    cancelModal() {
-      this.resetForm();
-      this.$emit("cancelModal", false);
-    },
-    resetForm() {
-      this.form = {
-        prompt: "",
-        cids: [],
-      };
+    closeViewModal() {
+      this.$emit("closeViewModal", false);
     },
   },
 };
@@ -139,7 +121,7 @@ export default {
   width: 450px;
   background: $white;
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 10px 10px 10px 20px;
   box-shadow: 2px 2px 25px 6px rgba(43, 43, 43, 0.1);
   overflow-x: auto;
   display: flex;
@@ -148,14 +130,12 @@ export default {
 
 .modal-header {
   position: relative;
-
   color: $haus-blue;
   font-size: 20px;
   font-weight: bold;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .modal-body {

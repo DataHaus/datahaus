@@ -39,6 +39,11 @@
           @closeModal="showHideModal"
           @saveModal="createCollection"
         />
+        <ViewCollectionModalPopup
+          :showViewModal="showViewModal"
+          :collection="selectedCollection"
+          @closeViewModal="showHideViewModal"
+        />
       </div>
     </div>
   </section>
@@ -55,6 +60,7 @@ import { useStore } from "../store";
 import PanelUpload from "../components/PanelUpload.vue";
 import PanelResult from "../components/PanelResult.vue";
 import CollectionsModalPopup from "../components/modals/CollectionsModalPopup.vue";
+import ViewCollectionModalPopup from "../components/modals/ViewCollectionModalPopup.vue";
 
 /* LFG */
 export default {
@@ -63,12 +69,15 @@ export default {
     PanelUpload,
     PanelResult,
     CollectionsModalPopup,
+    ViewCollectionModalPopup,
   },
   setup() {
     const store = useStore();
     const { collection } = storeToRefs(store);
 
     const showModal = ref(false);
+    const showViewModal = ref(false);
+    const selectedCollection = ref({});
     const selectedFileCIDS = ref([]);
 
     const NotfyProvider = new Notyf({
@@ -117,6 +126,11 @@ export default {
       showModal.value = !showModal.value;
     };
 
+    /* Show the View Collection Modal Popup */
+    const showHideViewModal = () => {
+      showViewModal.value = !showViewModal.value;
+    };
+
     /* Update Files Checkbox with CID */
     const onSelectedChecked = ($event) => {
       let cid = $event.target.value;
@@ -141,8 +155,9 @@ export default {
      */
     const viewSingleCollection = (item) => {
       console.log("View a single collection : ", item);
-      selectedFileCIDS.value.push(...[item.cid]);
-      showModal.value = true;
+      selectedCollection.value = item;
+      // store.setCollection(item);
+      showViewModal.value = true;
     };
 
     const createCollection = () => {
@@ -154,10 +169,14 @@ export default {
     };
 
     return {
+      collection,
       showModal,
+      showViewModal,
       selectedFileCIDS,
+      selectedCollection,
       onSelectedChecked,
       showHideModal,
+      showHideViewModal,
       createSingleCollection,
       viewSingleCollection,
       createCollection,

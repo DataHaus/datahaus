@@ -41,6 +41,7 @@ declare module '@vue/runtime-core' {
     IMdiFileOutline: typeof import('~icons/mdi/file-outline')['default']
     IMdiFlashOutline: typeof import('~icons/mdi/flash-outline')['default']
     IMdiFolderMultipleOutline: typeof import('~icons/mdi/folder-multiple-outline')['default']
+    IMdiFolderOutline: typeof import('~icons/mdi/folder-outline')['default']
     IMdiHome: typeof import('~icons/mdi/home')['default']
     IMdiHomeStorage: typeof import('~icons/mdi/home-storage')['default']
     IMdiLocker: typeof import('~icons/mdi/locker')['default']
@@ -73,5 +74,6 @@ declare module '@vue/runtime-core' {
     SearchDeals: typeof import('./src/components/SearchDeals.vue')['default']
     SearchResult: typeof import('./src/components/SearchResult.vue')['default']
     SidebarView: typeof import('./src/components/SidebarView.vue')['default']
+    ViewCollectionModalPopup: typeof import('./src/components/modals/ViewCollectionModalPopup.vue')['default']
   }
 }

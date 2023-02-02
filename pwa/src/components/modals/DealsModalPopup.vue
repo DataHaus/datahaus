@@ -181,7 +181,7 @@ export default {
 
 .modal-body {
   position: relative;
-  padding: 20px 0;
+  padding: 0;
   .form-container {
     width: 94%;
     height: auto;
