@@ -78,6 +78,7 @@
 <script>
 import { ref, computed, inject } from "vue";
 import { useStore } from "../store";
+
 // import { uploadBlobIPFS } from "../services/ipfs.js";
 import { uploadBlobNFTStorage } from "../services/nftStorage.js";
 // import { uploadBlobWeb3Storage } from "../services/web3Storage.js";
@@ -152,7 +153,13 @@ export default {
         console.log("successfully", successfully);
 
         if (successfully.length > 0) {
-          notyf.success(`${successfully.length} files successfully uploaded`);
+          if (successfully.length === 1) {
+            notyf.success(`${successfully.length} file uploaded successfully!`);
+          } else if (successfully.length > 1) {
+            notyf.success(
+              `${successfully.length} files uploaded successfully!`
+            );
+          }
         }
         store.addResults(...successfully.map(({ error, data: file }) => file));
         store.resetFiles();
@@ -311,6 +318,7 @@ section#panel-upload {
 
     .dropzone-box {
       width: 240px;
+      height: 180px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -388,7 +396,7 @@ section#panel-upload {
           content: "";
           position: absolute;
           background-color: inherit;
-          top: 0;
+          top: 50;
           left: 0;
           bottom: 0;
           will-change: left, right;

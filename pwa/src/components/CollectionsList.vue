@@ -70,19 +70,24 @@
 import { ref, computed, inject } from "vue";
 /* Import our Pinia Store */
 import { useStore } from "../store";
+
 /* Import our helpers */
 import { fileSize, copyToClipboard, generateLink } from "../services/helpers";
+
 /* Components */
 import SearchCollections from "./SearchCollections.vue";
+
 /* LFG */
 export default {
   name: "CollectionsList",
   components: {
     SearchCollections,
   },
-  setup() {
+  emits: ["onChecked", "onJobClick"],
+  setup(props, { emit }) {
     /* Inject Notyf */
     const notyf = inject("notyf");
+
     /* Init Store */
     const store = useStore();
     const search = ref("");
@@ -91,9 +96,7 @@ export default {
      * Create a COD service job Deal with a single CID
      */
     const createSingleCODJob = (item) => {
-      const cid = item.cid;
-      console.log("Create single COD Job CID : ", cid);
-      notyf.success(`COD service started ${item.cid}`);
+      emit("onJobClick", item);
     };
 
     /**
@@ -140,6 +143,7 @@ export default {
 
 section#panel-result {
   width: 100%;
+  height: 100%;
   background: $white;
 
   .panel-result--content {

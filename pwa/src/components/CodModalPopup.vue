@@ -21,50 +21,19 @@
         <section class="modal-body" id="modalDescription">
           <div class="form-container">
             <div class="input-row mb-10">
-              <label for="name">Tag*</label>
+              <label for="name">Input Prompt*</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a tag, eg. job-one"
-                v-model="form.tag"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="name">Name*</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter a name,eg. My Cod Job"
-                v-model="form.name"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="description">Description</label>
-              <textarea
-                type="text"
-                name="description"
-                placeholder="Enter a short description"
-                v-model="form.description"
+                placeholder="Enter a prompt input,eg. My Cod Job"
+                v-model="form.prompt"
               />
             </div>
             <div class="input-row">
-              <label for="name">Piece Identifiers</label>
-              <template v-for="(item, index) in selectedFilePIDS" :key="index">
-                <input
-                  type="text"
-                  name="cids"
-                  placeholder="Enter your a comma seprated list of PIDs"
-                  :value="item"
-                  readonly
-                />
+              <label for="name">Content Identifiers</label>
+              <template v-for="(item, index) in selectedFileCIDS" :key="index">
+                <div class="cid-hash">{{ item }}</div>
               </template>
-              <input
-                v-if="!selectedFilePIDS || selectedFilePIDS.length === 0"
-                type="text"
-                name="cids"
-                placeholder="Enter your single PID"
-                :value="form.cid"
-              />
             </div>
           </div>
         </section>
@@ -72,18 +41,18 @@
           <button
             type="button"
             class="btn-blue"
-            @click="closeModal()"
-            aria-label="Close modal"
+            @click="cancelModal()"
+            aria-label="Cancel modal"
           >
             Cancel
           </button>
           <button
-            :disabled="!form.tag || !form.name"
+            :disabled="!form.prompt"
             type="button"
             class="btn-green"
-            @click="saveModal()"
+            @click="runCodeService()"
           >
-            Save
+            Run Job
           </button>
         </footer>
       </div>
@@ -91,8 +60,8 @@
   </transition>
 </template>
 <script>
-/* Import our Pinia Store */
-import { useStore } from "../store";
+/* Import our Services and APIs */
+import bacalhauCod from "../services/bacalhauCod.js";
 /* LFG */
 export default {
   name: "CodModalPopup",
@@ -101,39 +70,49 @@ export default {
       type: Boolean,
       default: false,
     },
-    selectedFilePIDS: {
+    selectedFileCIDS: {
       type: Array,
     },
   },
   data() {
     return {
       form: {
-        tag: "",
-        title: "",
-        description: "",
-        PIDS: this.selectedFilePIDS,
+        prompt: "",
+        cids: this.selectedFileCIDS,
       },
     };
   },
-  emits: ["closeModal", "saveModal"],
+  emits: ["closeModal", "cancelModal", "saveModal"],
   methods: {
+    async runCodeService() {
+      const { form } = this;
+      let prompt = form.prompt;
+      let hash = form.cids[0];
+
+      console.log("prompt", prompt);
+      console.log("hash", hash);
+
+      /* Load Bacalhau */
+      const bacalhau = new bacalhauCod();
+      let response = await bacalhau.callBacalhauJob(prompt, hash);
+
+      // let response = await bacalhau.getImageBlob(hash);
+      // let response = await bacalhau.getExampleImage();
+
+      console.log("bacalhau response", response);
+    },
     closeModal() {
       this.resetForm();
       this.$emit("closeModal", false);
     },
-    saveModal() {
-      const store = useStore();
-      const { form } = this;
-      store.setCod(form);
+    cancelModal() {
       this.resetForm();
-      this.$emit("saveModal");
+      this.$emit("cancelModal", false);
     },
     resetForm() {
       this.form = {
-        tag: "",
-        title: "",
-        description: "",
-        PIDS: [],
+        prompt: "",
+        cids: [],
       };
     },
   },
@@ -200,6 +179,21 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .cid-hash {
+        width: 94%;
+        height: 10px;
+        color: $haus-blue;
+        background-color: #fdfdfd;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 9px;
+        line-height: 12px;
+        margin-bottom: 5px;
+        padding: 2% 3%;
+        text-align: left;
+      }
     }
 
     label {

@@ -21,21 +21,21 @@
         <section class="modal-body" id="modalDescription">
           <div class="form-container">
             <div class="input-row mb-10">
-              <label for="name">Tag*</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter a tag, eg. collection-one"
-                v-model="form.tag"
-              />
-            </div>
-            <div class="input-row mb-10">
               <label for="name">Name*</label>
               <input
                 type="text"
                 name="name"
                 placeholder="Enter a name,eg. My Collection"
                 v-model="form.name"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="name">Tag*</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter a tag, eg. collection-one"
+                v-model="form.tag"
               />
             </div>
             <div class="input-row mb-10">
@@ -48,23 +48,10 @@
               />
             </div>
             <div class="input-row">
-              <label for="name">Content Identifiers</label>
+              <label for="name">Selected CIDs</label>
               <template v-for="(item, index) in selectedFileCIDS" :key="index">
-                <input
-                  type="text"
-                  name="cids"
-                  placeholder="Enter your a comma seprated list of CIDs"
-                  :value="item"
-                  readonly
-                />
+                <div class="cid-hash">{{ item }}</div>
               </template>
-              <input
-                v-if="!selectedFileCIDS || selectedFileCIDS.length === 0"
-                type="text"
-                name="cids"
-                placeholder="Enter your single CID"
-                :value="form.cid"
-              />
             </div>
           </div>
         </section>
@@ -109,9 +96,9 @@ export default {
     return {
       form: {
         tag: "",
-        title: "",
+        name: "",
         description: "",
-        CIDS: this.selectedFileCIDS,
+        cids: this.selectedFileCIDS,
       },
     };
   },
@@ -131,9 +118,9 @@ export default {
     resetForm() {
       this.form = {
         tag: "",
-        title: "",
+        name: "",
         description: "",
-        CIDS: [],
+        cids: [],
       };
     },
   },
@@ -200,6 +187,21 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .cid-hash {
+        width: 94%;
+        height: 10px;
+        color: $haus-blue;
+        background-color: #fdfdfd;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 9px;
+        line-height: 12px;
+        margin-bottom: 5px;
+        padding: 2% 3%;
+        text-align: left;
+      }
     }
 
     label {

@@ -3,11 +3,17 @@
     <div class="main">
       <section id="home">
         <div class="left">
-          <h1>Data<span class="cyan">Haus</span></h1>
+          <h1>
+            <img
+              src="../assets/images/DataHaus-Icon.png"
+              class="intro-logo"
+            />Data<span class="cyan">Haus</span>
+          </h1>
           <p>
             DataHaus is a decentralised data economy, built on Filecoin, which
             provides a reliable web3 data foundation to efficiently handle all
-            data types and uses cases.
+            data types and uses cases required today in normal life and
+            business.
           </p>
           <p>
             Filecoin is a powerful and dynamic distributed cloud storage network
@@ -276,8 +282,8 @@ section#content {
       align-items: center;
       justify-content: space-between;
       padding: 0 0 0 20px;
-
       overflow: hidden;
+
       @include breakpoint($break-ssm) {
         flex-direction: column;
         justify-content: center;
@@ -291,8 +297,36 @@ section#content {
         align-content: flex-start;
         justify-content: center;
         padding: 40px 40px 0 40px;
+
         @include breakpoint($break-ssm) {
           width: 100%;
+        }
+
+        h1 {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-content: center;
+          align-items: flex-end;
+
+          @include breakpoint($break-ssm) {
+            font-size: 40px;
+          }
+
+          img {
+            width: 100px;
+            margin-bottom: -10px;
+            margin-right: 5px;
+            @include breakpoint($break-ssm) {
+              width: 60px;
+            }
+          }
+        }
+        p {
+          padding: 0 0 0 20px;
+          @include breakpoint($break-ssm) {
+            padding: 0 0 0 10px;
+          }
         }
 
         .link-button {
@@ -362,23 +396,24 @@ section#content {
       }
 
       .left {
-        width: 30%;
+        width: 26%;
         display: flex;
         align-content: flex-start;
         justify-content: flex-start;
         flex-direction: column;
-        padding: 20px;
+        padding: 2%;
         overflow: hidden;
 
         @include breakpoint($break-ssm) {
-          width: 100%;
+          width: 94%;
+          padding: 3%;
           align-content: center;
           justify-content: center;
         }
 
         h1 {
           color: $haus-blue;
-          font-size: 3.25rem;
+          font-size: 3rem;
           margin-bottom: 20px;
           z-index: 999;
         }
@@ -428,7 +463,7 @@ section#content {
         .about-box {
           float: left;
           width: 44%;
-          min-height: 325px;
+          min-height: 360px;
           padding: 3%;
           @include breakpoint($break-ssm) {
             width: 94%;
@@ -504,14 +539,19 @@ section#content {
       flex-direction: column;
       align-content: center;
       align-items: center;
-      justify-content: space-between;
-      padding: 40px 3% 0 3%;
+      justify-content: center;
 
       h1 {
+        width: 100%;
         color: $haus-blue;
         font-size: 3.25rem;
+        text-align: center;
         margin-bottom: 20px;
         z-index: 999;
+        @include breakpoint($break-ssm) {
+          font-size: 2.75rem;
+          margin-bottom: 0;
+        }
       }
 
       .subtitle {
@@ -542,11 +582,13 @@ section#content {
           flex-direction: column;
           align-content: center;
           justify-content: center;
+          margin-bottom: 0;
         }
         .providers-box {
+          width: 94%;
           min-height: 270px;
           margin: 0 1%;
-          padding: 2%;
+          padding: 3%;
           border-radius: 20px;
 
           display: flex;
@@ -555,6 +597,12 @@ section#content {
           align-items: center;
           justify-content: center;
           background-color: $haus-blue;
+
+          @include breakpoint($break-ssm) {
+            width: 90%;
+            padding: 3%;
+            margin: 1% 2%;
+          }
 
           h2 {
             color: $white;
@@ -579,10 +627,9 @@ section#content {
           p {
             color: $white;
             line-height: 1.7;
-            margin-bottom: 20px;
-          }
-          @include breakpoint($break-ssm) {
-            width: 96%;
+            @include breakpoint($break-ssm) {
+              text-align: center;
+            }
           }
         }
 
@@ -597,6 +644,11 @@ section#content {
             flex-direction: row;
             align-content: center;
             align-items: center;
+
+            @include breakpoint($break-ssm) {
+              margin-bottom: 10px;
+              font-size: 1.85rem;
+            }
             .svg-container {
               width: 80px;
               margin-left: 12px;
@@ -625,13 +677,18 @@ section#content {
       align-content: center;
       align-items: center;
       justify-content: space-between;
-      padding: 40px 0 0 0;
+      padding: 30px 0 0 0;
 
       h1 {
         color: $white;
         font-size: 3.75rem;
+        text-align: center;
         margin-bottom: 20px;
         z-index: 999;
+        @include breakpoint($break-ssm) {
+          font-size: 2.75rem;
+          margin-bottom: 0;
+        }
       }
 
       .subtitle {
@@ -646,6 +703,10 @@ section#content {
         text-align: center;
         margin-bottom: 50px;
         z-index: 999;
+        @include breakpoint($break-ssm) {
+          padding: 30px 5%;
+          margin-bottom: 0;
+        }
       }
 
       .row {
@@ -662,6 +723,7 @@ section#content {
           flex-direction: column;
           align-content: center;
           justify-content: center;
+          margin-bottom: 0;
         }
         .cod-box-one {
           width: 25%;
@@ -683,6 +745,8 @@ section#content {
 
           @include breakpoint($break-ssm) {
             width: 94%;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
           }
         }
         .cod-box-three {
@@ -694,6 +758,8 @@ section#content {
 
           @include breakpoint($break-ssm) {
             width: 94%;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
           }
         }
 
@@ -707,9 +773,15 @@ section#content {
             flex-direction: row;
             align-content: center;
             align-items: center;
+            @include breakpoint($break-ssm) {
+              font-size: 1.85rem;
+            }
             .svg-container {
               width: 80px;
               margin-left: 12px;
+              @include breakpoint($break-ssm) {
+                width: 60px;
+              }
             }
           }
 
@@ -731,6 +803,9 @@ section#content {
             color: $haus-blue;
             font-size: 2.25rem;
             margin-bottom: 20px;
+            @include breakpoint($break-ssm) {
+              font-size: 1.85rem;
+            }
           }
 
           a {
@@ -751,6 +826,9 @@ section#content {
             color: $haus-blue;
             font-size: 2.25rem;
             margin-bottom: 20px;
+            @include breakpoint($break-ssm) {
+              font-size: 1.85rem;
+            }
           }
 
           a {

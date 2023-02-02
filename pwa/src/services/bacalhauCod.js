@@ -5,7 +5,9 @@ export default class bacalhauCod {
     this.endpoint = new URL("https://api.zondax.ch/fil/data/v1/hyperspace");
   }
 
-  async callBacalhauJob(promptInput) {
+  async callBacalhauJob(promptInput, hash) {
+    console.log("Bacalhau hash", hash);
+
     /* Bacalahau HTTP Stable Diffusion Endpoint */
     const url = "http://dashboard.bacalhau.org:1000/api/v1/stablediffusion";
     const headers = {
@@ -16,6 +18,8 @@ export default class bacalhauCod {
     const data = {
       prompt: promptInput,
     };
+
+    console.log("Bacalhau data", data);
 
     /* Fetch from Bacalhau Endpoint for Stable Diffusion */
     const cid = await fetch(url, {
@@ -60,7 +64,12 @@ export default class bacalhauCod {
    * This is the imageHTTPURL will just be ipfs://cid for normal image
    */
   async getImageBlob(imageHTTPURL) {
-    const r = await fetch(imageHTTPURL);
+    console.log("imageHTTPURL", imageHTTPURL);
+
+    const imageOriginUrl = `https://${imageHTTPURL}.ipfs.nftstorage.link/`;
+
+    const r = await fetch(imageOriginUrl);
+
     console.log("r", r);
     if (!r.ok) {
       throw new Error(`Error fetching image: [${r.statusText}]: ${r.status}`);

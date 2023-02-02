@@ -9,8 +9,8 @@ db.read();
 db.data ||= {
   version: "0.0.1",
   results: [],
-  collections: [],
-  deals: [],
+  collectionsResults: [],
+  dealsResults: [],
 };
 
 /* LFG */
@@ -123,12 +123,14 @@ export const useStore = defineStore({
     },
     addCollections(...collection) {
       this.collections.push(...collection);
+      console.log("this.collections", this.collections);
     },
-    addCollectionsResults(...collection) {
-      this.collectionsResults.push(...collection);
-      this.collectionsResults = this.collectionsResults.filter(function (cid) {
-        return !!cid;
+    addCollectionsResults(...collections) {
+      this.collectionsResults.push(...collections);
+      this.collectionsResults = this.collectionsResults.filter(function (tag) {
+        return !!tag;
       });
+      console.log("this.collectionsResults", this.collectionsResults);
       db.data.collectionsResults = [...this.collectionsResults];
       db.write();
     },

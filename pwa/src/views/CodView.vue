@@ -11,9 +11,6 @@
             <button @click="showHideModal()" class="create-button">
               <i-mdi-locker-multiple class="icon-color" /> Run Job
             </button>
-            <!-- <button @click="viewOptions()" class="create-button">
-              <i-mdi-plus class="icon-color" /> Options
-            </button> -->
           </div>
         </div>
         <h2><BacalhauBlue /> Bacalhau</h2>
@@ -24,11 +21,15 @@
         </p>
       </div>
       <div class="row">
-        <CollectionsList @onChecked="onSelectedChecked" />
+        <CollectionsList
+          @onChecked="onSelectedChecked"
+          @onJobClick="createSingleCODJob"
+        />
         <CodModalPopup
           :showModal="showModal"
-          :selectedFilePIDS="selectedFilePIDS"
+          :selectedFileCIDS="selectedFileCIDS"
           @closeModal="showHideModal()"
+          @cancelModal="cancelModal()"
           @saveModal="createCodJob()"
         />
       </div>
@@ -49,24 +50,10 @@ import CollectionsList from "../components/CollectionsList.vue";
 import CodModalPopup from "../components/CodModalPopup.vue";
 
 const store = useStore();
-const { account, cod, collection, collections } = storeToRefs(store);
-
-console.log("account", account.value);
-console.log("collection", collection.value);
-console.log("collections", collections.value);
-
-const pid = ref(null);
-const collectionRef = ref(null);
-const isRunning = ref(false);
-const jobAccepted = ref(null);
-
-console.log("pid", pid.value);
-console.log("collectionRef", collectionRef.value);
-console.log("isRunning", isRunning.value);
-console.log("jobAccepted", jobAccepted.value);
+const { cod } = storeToRefs(store);
 
 const showModal = ref(false);
-const selectedFilePIDS = ref([]);
+const selectedFileCIDS = ref([]);
 
 /* LFG */
 const NotfyProvider = new Notyf({
@@ -110,30 +97,28 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-// const createJob = () => {
-//   console.log("Create Job Clicked");
-//   NotfyProvider.success("Create Job Clicked");
-//   // NotfyProvider.success(`Collection created ${newCollection.title}`);
-// };
+const showHideModal = () => {
+  showModal.value = !showModal.value;
+};
 
-// const viewOptions = () => {
-//   console.log("View Options Clicked");
-//   NotfyProvider.success("View Options Clicked");
-//   // NotfyProvider.success(`Collection created ${newCollection.title}`);
-// };
+const cancelModal = () => {
+  showModal.value = false;
+  selectedFileCIDS.value = [];
+};
 
 /* Update Deals Checkbox with PID */
 const onSelectedChecked = ($event) => {
-  console.log("$event.target.value", $event.target.value);
-  let pid = $event.target.value;
-  console.log("pid", pid);
-  console.log("selectedFilePIDS.value", selectedFilePIDS.value);
-  selectedFilePIDS.value.push(...[pid]);
-  console.log("selectedFilePIDS.value", selectedFilePIDS.value);
+  let cid = $event.target.value;
+  selectedFileCIDS.value.push(...[cid]);
 };
 
-const showHideModal = () => {
-  showModal.value = !showModal.value;
+/**
+ * Create a COD service job
+ */
+const createSingleCODJob = (item) => {
+  console.log("Create single COD Job : ", item);
+  selectedFileCIDS.value.push(...[item.cid]);
+  showModal.value = true;
 };
 
 const createCodJob = () => {

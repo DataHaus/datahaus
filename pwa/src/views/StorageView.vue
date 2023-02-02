@@ -11,9 +11,6 @@
             <button @click="showHideModal()" class="create-button">
               <i-mdi-folder-multiple-outline class="icon-color" /> Collection
             </button>
-            <!-- <button @click="createDeals()" class="create-button">
-              <i-mdi-plus class="icon-color" /> PODS
-            </button> -->
           </div>
         </div>
         <p>
@@ -67,7 +64,7 @@ export default {
   setup() {
     const store = useStore();
 
-    const { collection, collections } = storeToRefs(store);
+    const { collection, collections, collectionsResults } = storeToRefs(store);
 
     const showModal = ref(false);
     const selectedFileCIDS = ref([]);
@@ -113,43 +110,28 @@ export default {
     });
     provide("notyf", NotfyProvider);
 
-    /* Update Files Checkbox with CID */
-    const onSelectedChecked = ($event) => {
-      console.log("$event.target.value", $event.target.value);
-      let cid = $event.target.value;
-      console.log("cid", cid);
-      console.log("selectedFileCIDS.value", selectedFileCIDS.value);
-      selectedFileCIDS.value.push(...[cid]);
-      console.log("selectedFileCIDS.value", selectedFileCIDS.value);
-    };
-
+    /* Show the Modal Popup */
     const showHideModal = () => {
       showModal.value = !showModal.value;
     };
 
-    const createCollection = () => {
-      console.log("Create collection Clicked");
-      // showModal.value = true;
-
-      // DEV NOTE: Need to add a form for this still
-      // let newCollection = {
-      //   tag: tag.value,
-      //   title: title.value,
-      //   description: description.value,
-      //   CIDS: selectedFileCIDS.value,
-      // };
-      console.log("collection", collection.value);
-      store.addCollections(collection.value);
-      console.log("collections", collections.value);
-      showModal.value = false;
-      NotfyProvider.success(`${collection.title} collection created!`);
+    /* Update Files Checkbox with CID */
+    const onSelectedChecked = ($event) => {
+      let cid = $event.target.value;
+      const found = selectedFileCIDS.value.find((element) => element === cid);
+      /* Check we not adding duplicates */
+      if (!found) {
+        selectedFileCIDS.value.push(...[cid]);
+      }
     };
 
-    // const createDeals = () => {
-    //   console.log("Create Deals Clicked");
-    //   NotfyProvider.success("Create Deals Clicked");
-    //   // NotfyProvider.success(`Collection created ${newCollection.title}`);
-    // };
+    const createCollection = () => {
+      store.addCollections(collection.value);
+      /* Reset Selected CIDS */
+      selectedFileCIDS.value = [];
+      showModal.value = false;
+      NotfyProvider.success(`${collection.value.name} collection created!`);
+    };
 
     return {
       showModal,
@@ -157,7 +139,6 @@ export default {
       onSelectedChecked,
       showHideModal,
       createCollection,
-      // createDeals,
     };
   },
 };
