@@ -21,10 +21,12 @@
             data needs in redundancy, retrieval speed, data processing and cost.
           </p>
           <p>
-            <a href="#about" title="Learn More" class="link-button"
+            <a href="/#about" title="Learn More" class="link-button"
               >Solutions</a
             >
-            <a href="#about" title="Learn More" class="link-button">Options</a>
+            <a href="/#providers" title="Learn More" class="link-button"
+              >Options</a
+            >
             <a href="/#cod" title="Learn More" class="link-button">COD</a>
           </p>
         </div>
@@ -107,13 +109,18 @@
           <div class="providers-box">
             <h2>NFT.Storage</h2>
             <p>
-              Free decentralized storage and bandwidth for NFTs on IPFS and
+              NFT.Storage is a long-term storage service that offers free
+              decentralized storage and bandwidth for NFT data on IPFS and
               Filecoin.
             </p>
           </div>
           <div class="providers-box">
             <h2>Web3.Storage</h2>
-            <p>Use decentralized protocols to liberate your data.</p>
+            <p>
+              Use decentralized protocols to liberate your data. Content
+              uploaded to Web3.Storage is stored on Elastic IPFS, a cloud-native
+              implementation of IPFS.
+            </p>
           </div>
         </div>
         <div class="row">
@@ -173,6 +180,41 @@
               (computing) jobs submitted to the cluster.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section id="footer">
+        <div class="footer-menu">
+          <nav class="footer-navbar">
+            <a
+              href="https://ethglobal.com/showcase/datahaus-jvhhb"
+              alt="Filecoin Space Warp 2023"
+              target="_blank"
+              rel="noopener"
+              >showcase</a
+            >
+            <a
+              href="https://github.com/DataHaus/datahaus"
+              alt="GitHub"
+              target="_blank"
+              rel="noopener"
+              >github</a
+            >
+            <a
+              href="https://twitter.com/webmoss"
+              alt="Twitter"
+              target="_blank"
+              rel="noopener"
+              >twitter</a
+            >
+            <a
+              href="https://www.linkedin.com/in/craig-moss-21822628/"
+              alt="LinkedIn"
+              target="_blank"
+              rel="noopener"
+              >linkedIn</a
+            >
+          </nav>
         </div>
       </section>
     </div>
@@ -303,18 +345,20 @@ section#content {
         }
 
         h1 {
+          font-size: 48px;
           display: flex;
           flex-direction: row;
-          justify-content: center;
-          align-content: center;
+          justify-content: flex-start;
+          align-content: flex-start;
           align-items: flex-end;
+          margin-left: 10px;
 
           @include breakpoint($break-ssm) {
             font-size: 40px;
           }
 
           img {
-            width: 100px;
+            width: 90px;
             margin-bottom: -10px;
             margin-right: 5px;
             @include breakpoint($break-ssm) {
@@ -841,6 +885,69 @@ section#content {
             color: $haus-blue;
             line-height: 1.7;
             margin-bottom: 20px;
+          }
+        }
+      }
+    }
+
+    #footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em 44px;
+
+      @include breakpoint($break-ssm) {
+        padding: 10px 0;
+      }
+
+      color: $white;
+      background: haus-blue;
+
+      .footer-menu {
+        display: flex;
+        align-items: center;
+
+        .footer-navbar {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          margin: 0;
+          padding: 0.3em;
+          font-size: 0.8rem;
+
+          @include breakpoint($break-ssm) {
+            padding: 0;
+            font-size: 0.8rem;
+            justify-content: center;
+          }
+
+          a {
+            font-size: 0.8rem;
+            color: $white;
+            margin-right: 14px;
+            padding-bottom: 1px;
+            text-decoration: none;
+            border-bottom: 0.5px solid;
+            transition: 0.6s;
+            cursor: pointer;
+
+            @include breakpoint($break-ssm) {
+              font-size: 0.6rem;
+            }
+
+            &:hover {
+              font-weight: bold;
+              border-bottom: 0.5px solid $haus-cyan;
+            }
+
+            &:focus {
+              border-bottom: 0.5px solid $haus-cyan;
+            }
+          }
+
+          svg {
+            cursor: pointer;
+            font-size: 2em;
           }
         }
       }

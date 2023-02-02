@@ -47,11 +47,18 @@
                 v-model="form.description"
               />
             </div>
-            <div class="input-row">
+            <div v-if="selectedFileCIDS.length > 0" class="input-row">
               <label for="name">Selected CIDs</label>
               <template v-for="(item, index) in selectedFileCIDS" :key="index">
                 <div class="cid-hash">{{ item }}</div>
               </template>
+            </div>
+            <div v-else class="input-row">
+              <label for="name">No CIDs Selected</label>
+              <div class="cid-hash">
+                Please go back and select the files you want to add to the
+                collection
+              </div>
             </div>
           </div>
         </section>
@@ -147,7 +154,7 @@ export default {
   width: 450px;
   background: $white;
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 10px 10px 10px 20px;
   box-shadow: 2px 2px 25px 6px rgba(43, 43, 43, 0.1);
   overflow-x: auto;
   display: flex;
@@ -156,14 +163,12 @@ export default {
 
 .modal-header {
   position: relative;
-
   color: $haus-blue;
   font-size: 20px;
   font-weight: bold;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .modal-body {

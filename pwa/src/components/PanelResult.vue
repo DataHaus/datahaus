@@ -40,7 +40,10 @@
             </div>
             <div class="item-icon"></div>
             <div class="item-action">
-              <a title="Create deal" @click="createSingleDeal(item)">
+              <a
+                title="Create a Collection"
+                @click="createSingleCollection(item)"
+              >
                 <i-ri-file-list-3-line class="icon-color" />
               </a>
             </div>
@@ -68,30 +71,33 @@
 import { ref, computed, inject } from "vue";
 /* Import our Pinia Store */
 import { useStore } from "../store";
+
 /* Import our helpers */
 import { fileSize, copyToClipboard, generateLink } from "../services/helpers";
+
 /* Components */
 import SearchResult from "../components/SearchResult.vue";
+
 /* LFG */
 export default {
   name: "PanelResult",
   components: {
     SearchResult,
   },
-  setup() {
+  emits: ["onChecked", "onNewCollectionClick"],
+  setup(props, { emit }) {
     /* Inject Notyf */
     const notyf = inject("notyf");
+
     /* Init Store */
     const store = useStore();
     const search = ref("");
 
     /**
-     * Create a Deal with single CID
+     * Create a Collection with a single CID
      */
-    const createSingleDeal = (item) => {
-      const cid = item.cid;
-      console.log("Create SingleDeal CID", cid);
-      notyf.success(`Storage deal processing ${item.cid}`);
+    const createSingleCollection = (item) => {
+      emit("onNewCollectionClick", item);
     };
 
     /**
@@ -123,7 +129,7 @@ export default {
       search,
       files,
       fileSize,
-      createSingleDeal,
+      createSingleCollection,
       copyFileLink,
       generateLink,
       onSearchChanged,

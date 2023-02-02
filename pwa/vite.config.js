@@ -33,7 +33,7 @@ export default defineConfig({
         name: "DataHaus",
         short_name: "DataHaus",
         description:
-          "DataHaus is a decentralized data warehouse built on the Filecoin Virtual Machine which provides a reliable, decentralised data foundation that efficiently handles all data types.",
+          "DataHaus is a decentralized data economy built on the Filecoin which provides a reliable, decentralised data foundation that efficiently handles all data types.",
         theme_color: "#061f3e",
         registerType: "autoUpdate",
         includeAssets: ["/favicon.ico"],

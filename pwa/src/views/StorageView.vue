@@ -29,7 +29,10 @@
       </div>
       <div class="row">
         <PanelUpload />
-        <PanelResult @onChecked="onSelectedChecked" />
+        <PanelResult
+          @onChecked="onSelectedChecked"
+          @onNewCollectionClick="createSingleCollection"
+        />
         <CollectionsModalPopup
           :showModal="showModal"
           :selectedFileCIDS="selectedFileCIDS"
@@ -64,7 +67,7 @@ export default {
   setup() {
     const store = useStore();
 
-    const { collection, collections, collectionsResults } = storeToRefs(store);
+    const { collection } = storeToRefs(store);
 
     const showModal = ref(false);
     const selectedFileCIDS = ref([]);
@@ -125,6 +128,15 @@ export default {
       }
     };
 
+    /**
+     * Create a Collection with single CID
+     */
+    const createSingleCollection = (item) => {
+      console.log("Create single collection item : ", item);
+      selectedFileCIDS.value.push(...[item.cid]);
+      showModal.value = true;
+    };
+
     const createCollection = () => {
       store.addCollections(collection.value);
       /* Reset Selected CIDS */
@@ -138,6 +150,7 @@ export default {
       selectedFileCIDS,
       onSelectedChecked,
       showHideModal,
+      createSingleCollection,
       createCollection,
     };
   },
