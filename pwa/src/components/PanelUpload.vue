@@ -93,6 +93,26 @@
         </button>
       </div>
     </div>
+    <IPFSModalPopup
+      :showModal="showIPFSModal"
+      @closeModal="showHideIPFSModal"
+    />
+    <NftStorageModalPopup
+      :showModal="showNFTStorageModal"
+      @closeModal="showHideNFTStorageModal"
+    />
+    <Web3StorageModalPopup
+      :showModal="showWeb3StorageModal"
+      @closeModal="showHideWeb3StorageModal"
+    />
+    <EstuaryModalPopup
+      :showModal="showEstuaryModal"
+      @closeModal="showHideEstuaryModal"
+    />
+    <LightHouseModalPopup
+      :showModal="showLightHouseModal"
+      @closeModal="showHideLightHouseModal"
+    />
   </section>
 </template>
 <script>
@@ -100,18 +120,32 @@ import { ref, computed, inject } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 
-// import { uploadBlobIPFS } from "../services/ipfs.js";
+import { uploadBlobIPFS } from "../services/ipfs.js";
 import { uploadBlobNFTStorage } from "../services/nftStorage.js";
-// import { uploadBlobWeb3Storage } from "../services/web3Storage.js";
-// import { uploadBlobEstuaryStorage } from "../services/estuaryStorage.js";
-// import { uploadBlobLightHouse } from "../services/lighthouse.js";
+import { uploadBlobWeb3Storage } from "../services/web3Storage.js";
+import { uploadBlobLightHouse } from "../services/lighthouse.js";
+import estuaryStorage from "../services/estuaryStorage.js";
 
 import { fileSize } from "../services/helpers";
+
+/* Components */
+import IPFSModalPopup from "../components/modals/IPFSModalPopup.vue";
+import NftStorageModalPopup from "../components/modals/NftStorageModalPopup.vue";
+import Web3StorageModalPopup from "../components/modals/Web3StorageModalPopup.vue";
+import EstuaryModalPopup from "../components/modals/EstuaryModalPopup.vue";
+import LightHouseModalPopup from "../components/modals/LightHouseModalPopup.vue";
 
 /* LFG */
 export default {
   name: "PanelUpload",
   emits: ["onCollectionClick"],
+  components: [
+    IPFSModalPopup,
+    NftStorageModalPopup,
+    Web3StorageModalPopup,
+    EstuaryModalPopup,
+    LightHouseModalPopup,
+  ],
   setup(props, { emit }) {
     const notyf = inject("notyf");
     /* Init Store */
@@ -125,10 +159,46 @@ export default {
     const isUploading = ref(false);
 
     const uploadType = ref("nftStorage");
+
+    const showIPFSModal = ref(false);
+    const showNFTStorageModal = ref(false);
+    const showWeb3StorageModal = ref(false);
+    const showEstuaryModal = ref(false);
+    const showLightHouseModal = ref(false);
+
     const setUploadType = (type) => {
       uploadType.value = type;
+      if (uploadType.value === "ipfs") {
+        showIPFSModal.value = true;
+      } else if (uploadType.value === "nftStorage") {
+        showNFTStorageModal.value = true;
+      } else if (uploadType.value === "web3Storage") {
+        showWeb3StorageModal.value = true;
+      } else if (uploadType.value === "estuary") {
+        showEstuaryModal.value = true;
+      } else if (uploadType.value === "lighthouse") {
+        showLightHouseModal.value = true;
+      } else {
+        showNFTStorageModal.value = true;
+      }
     };
 
+    /* Show the Modal Popup */
+    const showHideIPFSModal = () => {
+      showIPFSModal.value = !showIPFSModal.value;
+    };
+    const showHideNFTStorageModal = () => {
+      showNFTStorageModal.value = !showNFTStorageModal.value;
+    };
+    const showHideWeb3StorageModal = () => {
+      showWeb3StorageModal.value = !showWeb3StorageModal.value;
+    };
+    const showHideEstuaryModal = () => {
+      showEstuaryModal.value = !showEstuaryModal.value;
+    };
+    const showHideLightHouseModal = () => {
+      showLightHouseModal.value = !showLightHouseModal.value;
+    };
     /**
      * Drag n Drop File Manager
      */
@@ -161,8 +231,23 @@ export default {
      * @param {File} file
      */
     const uploadFileHandler = async (file) => {
-      /* Currently set to NFT.Storage */
-      const result = await uploadBlobNFTStorage(file);
+      /* Currently set to NFT.Storage as default */
+      let result = null;
+      if (uploadType.value === "ipfs") {
+        result = await uploadBlobIPFS(file);
+      } else if (uploadType.value === "nftStorage") {
+        result = await uploadBlobNFTStorage(file);
+      } else if (uploadType.value === "web3Storage") {
+        result = await uploadBlobWeb3Storage(file);
+      } else if (uploadType.value === "estuary") {
+        const estuary = new estuaryStorage();
+        result = await estuary.uploadBlobEstuaryStorage(file);
+      } else if (uploadType.value === "lighthouse") {
+        result = await uploadBlobLightHouse(file);
+      } else {
+        result = await uploadBlobNFTStorage(file);
+      }
+
       finished.value++;
       const { error } = result;
       if (error && error instanceof Error) notyf.error(error.message);
@@ -227,6 +312,11 @@ export default {
       fileCount,
       result,
       isDragged,
+      showIPFSModal,
+      showNFTStorageModal,
+      showWeb3StorageModal,
+      showEstuaryModal,
+      showLightHouseModal,
       fileSize,
       onDragEnter,
       onDragLeave,
@@ -235,6 +325,15 @@ export default {
       onFileChangedHandler,
       setUploadType,
       viewSingleCollection,
+      showHideIPFSModal,
+      showHideNFTStorageModal,
+      showHideWeb3StorageModal,
+      showHideEstuaryModal,
+      showHideLightHouseModal,
+      uploadBlobIPFS,
+      uploadBlobNFTStorage,
+      uploadBlobWeb3Storage,
+      uploadBlobLightHouse,
     };
   },
 };
