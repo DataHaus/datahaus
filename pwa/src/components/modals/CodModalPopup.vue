@@ -23,17 +23,25 @@
             <div class="input-row mb-10">
               <label for="name">Input Prompt*</label>
               <input
+                required
                 type="text"
                 name="name"
                 placeholder="Enter a prompt input,eg. My Cod Job"
                 v-model="form.prompt"
               />
             </div>
-            <div class="input-row">
-              <label for="name">Content Identifiers</label>
+            <div v-if="selectedFileCIDS.length > 0" class="input-row">
+              <label for="cids">Selected CIDs</label>
               <template v-for="(item, index) in selectedFileCIDS" :key="index">
                 <div class="cid-hash">{{ item }}</div>
               </template>
+            </div>
+            <div v-else class="input-row error">
+              <label for="name">No CIDs Selected</label>
+              <div class="cid-hash-error">
+                Please go back and select the files you want to add to the
+                collection
+              </div>
             </div>
           </div>
         </section>
@@ -194,6 +202,21 @@ export default {
         padding: 2% 3%;
         text-align: left;
       }
+
+      .cid-hash-error {
+        width: 94%;
+        height: 10px;
+        color: $haus-blue;
+        background-color: $haus-red;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 9px;
+        line-height: 12px;
+        margin-bottom: 5px;
+        padding: 2% 3%;
+        text-align: left;
+      }
     }
 
     label {
@@ -293,7 +316,7 @@ export default {
 }
 
 .modal-footer {
-  padding: 0 10px 10px 10px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

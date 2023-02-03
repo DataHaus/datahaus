@@ -23,17 +23,23 @@
             <div class="input-row mb-10">
               <label for="name">Name*</label>
               <input
+                required
                 type="text"
                 name="name"
+                min="3"
+                max="30"
                 placeholder="Enter a name,eg. My Collection"
                 v-model="form.name"
               />
             </div>
             <div class="input-row mb-10">
-              <label for="name">Tag*</label>
+              <label for="tag">Tag*</label>
               <input
+                required
                 type="text"
-                name="name"
+                name="tag"
+                min="3"
+                max="32"
                 placeholder="Enter a tag, eg. collection-one"
                 v-model="form.tag"
               />
@@ -53,9 +59,9 @@
                 <div class="cid-hash">{{ item }}</div>
               </template>
             </div>
-            <div v-else class="input-row">
+            <div v-else class="input-row error">
               <label for="name">No CIDs Selected</label>
-              <div class="cid-hash">
+              <div class="cid-hash-error">
                 Please go back and select the files you want to add to the
                 collection
               </div>
@@ -72,7 +78,7 @@
             Cancel
           </button>
           <button
-            :disabled="!form.tag || !form.name"
+            :disabled="selectedFileCIDS.length === 0"
             type="button"
             class="btn-green"
             @click="saveModal()"
@@ -207,6 +213,21 @@ export default {
         padding: 2% 3%;
         text-align: left;
       }
+
+      .cid-hash-error {
+        width: 94%;
+        height: 10px;
+        color: $haus-blue;
+        background-color: $haus-red;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 9px;
+        line-height: 12px;
+        margin-bottom: 5px;
+        padding: 2% 3%;
+        text-align: left;
+      }
     }
 
     label {
@@ -306,7 +327,7 @@ export default {
 }
 
 .modal-footer {
-  padding: 0 10px 10px 10px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

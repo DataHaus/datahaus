@@ -67,6 +67,7 @@ const store = useStore();
 const { account, deal, deals } = storeToRefs(store);
 
 console.log("account", account.value);
+console.log("deal", deal.value);
 console.log("deals", deals.value);
 
 const miners = ref([]);
@@ -88,7 +89,9 @@ const sortByOptions = ref([
 console.log("sortByOptions", sortByOptions.value);
 
 const sortBy = ref("score");
-const order = ref("desc"); // Option to order miners. Valid: "asc", "desc"
+
+/* Option to order miners. Valid: "asc", "desc" */
+const order = ref("desc"); 
 const orderOptions = ref(["asc", "desc"]); // Option to order miners. Valid: "asc", "desc"
 console.log("orderOptions", orderOptions.value);
 

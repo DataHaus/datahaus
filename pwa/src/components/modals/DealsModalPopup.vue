@@ -21,21 +21,23 @@
         <section class="modal-body" id="modalDescription">
           <div class="form-container">
             <div class="input-row mb-10">
-              <label for="name">Tag*</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter a tag, eg. deal-one"
-                v-model="form.tag"
-              />
-            </div>
-            <div class="input-row mb-10">
               <label for="name">Name*</label>
               <input
+                required
                 type="text"
                 name="name"
                 placeholder="Enter a name,eg. My Storage Deal"
                 v-model="form.name"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="tag">Tag*</label>
+              <input
+                required
+                type="text"
+                name="tag"
+                placeholder="Enter a tag, eg. deal-one"
+                v-model="form.tag"
               />
             </div>
             <div class="input-row mb-10">
@@ -47,24 +49,17 @@
                 v-model="form.description"
               />
             </div>
-            <div class="input-row">
-              <label for="name">Piece Identifiers</label>
+            <div v-if="selectedFilePIDS.length > 0" class="input-row">
+              <label for="name">Selected PIDs</label>
               <template v-for="(item, index) in selectedFilePIDS" :key="index">
-                <input
-                  type="text"
-                  name="cids"
-                  placeholder="Enter your a comma seprated list of PIDs"
-                  :value="item"
-                  readonly
-                />
+                <div class="cid-hash">{{ item }}</div>
               </template>
-              <input
-                v-if="!selectedFilePIDS || selectedFilePIDS.length === 0"
-                type="text"
-                name="cids"
-                placeholder="Enter your single PID"
-                :value="form.cid"
-              />
+            </div>
+            <div v-else class="input-row error">
+              <label for="name">No PIDs Selected</label>
+              <div class="cid-hash-error">
+                Please go back and select the files you want to add to the deal
+              </div>
             </div>
           </div>
         </section>
@@ -78,7 +73,7 @@
             Cancel
           </button>
           <button
-            :disabled="!form.tag || !form.name"
+            :disabled="selectedFilePIDS.length === 0"
             type="button"
             class="btn-green"
             @click="saveModal()"
@@ -200,6 +195,36 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .cid-hash {
+        width: 94%;
+        height: 10px;
+        color: $haus-blue;
+        background-color: #fdfdfd;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 9px;
+        line-height: 12px;
+        margin-bottom: 5px;
+        padding: 2% 3%;
+        text-align: left;
+      }
+
+      .cid-hash-error {
+        width: 94%;
+        height: 10px;
+        color: $haus-blue;
+        background-color: $haus-red;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 9px;
+        line-height: 12px;
+        margin-bottom: 5px;
+        padding: 2% 3%;
+        text-align: left;
+      }
     }
 
     label {
@@ -299,7 +324,7 @@ export default {
 }
 
 .modal-footer {
-  padding: 0 10px 10px 10px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

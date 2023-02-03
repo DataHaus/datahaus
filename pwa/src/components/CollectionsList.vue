@@ -12,9 +12,7 @@
           <span v-if="search !== ''"
             >No results found. Try another file name.</span
           >
-          <span v-else
-            >List of available files and collections will appear here.</span
-          >
+          <span v-else>List of available files will appear here.</span>
         </div>
 
         <div
@@ -43,7 +41,7 @@
             <div class="item-icon"></div>
             <div class="item-action">
               <a title="Create COD Job" @click="createSingleCODJob(item)">
-                <i-mdi-locker class="icon-color" />
+                <i-mdi-locker class="icon-color bigger" />
               </a>
             </div>
           </div>
