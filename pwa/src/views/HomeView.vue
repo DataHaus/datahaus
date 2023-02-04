@@ -12,8 +12,7 @@
           <p>
             DataHaus is a decentralised data economy, built on Filecoin, which
             provides a reliable web3 data foundation to efficiently handle all
-            data types and uses cases required today in normal life and
-            business.
+            data types and uses cases needed today.
           </p>
           <p>
             Filecoin is a powerful and dynamic distributed cloud storage network
@@ -139,7 +138,7 @@
             </p>
           </div>
           <div class="providers-box bg-cyan">
-            <h2>The DataHaus<br />Data Economy</h2>
+            <h2>The Data Economy</h2>
             <p>
               DataHaus will continue to develop and integrate the latest and
               best Web3 services for the Filecoin data economy.
@@ -152,7 +151,7 @@
         <div class="subtitle">
           On successful completion of a storage deal with your chosen storage
           provider, you can mint a Proof-of-deal NFT or POD. POD's can be used
-          to manage your data and provide a proof of ownership.
+          to manage your data and provide a proof of data ownership.
         </div>
       </section>
       <section id="cod">
@@ -175,8 +174,8 @@
             <h2>IPFS</h2>
             <p>
               All content can be shared using the globally distributed IPFS
-              network, the Bacalhau network runs the jobs where the data is
-              already stored.
+              network, the Bacalhau network runs the jobs or data services where
+              the data is already stored.
             </p>
           </div>
           <div class="cod-box-three bg-white">
@@ -309,13 +308,6 @@ section#content {
   position: relative;
   height: 100%;
 
-  .bg-shape {
-    // background-image: url("./BG2.png");
-    background-repeat: no-repeat;
-    background-position: center right;
-    background-size: auto;
-  }
-
   .main {
     width: 100%;
     height: 100%;
@@ -353,7 +345,7 @@ section#content {
         }
 
         h1 {
-          font-size: 48px;
+          font-size: 42px;
           display: flex;
           flex-direction: row;
           justify-content: flex-start;
@@ -362,11 +354,11 @@ section#content {
           margin-left: 10px;
 
           @include breakpoint($break-ssm) {
-            font-size: 40px;
+            font-size: 38px;
           }
 
           img {
-            width: 90px;
+            width: 70px;
             margin-bottom: -10px;
             margin-right: 5px;
             @include breakpoint($break-ssm) {
@@ -403,7 +395,7 @@ section#content {
 
       h1 {
         color: $white;
-        font-size: 3.25rem;
+        font-size: 42px;
         margin-bottom: 20px;
         span {
           color: $haus-cyan;
@@ -465,7 +457,7 @@ section#content {
 
         h1 {
           color: $haus-blue;
-          font-size: 3rem;
+          font-size: 42px;
           margin-bottom: 20px;
           z-index: 999;
         }
@@ -588,6 +580,8 @@ section#content {
     section#providers {
       width: 100%;
       background: $white;
+      background-image: url("../assets/images/BG3.png");
+      background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
       align-content: center;
@@ -597,7 +591,7 @@ section#content {
       h1 {
         width: 100%;
         color: $haus-blue;
-        font-size: 3.25rem;
+        font-size: 42px;
         text-align: center;
         margin-bottom: 20px;
         z-index: 999;
@@ -728,6 +722,8 @@ section#content {
 
     section#pod {
       background: $haus-cyan;
+      background-image: url("../assets/images/BG5.png");
+      background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
       align-content: center;
@@ -737,7 +733,7 @@ section#content {
 
       h1 {
         color: $haus-blue;
-        font-size: 3.75rem;
+        font-size: 42px;
         text-align: center;
         margin-bottom: 20px;
         z-index: 999;
@@ -777,7 +773,7 @@ section#content {
 
       h1 {
         color: $white;
-        font-size: 3.75rem;
+        font-size: 42px;
         text-align: center;
         margin-bottom: 20px;
         z-index: 999;
@@ -965,7 +961,7 @@ section#content {
           justify-content: flex-end;
           margin: 0;
           padding: 0.3em;
-          font-size: 0.8rem;
+          font-size: 0.9rem;
 
           @include breakpoint($break-ssm) {
             padding: 0;
@@ -974,7 +970,7 @@ section#content {
           }
 
           a {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: $white;
             margin-right: 14px;
             padding-bottom: 1px;
@@ -984,7 +980,7 @@ section#content {
             cursor: pointer;
 
             @include breakpoint($break-ssm) {
-              font-size: 0.6rem;
+              font-size: 0.7rem;
             }
 
             &:hover {

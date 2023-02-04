@@ -3,12 +3,14 @@ import lighthouse from "@lighthouse-web3/sdk";
 
 const lighthouseApiKey = import.meta.env.VITE_LIGHTHOUSE_STORAGE_KEY;
 
+/* Percentage Complete Function */
 const progressCallback = (progressData) => {
   let percentageDone =
     100 - (progressData?.total / progressData?.uploaded)?.toFixed(2);
   console.log(percentageDone);
 };
 
+/* Get Encryption Signature */
 const encryptionSignature = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
@@ -22,9 +24,7 @@ const encryptionSignature = async () => {
   };
 };
 
-const fileURL = null;
-const setFileURL = null;
-
+/* Sign Authenticate Message */
 const sign_auth_message = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
@@ -35,6 +35,8 @@ const sign_auth_message = async () => {
   return { publicKey: publicKey, signedMessage: signedMessage };
 };
 
+
+/* Share file */
 export const shareFile = async (cid) => {
   // Then get auth message and sign
   // Note: message should be signed by owner of file.
@@ -61,6 +63,7 @@ export const shareFile = async (cid) => {
     To view encrypted file
   */
 };
+
 
 export const applyAccessConditions = async (e) => {
   // CID on which you are applying encryption

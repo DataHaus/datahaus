@@ -1,6 +1,8 @@
 # 🈴 DataHaus
 
-DataHaus is a decentralised data economy, built on Filecoin, which provides a reliable web3 data foundation to efficiently handle all data types and uses cases.
+DataHaus is a decentralised data economy, built on Filecoin, which provides a reliable web3 data foundation to efficiently handle all data types and uses cases needed today.
+
+Filecoin is a powerful and dynamic distributed cloud storage network for your data. Create and tune strategies to suit your big and small data needs in redundancy, retrieval speed, data processing and cost.
 
 Project Overview
 
@@ -14,7 +16,7 @@ Project Overview
 8. View your account transactions and search global Filecoin transaction in a sleek user-interface.
 9. Incorporate various API's like Beryx API and Filrep to utilise the FEVM to it's fullest potential as a everyday user, big or small business and storage providers or miners.
 
-<img src="/img/flowchart.png" width="50%">
+<img src="/img/flowchart.png" width="90%">
 
 Please visit our web3 application and feel free to connect your metamask wallet, and enjoy our project entry for the Filecoin space Warp hackathon 2023.
 
@@ -95,9 +97,9 @@ A deal bounty contract consists a list of the data CIDs that it incentives to st
 
 On successful completion of the Storage bounty, an ERC-721 NFT will be minted containing the details of the transaction. A defi element can be attached to further incentivise the storage providers and users of the data economy.
 
-<img src="/img/dealmaking.png" width="50%">
-<img src="/img/addbounty.png" width="50%">
-<img src="/img/claimdatabounty.png" width="50%">
+<img src="/img/dealmaking.png" width="70%">
+<img src="/img/addbounty.png" width="70%">
+<img src="/img/claimdatabounty.png" width="70%">
 
 ### Deal Bounty Contract Modular Breakdown
 

@@ -513,6 +513,12 @@ section#content {
           width: 94%;
         }
 
+        h3 {
+          color: $white;
+          font-size: 18px;
+          text-align: left;
+        }
+
         .profile {
           width: 100%;
           text-align: left;
