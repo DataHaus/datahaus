@@ -325,6 +325,9 @@ section#content {
       color: $haus-blue;
       line-height: 16px;
       margin-bottom: 20px;
+      font-family: inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        "Helvetica Neue", sans-serif;
     }
 
     .storage-option-row {

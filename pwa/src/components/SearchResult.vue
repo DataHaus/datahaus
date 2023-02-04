@@ -10,10 +10,7 @@
       @input="$emit('onChanged', $event)"
     />
 
-    <div
-      class="search-count--label"
-      :class="{ show: search !== '' && count > 0 }"
-    >
+    <div class="search-count--label" :class="{ show: search !== '' }">
       {{ count }} results
     </div>
   </div>

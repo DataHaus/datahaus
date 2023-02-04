@@ -39,8 +39,8 @@
             <div v-else class="input-row error">
               <label for="name">No CIDs Selected</label>
               <div class="cid-hash-error">
-                Please go back and select the files you want to add to the
-                collection
+                Please go back and select the files you want to create a COD
+                service.
               </div>
             </div>
           </div>
@@ -156,28 +156,26 @@ export default {
 
 .modal-header {
   position: relative;
-
   color: $haus-blue;
   font-size: 20px;
   font-weight: bold;
-  padding: 10px 0;
+  padding: 10px 0 0 10px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .modal-body {
   position: relative;
   padding: 0;
   .form-container {
-    width: 94%;
+    width: 96%;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     align-content: center;
-    padding: 1% 1% 0 1%;
+    padding: 2% 1% 0 1%;
     z-index: 999;
 
     .input-row {
@@ -206,7 +204,7 @@ export default {
       .cid-hash-error {
         width: 94%;
         height: 10px;
-        color: $haus-blue;
+        color: $white;
         background-color: $haus-red;
         border: 1px solid #d9d9d9;
         border-radius: 10px;
@@ -316,7 +314,7 @@ export default {
 }
 
 .modal-footer {
-  padding: 10px;
+  padding: 10px 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

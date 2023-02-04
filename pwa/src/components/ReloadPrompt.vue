@@ -47,6 +47,8 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "../assets/styles/variables.scss";
+@import "../assets/styles/mixins.scss";
 .pwa-toast {
   position: fixed;
   right: 2em;
@@ -56,8 +58,8 @@ export default {
 
   .pwa-toast--offline,
   .pwa-toast--update {
-    background-color: var(--gradient-800);
-    color: var(--contrast-color);
+    background-color: $grey-40;
+    color: $haus-blue;
     display: flex;
     align-items: center;
     border-radius: 1rem;

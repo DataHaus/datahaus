@@ -91,7 +91,7 @@ console.log("sortByOptions", sortByOptions.value);
 const sortBy = ref("score");
 
 /* Option to order miners. Valid: "asc", "desc" */
-const order = ref("desc"); 
+const order = ref("desc");
 const orderOptions = ref(["asc", "desc"]); // Option to order miners. Valid: "asc", "desc"
 console.log("orderOptions", orderOptions.value);
 
@@ -367,6 +367,17 @@ section#content {
         justify-content: flex-start;
       }
     }
+
+    p {
+      font-size: 14px;
+      color: $haus-blue;
+      line-height: 16px;
+      margin-bottom: 20px;
+      font-family: inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        "Helvetica Neue", sans-serif;
+    }
+
     .miner-stats {
       width: 100%;
       display: flex;

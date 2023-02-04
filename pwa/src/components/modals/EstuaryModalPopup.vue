@@ -71,6 +71,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 900;
 }
 
 .modal {
@@ -89,16 +90,18 @@ export default {
   color: $haus-blue;
   font-size: 20px;
   font-weight: bold;
-  padding: 10px 0 15px;
+  padding: 10px 0 0 10px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .modal-body {
   position: relative;
-  padding: 10px 5px;
+  padding: 10px 5px 0;
   p {
+    font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
     color: $haus-blue;
     font-size: 14px;
     line-height: 1.2;
@@ -107,7 +110,7 @@ export default {
 }
 
 .modal-footer {
-  padding: 10px;
+  padding: 10px 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

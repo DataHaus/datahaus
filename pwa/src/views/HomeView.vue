@@ -92,10 +92,10 @@
       <section id="providers">
         <h1>Storage Options</h1>
         <div class="subtitle">
-          Choose were and how your data is stored with one or more of our
-          integrated storage platforms. Upload all your valuable data assets
-          like videos, music files, NFT data or large encrypted datasets for
-          batch processing.
+          Choose how and where your data is stored with one or more of our
+          integrated storage services. Upload all your digital data assets
+          including videos, music files, NFT data or even large encrypted
+          datasets for batch processing.
         </div>
         <div class="row">
           <div class="providers-box bg-cyan">
@@ -145,6 +145,14 @@
               best Web3 services for the Filecoin data economy.
             </p>
           </div>
+        </div>
+      </section>
+      <section id="pod">
+        <h1>Proof-of-Deal</h1>
+        <div class="subtitle">
+          On successful completion of a storage deal with your chosen storage
+          provider, you can mint a Proof-of-deal NFT or POD. POD's can be used
+          to manage your data and provide a proof of ownership.
         </div>
       </section>
       <section id="cod">
@@ -578,6 +586,7 @@ section#content {
     }
 
     section#providers {
+      width: 100%;
       background: $white;
       display: flex;
       flex-direction: column;
@@ -610,6 +619,9 @@ section#content {
         text-align: center;
         margin-bottom: 50px;
         z-index: 999;
+        @include breakpoint($break-ssm) {
+          padding: 20px 1%;
+        }
       }
 
       .row {
@@ -643,9 +655,9 @@ section#content {
           background-color: $haus-blue;
 
           @include breakpoint($break-ssm) {
-            width: 90%;
+            width: 92%;
             padding: 3%;
-            margin: 1% 2%;
+            margin: 1%;
           }
 
           h2 {
@@ -710,6 +722,46 @@ section#content {
             line-height: 1.7;
             margin-bottom: 20px;
           }
+        }
+      }
+    }
+
+    section#pod {
+      background: $haus-cyan;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px 0 0 0;
+
+      h1 {
+        color: $haus-blue;
+        font-size: 3.75rem;
+        text-align: center;
+        margin-bottom: 20px;
+        z-index: 999;
+        @include breakpoint($break-ssm) {
+          font-size: 2.75rem;
+          margin-bottom: 0;
+        }
+      }
+
+      .subtitle {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20%;
+        color: $haus-blue;
+        line-height: 1.7;
+        text-align: center;
+        margin-bottom: 50px;
+
+        @include breakpoint($break-ssm) {
+          padding: 30px 5%;
+          margin-bottom: 0;
         }
       }
     }

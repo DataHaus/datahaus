@@ -111,7 +111,11 @@
     />
     <LightHouseModalPopup
       :showModal="showLightHouseModal"
+      :encryptData="encryptData"
+      :filesharePermission="filesharePermission"
       @closeModal="showHideLightHouseModal"
+      @onEncryptedCheck="encryptedCheck"
+      @onFileShareCheck="fileshareCheck"
     />
   </section>
 </template>
@@ -123,7 +127,10 @@ import { useStore } from "../store";
 import { uploadBlobIPFS } from "../services/ipfs.js";
 import { uploadBlobNFTStorage } from "../services/nftStorage.js";
 import { uploadBlobWeb3Storage } from "../services/web3Storage.js";
-import { uploadBlobLightHouse } from "../services/lighthouse.js";
+import {
+  uploadBufferLightHouse,
+  encryptLightHouse,
+} from "../services/lighthouse.js";
 import estuaryStorage from "../services/estuaryStorage.js";
 
 import { fileSize } from "../services/helpers";
@@ -158,8 +165,9 @@ export default {
     const finished = ref(0);
     const isUploading = ref(false);
 
+    /* Set our upload service provider */
     const uploadType = ref("nftStorage");
-
+    /* Show Service Provider info and Options Modals */
     const showIPFSModal = ref(false);
     const showNFTStorageModal = ref(false);
     const showWeb3StorageModal = ref(false);
@@ -199,6 +207,7 @@ export default {
     const showHideLightHouseModal = () => {
       showLightHouseModal.value = !showLightHouseModal.value;
     };
+
     /**
      * Drag n Drop File Manager
      */
@@ -226,6 +235,23 @@ export default {
       emit("onCollectionClick", item);
     };
 
+    /* LighHouse Option */
+    const encryptData = ref(null);
+    const filesharePermission = ref(false);
+    /**
+     * Check to Encrypt upload with LightHouse
+     */
+    const encryptedCheck = () => {
+      encryptData.value = !encryptData.value;
+    };
+
+    /**
+     * Check to enable File Sharing
+     */
+    const fileshareCheck = () => {
+      filesharePermission.value = !filesharePermission.value;
+    };
+
     /**
      * File Uploader to store blob
      * @param {File} file
@@ -243,7 +269,13 @@ export default {
         const estuary = new estuaryStorage();
         result = await estuary.uploadBlobEstuaryStorage(file);
       } else if (uploadType.value === "lighthouse") {
-        result = await uploadBlobLightHouse(file);
+        /* Check if we need to encrypt Data with LightHouse */
+        if (encryptData.value === true) {
+          result = await encryptLightHouse(file);
+        } else {
+          result = await uploadBufferLightHouse(file);
+        }
+        console.log("result :", result);
       } else {
         result = await uploadBlobNFTStorage(file);
       }
@@ -257,8 +289,6 @@ export default {
 
     const onFileChangedHandler = async () => {
       isUploading.value = true;
-      console.log("fileRef.value.files", fileRef.value.files);
-
       store.addFiles(...fileRef.value.files);
       const files = store.files.map((file) => uploadFileHandler(file));
 
@@ -269,11 +299,9 @@ export default {
 
         if (successfully.length > 0) {
           if (successfully.length === 1) {
-            notyf.success(`${successfully.length} file uploaded successfully!`);
+            notyf.success(`${successfully.length} file uploaded!`);
           } else if (successfully.length > 1) {
-            notyf.success(
-              `${successfully.length} files uploaded successfully!`
-            );
+            notyf.success(`${successfully.length} files uploaded!`);
           }
         }
         store.addResults(...successfully.map(({ error, data: file }) => file));
@@ -317,6 +345,8 @@ export default {
       showWeb3StorageModal,
       showEstuaryModal,
       showLightHouseModal,
+      encryptData,
+      filesharePermission,
       fileSize,
       onDragEnter,
       onDragLeave,
@@ -333,7 +363,10 @@ export default {
       uploadBlobIPFS,
       uploadBlobNFTStorage,
       uploadBlobWeb3Storage,
-      uploadBlobLightHouse,
+      uploadBufferLightHouse,
+      encryptLightHouse,
+      encryptedCheck,
+      fileshareCheck,
     };
   },
 };
@@ -496,11 +529,11 @@ section#panel-upload {
       }
 
       .dropzone-detail {
-        color: $white;
+        color: $haus-blue;
         font-size: 0.8rem;
-        background-color: var(--gradient-300);
+        background-color: $grey-20;
         border-radius: 1rem;
-        padding: 0.4rem 0.8rem;
+        padding: 0.4rem 0.8rem 0.2rem;
         margin-right: 0.6rem;
       }
     }
@@ -511,7 +544,7 @@ section#panel-upload {
       height: 4px;
       display: block;
       width: 150px;
-      background-color: var(--gradient-300);
+      background-color: $grey-20;
       border-radius: 2px;
       margin: 1rem 0 1rem 0;
       overflow: hidden;
@@ -521,7 +554,7 @@ section#panel-upload {
       }
 
       .dropzone-loading--bar {
-        background-color: var(--gradient-800);
+        background-color: $grey-40;
 
         &:before {
           content: "";

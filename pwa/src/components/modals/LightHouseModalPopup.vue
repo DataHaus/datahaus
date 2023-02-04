@@ -20,9 +20,39 @@
         </header>
         <section class="modal-body" id="modalDescription">
           <p>
-            Lighthouse allows users to store and encrypt / decrypt their files
-            on the decentralized network for lifetime at a fixed price
+            Store private files on the distributed web with secure encryption
+            and access control features without the need to manage keys on your
+            own.
           </p>
+          <div class="input-row">
+            <input
+              type="checkbox"
+              id="encrypt-data"
+              name="encrypt-data"
+              :value="encryptData"
+              class="input-checkbox"
+              @input="$emit('onEncryptedCheck', $event)"
+            />
+            <label for="encrypt-data"> Encrypt files and uploaded data.</label>
+          </div>
+          <p>
+            Share files with authorized users and restrict access to token gated
+            resources. Example uses cases - personal photos storage, token gated
+            files, patient data, enterprise data, etc.
+          </p>
+          <div class="input-row">
+            <input
+              type="checkbox"
+              id="share-data"
+              name="share-data"
+              :value="filesharePermission"
+              class="input-checkbox"
+              @input="$emit('onFileShareCheck', $event)"
+            />
+            <label for="share-data">
+              Allow file sharing permissions on your uploads.</label
+            >
+          </div>
         </section>
         <footer class="modal-footer">
           <button
@@ -32,6 +62,9 @@
             aria-label="Cancel modal"
           >
             Close
+          </button>
+          <button type="button" class="btn-green" @click="closeModal()">
+            Done
           </button>
         </footer>
       </div>
@@ -47,8 +80,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    encryptData: {
+      type: Boolean,
+      default: false,
+    },
+    filesharePermission: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ["closeModal"],
+  emits: ["closeModal", "onEncryptedCheck", "onFileShareCheck"],
   methods: {
     closeModal() {
       this.$emit("closeModal", false);
@@ -71,6 +112,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 900;
 }
 
 .modal {
@@ -89,25 +131,47 @@ export default {
   color: $haus-blue;
   font-size: 20px;
   font-weight: bold;
-  padding: 10px 0 15px;
+  padding: 10px 0 0 10px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .modal-body {
   position: relative;
-  padding: 10px 5px;
+  padding: 10px 5px 0;
   p {
+    font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
     color: $haus-blue;
     font-size: 14px;
     line-height: 1.2;
     font-weight: normal;
   }
+  .input-row {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+
+    label {
+      font-family: inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        "Helvetica Neue", sans-serif;
+      color: $grey-70;
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 400;
+      margin-left: 3px;
+    }
+  }
 }
 
 .modal-footer {
-  padding: 10px;
+  padding: 20px 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

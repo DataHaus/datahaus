@@ -102,7 +102,7 @@ export default {
     const copyPID = (item) => {
       const url = generateLink(item);
       copyToClipboard(url);
-      notyf.success("Link copied to clipboard!");
+      notyf.success("PID copied to clipboard!");
     };
     /* Update search value */
     const onSearchChanged = ($event) => {
