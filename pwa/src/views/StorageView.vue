@@ -14,17 +14,10 @@
           </div>
         </div>
         <p>
-          1. Upload your valuable data to IPFS, NFT.Storage, Web3.Storage,
-          Estuary or LightHouse.<br />
-          2. Manage your data storage requirements, select replication and
-          encryption options.<br />
-          3. Receive your Content Identifier or CID once your data is safely
-          stored.<br />
-          4. Create storage deals for your valuable data and receive your
-          Proof-of-deal NFT.<br />
-          5. Filecoin storage providers compete to win storage bounties and
-          bring the costs down for you the client.<br />
-          6. Visit COD for your data processing needs.
+          Upload your valuable data to IPFS, NFT.Storage, Web3.Storage, Estuary
+          or LightHouse. Manage your data storage needs including replication
+          and encryption. Receive your content identifier or CID once your data
+          is safely stored.
         </p>
       </div>
       <div class="row">

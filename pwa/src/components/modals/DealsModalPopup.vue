@@ -8,7 +8,15 @@
         aria-describedby="modalDescription"
       >
         <header class="modal-header" id="modalTitle">
-          Create Deal
+          {{
+            step === "one"
+              ? "Create Deal"
+              : step === "two"
+              ? "Confirm Deal"
+              : step === "three"
+              ? "Mint POD"
+              : ""
+          }}
           <button
             type="button"
             class="btn-close"
@@ -19,7 +27,8 @@
           </button>
         </header>
         <section class="modal-body" id="modalDescription">
-          <div class="form-container">
+          <!-- Step One -->
+          <div v-if="step === 'one'" class="form-container">
             <div class="input-row mb-10">
               <label for="name">Name*</label>
               <input
@@ -41,12 +50,13 @@
               />
             </div>
             <div class="input-row mb-10">
-              <label for="description">Description</label>
-              <textarea
+              <label for="price">Max Price</label>
+              <input
+                required
                 type="text"
-                name="description"
-                placeholder="Enter a short description"
-                v-model="form.description"
+                name="price"
+                placeholder="Enter a maximum deal price"
+                v-model="form.price"
               />
             </div>
             <div v-if="selectedFilePIDS.length > 0" class="input-row">
@@ -63,9 +73,65 @@
               </div>
             </div>
           </div>
+          <!-- Step Two -->
+          <div v-if="step === 'two'" class="form-container">
+            <div class="input-row mb-10">
+              <label for="verifiedPrice">Verified Price</label>
+              <input
+                required
+                type="text"
+                name="verifiedPrice"
+                placeholder="Enter a verified deal price"
+                v-model="form.verifiedPrice"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="minSize">Min Piece Size</label>
+              <input
+                required
+                type="text"
+                name="minSize"
+                placeholder="Enter a minimum deal piece size, eg, 56KiB"
+                v-model="form.minSize"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="maxSize">Max Piece Size</label>
+              <input
+                required
+                type="text"
+                name="maxSize"
+                placeholder="Enter a maximum deal piece size"
+                v-model="form.maxSize"
+              />
+            </div>
+            <div v-if="selectedFilePIDS.length > 0" class="input-row">
+              <label for="name">Selected PIDs</label>
+              <template v-for="(item, index) in selectedFilePIDS" :key="index">
+                <div class="cid-hash">{{ item }}</div>
+              </template>
+            </div>
+            <div v-else class="input-row error">
+              <label for="name">No PIDs Selected</label>
+              <div class="cid-hash-error">
+                Please go back and select the files you want to add to the
+                storage deal.
+              </div>
+            </div>
+          </div>
+          <!-- Step Three -->
+          <div v-if="step === 'three'" class="form-container">
+            <div class="mint-pod">
+              <p>
+                Your proof-of-deal will be minted next, please mint your POD
+                now.
+              </p>
+            </div>
+          </div>
         </section>
         <footer class="modal-footer">
           <button
+            v-if="step === 'one'"
             type="button"
             class="btn-blue"
             @click="closeModal()"
@@ -74,12 +140,29 @@
             Cancel
           </button>
           <button
+            v-if="step === 'one'"
             :disabled="selectedFilePIDS.length === 0"
+            type="button"
+            class="btn-green"
+            @click="stepTwo()"
+          >
+            Publish Deal
+          </button>
+          <button
+            v-if="step === 'two'"
+            type="button"
+            class="btn-green"
+            @click="stepThree()"
+          >
+            Confirm Deal
+          </button>
+          <button
+            v-if="step === 'three'"
             type="button"
             class="btn-green"
             @click="saveModal()"
           >
-            Save
+            Mint POD
           </button>
         </footer>
       </div>
@@ -103,17 +186,28 @@ export default {
   },
   data() {
     return {
+      step: "one",
       form: {
         tag: "",
         title: "",
-        description: "",
+        price: null,
+        verifiedPrice: 0.000005,
+        minSize: "56KiB",
+        maxSize: "32GB",
         PIDS: this.selectedFilePIDS,
       },
     };
   },
   emits: ["closeModal", "saveModal"],
   methods: {
+    stepTwo() {
+      this.step = "two";
+    },
+    stepThree() {
+      this.step = "three";
+    },
     closeModal() {
+      this.step = "one";
       this.resetForm();
       this.$emit("closeModal", false);
     },
@@ -128,7 +222,10 @@ export default {
       this.form = {
         tag: "",
         title: "",
-        description: "",
+        price: null,
+        verifiedPrice: null,
+        minSize: "56KiB",
+        maxSize: "32GB",
         PIDS: [],
       };
     },

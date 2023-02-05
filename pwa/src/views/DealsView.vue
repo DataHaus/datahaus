@@ -17,24 +17,26 @@
           </div>
         </div>
         <p>
-          1. Filecoin storage providers bid and compete to win storage deals or
-          bounties.<br />
-          2. Receive volume discounts for entire sectors and purchasing multiple
-          sectors.<br />
-          3. Receive POD NFT for completed storage deals that serve as
-          Proof-of-Deal.<br />
+          Create storage deals and allow Filecoin storage providers to compete
+          for storage bounties. Negotiate volume discounts for entire sectors or
+          multiple sectors. Mint a proof-of-deal or POD NFT for completed deals.
         </p>
       </div>
       <div class="miner-stats">
-        <h3>{{ totalMiners }} Total Miners</h3>
-        <h3>Top Miner Address {{ topMiner.address }}</h3>
-        <!-- <h3>Overall Score {{ topMiner.uptime }}</h3> -->
-        <h3>Score {{ topMiner.uptimeAverage }}</h3>
-        <!-- <h3>Price {{ topMiner.price }}</h3> -->
-        <h3>Raw Power {{ topMiner.rawPower }}</h3>
+        <h3>
+          Total Miners<br />
+          {{ totalMiners }}
+        </h3>
+        <h3>
+          Score<br />
+          {{ topMiner.uptimeAverage }}
+        </h3>
+        <h3>
+          Top Miner Address<br />
+          {{ topMiner.address }}
+        </h3>
         <h3>Free Space {{ topMiner.freeSpace }}</h3>
-        <!-- <h3>City {{ topMiner.city }}</h3> -->
-        <!-- <h3>Region {{ topMiner.region }}</h3> -->
+        <h3>Price {{ topMiner.price / 100000000000000 }}</h3>
       </div>
       <div class="row">
         <DealsList @onChecked="onSelectedChecked" />

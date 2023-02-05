@@ -122,7 +122,7 @@ const createSingleCODJob = (item) => {
 };
 
 const createCodJob = () => {
-  console.log("Create Deal Clicked");
+  console.log("Create Cod Job Clicked");
   console.log("cod", cod.value);
   showModal.value = false;
   NotfyProvider.success(`${cod.value.title} started!`);
