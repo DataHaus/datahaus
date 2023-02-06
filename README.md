@@ -6,7 +6,7 @@ Filecoin is a powerful and dynamic distributed cloud storage network for your da
 
 Project Overview
 
-1. Upload your valuable files and data to IPFS, NFT.Storage, Web3.Storage, Estuary for 6x data replication or LightHouse for data encyption. DataHaus offers truly decentralised storage options.
+1. Upload your valuable files and data to IPFS, NFT.Storage, Web3.Storage, Estuary for 6x data replication or LightHouse for data encyption / decryption and permissioned file sharing. DataHaus offers truly decentralised storage options.
 2. Create collections of big or small datasets, useful for batch processing, analytics and AI use cases. Bacalhau offers Compute Over Data or COD services.
 3. Create storage deals / bounties for your valuable data, the Filecoin storage providers compete to win storage bounties and bring the costs down for the client.
 4. Receive discounts and bid for entire sectors and volume discounts, where the price is further reduced for purchasing multiple sectors at once.

@@ -80,6 +80,9 @@
   </transition>
 </template>
 <script>
+/* Import our Pinia Store */
+import { useStore } from "../../store";
+
 /* LFG */
 export default {
   name: "ViewCollectionModalPopup",
@@ -92,10 +95,16 @@ export default {
       type: Object,
     },
   },
-  emits: ["closeViewModal"],
+  emits: ["closeModal", "saveModal"],
   methods: {
     closeViewModal() {
       this.$emit("closeViewModal", false);
+    },
+    saveModal() {
+      const store = useStore();
+      const { collection } = this;
+      store.setCollection(collection);
+      this.$emit("saveModal");
     },
   },
 };

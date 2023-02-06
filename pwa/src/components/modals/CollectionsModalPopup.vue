@@ -93,6 +93,7 @@
 <script>
 /* Import our Pinia Store */
 import { useStore } from "../../store";
+
 /* LFG */
 export default {
   name: "CollectionsModalPopup",
