@@ -49,6 +49,7 @@ export default {
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
+
 .pwa-toast {
   position: fixed;
   right: 2em;

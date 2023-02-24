@@ -36,6 +36,7 @@ export default {
     /* Init Store */
     const store = useStore();
     const { account } = storeToRefs(store);
+
     /**
      * Get our current 🦊 Metamask account details
      */
@@ -43,9 +44,11 @@ export default {
       try {
         const { ethereum } = window;
         if (!ethereum) return;
+
         /* Get our Current Account */
         const accounts = await ethereum.request({ method: "eth_accounts" });
         if (accounts.length !== 0) {
+          console.log("accounts", accounts);
           store.setAccount(accounts[0]);
         } else {
           console.log("⚠ No authorized MetaMask accounts connected!");

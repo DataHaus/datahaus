@@ -68,15 +68,18 @@ async function connectWallet() {
     const [accountAddress] = await ethereum.request({
       method: "eth_requestAccounts",
     });
+
     if (accountAddress) {
+      store.setAccount(accountAddress);
+
       /* Load Beryx API for Filecoin */
       const beryx = new beryxApi();
       let accountBalance = await beryx.getAccountBalance(accountAddress);
 
-      store.setAccount(accountAddress);
       store.setBalance(accountBalance.amount);
       store.setCurrency(accountBalance.currency);
       store.setDecimals(accountBalance.decimals);
+
       store.setLoading(false);
 
       router.push({ name: "dashboard" });

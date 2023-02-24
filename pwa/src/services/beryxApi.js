@@ -105,6 +105,8 @@ export default class beryxApi {
         }
       });
 
+    console.log("results", results);
+
     const balance = {
       amount: results.balances[0].value,
       currency: results.balances[0].currency.symbol,
