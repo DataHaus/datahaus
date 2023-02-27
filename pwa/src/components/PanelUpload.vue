@@ -533,7 +533,7 @@ section#panel-upload {
         font-size: 0.8rem;
         background-color: $grey-20;
         border-radius: 1rem;
-        padding: 0.4rem 0.8rem 0.2rem;
+        padding: 0.3rem 0.6rem 0.3rem;
         margin-right: 0.6rem;
       }
     }

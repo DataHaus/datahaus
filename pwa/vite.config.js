@@ -35,6 +35,18 @@ export default defineConfig({
         description:
           "DataHaus is a decentralized data economy built on Filecoin which provides a reliable, decentralised data foundation that efficiently handles all data types.",
         theme_color: "#061f3e",
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          }
+        ],
         registerType: "autoUpdate",
         includeAssets: ["/favicon.ico"],
       },

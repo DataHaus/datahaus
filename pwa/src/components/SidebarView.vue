@@ -26,7 +26,7 @@
       </li>
       <li>
         <router-link :to="{ name: 'miners' }" active-class="active" exact>
-          <span class="icon"><i-mdi-stackoverflow /></span>
+          <span class="icon"><i-mdi-webpack /></span>
           <span class="item">Miners</span>
         </router-link>
       </li>
@@ -134,7 +134,6 @@
 
         &:hover {
           color: $haus-cyan;
-          font-weight: bold;
         }
 
         .icon {
@@ -160,7 +159,6 @@
       a.router-link-active,
       a.router-link-exact-active {
         color: $haus-cyan;
-        font-weight: bold;
       }
     }
   }

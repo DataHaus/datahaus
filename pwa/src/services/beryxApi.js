@@ -5,6 +5,8 @@ import { Beryx } from "@zondax/beryx";
 
 const beryxAPIKEY = import.meta.env.VITE_BERYX_API_KEY;
 
+console.log("beryxAPIKEY", beryxAPIKEY);
+
 export default class beryxApi {
   constructor() {
     this.endpoint = new URL("https://api.zondax.ch/fil/data/v1/hyperspace");

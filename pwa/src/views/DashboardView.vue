@@ -25,10 +25,10 @@
       </div>
       <div class="row">
         <div class="account-box">
-          <h3>
+          <div class="balance">
             Balance {{ currency }}
             {{ balance / 1000000000000000000 }}
-          </h3>
+          </div>
           <div class="profile">
             <div class="account-address">ETH Address : {{ account }}</div>
             <div class="account-address">
@@ -37,36 +37,53 @@
             <div class="account-address">
               Short Address : {{ accountInfo.short }}
             </div>
-            <!-- <div class="account-address">
+            <div class="account-address">
               Actor Type : {{ accountInfo.actor_type }}
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="metric-box">
           <h3>Latest Tipset Height</h3>
-          <p>
+          <div class="metric-box-value">
             {{ latestTipsetHeight }}
-          </p>
+          </div>
         </div>
         <div class="metric-box">
           <h3>Latest Tipset Time</h3>
-          <p>
+          <div class="metric-box-value">
             {{ latestTipsetTime }}
-          </p>
+          </div>
+        </div>
+        <div class="metric-box">
+          <h3>Latest Tipset Time</h3>
+          <div class="metric-box-value">
+            {{ latestTipsetTime }}
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="column">
           <div class="transactions-box">
-            <h4>Latest Transactions by Account : {{ account }}</h4>
+            <div class="transactions-title">
+              Latest Transactions by Account : {{ account }}
+            </div>
             <div class="transactions-list">
               <template
                 v-for="transaction in transactionsByAddress.transactions"
                 :key="transaction.name"
               >
                 <div class="transaction-card">
+                  <div class="transaction-item">
+                    Type : {{ transaction.tx_type }}
+                  </div>
+                  <div class="transaction-item">
+                    Amount : {{ transaction.amount }}
+                  </div>
+                  <div class="transaction-item">
+                    Status : {{ transaction.status }}
+                  </div>
                   <div class="transaction-item">
                     Height : {{ transaction.height }}
                   </div>
@@ -82,15 +99,7 @@
                   <div class="transaction-item">
                     Hash : {{ transaction.tx_hash }}
                   </div>
-                  <div class="transaction-item">
-                    Amount : {{ transaction.amount }}
-                  </div>
-                  <div class="transaction-item">
-                    Status : {{ transaction.status }}
-                  </div>
-                  <div class="transaction-item">
-                    Type : {{ transaction.tx_type }}
-                  </div>
+
                   <div
                     v-if="transaction.tx_metadata.cid"
                     class="transaction-item"
@@ -325,15 +334,22 @@ async function getTipset() {
 }
 
 onMounted(async () => {
-  /* Load Beryx API for Filecoin */
-  const beryx = new beryxApi();
-  accountInfo.value = await beryx.getAccountInfo(account.value);
-  let accountBalance = await beryx.getAccountBalance(account.value);
-  store.setBalance(accountBalance.amount);
-  transactionsByAddress.value = await beryx.getTransactionsByAddress(
-    account.value,
-    1
-  );
+  try {
+    /* Load Beryx API for Filecoin */
+    const beryx = new beryxApi();
+    accountInfo.value = await beryx.getAccountInfo(account.value);
+
+    let accountBalance = await beryx.getAccountBalance(account.value);
+    store.setBalance(accountBalance.amount);
+    transactionsByAddress.value = await beryx.getTransactionsByAddress(
+      account.value,
+      1
+    );
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
   await getTipset();
 });
 </script>
@@ -504,19 +520,21 @@ section#content {
 
       .account-box {
         width: 100%;
-        padding: 1% 3% 1% 3%;
+        padding: 3% 3% 2% 3%;
         color: $white;
         background: $haus-blue;
         border-radius: 10px;
+        background-image: $gradient;
 
         @include breakpoint($break-ssm) {
           width: 94%;
         }
 
-        h3 {
+        .balance {
           color: $white;
-          font-size: 18px;
+          font-size: 16px;
           text-align: left;
+          margin-bottom: 10px;
         }
 
         .profile {
@@ -540,7 +558,7 @@ section#content {
           .account-address {
             width: 100%;
             color: $white;
-            font-size: 15px;
+            font-size: 16px;
             margin-bottom: 10px;
             // white-space: nowrap;
             // overflow: hidden;
@@ -570,26 +588,32 @@ section#content {
           font-size: 16px;
           margin: 0;
           text-align: center;
-          margin-block-start: 1em;
+          margin-block-start: 0.6em;
           margin-block-end: 0.15em;
           margin-inline-start: 0px;
           margin-inline-end: 0px;
           font-weight: bold;
+        }
+        .metric-box-value {
+          font-size: 16px;
+          font-weight: 400;
+          margin-bottom: 0.4em;
         }
       }
       .transactions-box {
         width: 100%;
         padding: 0;
 
-        h4 {
+        .transactions-title {
           width: 94%;
           padding: 3%;
           color: $white;
           background: $haus-blue;
+          background-image: $gradient;
           border: 1px solid $haus-blue;
           border-radius: 10px;
           font-size: 16px;
-          font-weight: 900;
+          font-weight: normal;
           margin: 0 0 20px 0;
           text-align: left;
 
@@ -617,8 +641,8 @@ section#content {
         flex-direction: column;
         margin-bottom: 20px;
         padding: 2% 3% 1% 3%;
-        border: 1px solid $haus-blue;
-        border-radius: 10px;
+        border-radius: 1rem;
+        background-color: rgba(0, 0, 0, 0.05);
       }
     }
   }
