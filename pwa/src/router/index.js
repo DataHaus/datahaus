@@ -6,6 +6,7 @@ const DashboardView = () => import("../views/DashboardView.vue");
 const StorageView = () => import("../views/StorageView.vue");
 const CodView = () => import("../views/CodView.vue");
 const DealsView = () => import("../views/DealsView.vue");
+const MinersView = () => import("../views/MinersView.vue");
 const ReportsView = () => import("../views/ReportsView.vue");
 const SettingsView = () => import("../views/SettingsView.vue");
 
@@ -48,6 +49,11 @@ const router = createRouter({
       path: "/deals",
       name: "deals",
       component: DealsView,
+    },
+    {
+      path: "/miners",
+      name: "miners",
+      component: MinersView,
     },
     {
       path: "/reports",

@@ -5,7 +5,7 @@
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
-            <h1>Storage Deals / Bounties</h1>
+            <h1>Miners</h1>
           </div>
           <div class="title-actions">
             <button @click="placeBid()" class="back-button">

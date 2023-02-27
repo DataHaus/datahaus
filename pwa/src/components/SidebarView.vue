@@ -25,6 +25,12 @@
         </router-link>
       </li>
       <li>
+        <router-link :to="{ name: 'miners' }" active-class="active" exact>
+          <span class="icon"><i-mdi-stackoverflow /></span>
+          <span class="item">Miners</span>
+        </router-link>
+      </li>
+      <li>
         <router-link :to="{ name: 'cod' }" active-class="active" exact>
           <span class="icon"><i-mdi-locker-multiple /></span>
           <span class="item">COD</span>

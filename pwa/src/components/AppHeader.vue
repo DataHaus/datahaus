@@ -3,7 +3,7 @@
     <div class="header-title">
       <img
         src="../assets/images/DataHaus-Icon.png"
-        width="50"
+        width="45"
         class="header-logo"
       />
       <router-link :to="{ name: 'home' }" active-class="active" exact
@@ -26,8 +26,10 @@
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
+
 /* Components */
 import ConnectWalletButton from "../components/ConnectWalletButton.vue";
+
 /* LFG */
 export default {
   name: "AppHeader",
@@ -106,7 +108,7 @@ export default {
       padding-left: 2%;
     }
 
-    @include breakpoint($break-ssm) {
+    @include breakpoint($break-sm) {
       width: 98%;
       justify-content: flex-start;
       align-items: center;
@@ -122,8 +124,8 @@ export default {
     h1 {
       color: $white;
       font-size: 1.7em;
-      margin-block-start: 0.67em;
-      margin-block-end: 0.3em;
+      margin-block-start: 0.6em;
+      margin-block-end: 0.5em;
       span {
         color: $haus-cyan;
       }

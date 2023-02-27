@@ -3,7 +3,7 @@
 @import './fonts.scss';
 
 * {
-  font-family: 'PPNeueMachina', inter, -apple-system, system-ui, 'Segoe UI', Helvetica,
+  font-family: inter, -apple-system, system-ui, 'Segoe UI', Helvetica,
     'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
   letter-spacing: 0.05786em;
 }
@@ -34,6 +34,19 @@ body,
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.hide-mobile {
+  display: none;
+}
+.show-mobile {
+  display: inline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "PPNeueMachina", inter, -apple-system, system-ui, "Segoe UI",
+        Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+        "Segoe UI Symbol";
 }
 
 .link {
