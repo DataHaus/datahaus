@@ -1,25 +1,23 @@
 <template>
   <section id="panel-result">
     <div class="panel-result--content">
-      <SearchDeals
+      <SearchResult
         :search="search"
-        :count="deals.length"
+        :count="files.length"
         @onChanged="onSearchChanged"
       />
 
       <div class="content-file--items">
-        <div class="content-file--item empty" v-if="deals.length === 0">
+        <div class="content-file--item empty" v-if="files.length === 0">
           <span v-if="search !== ''"
-            >No results found. Try another deal / bounty name.</span
+            >No results found. Try another file name.</span
           >
-          <span v-else
-            >List of available storage deals / bounties will appear here.</span
-          >
+          <span v-else>List of files that you upload will appear here.</span>
         </div>
 
         <div
           class="content-file--item"
-          v-for="(item, index) in deals"
+          v-for="(item, index) in files"
           :key="index"
         >
           <div class="item-content">
@@ -42,8 +40,11 @@
             </div>
             <div class="item-icon"></div>
             <div class="item-action">
-              <a title="Place Bid" @click="placeSingleDealBid(item)">
-                <i-mdi-coin class="icon-color" />
+              <a
+                title="Create a Collection"
+                @click="createSingleCollection(item)"
+              >
+                <i-ri-file-list-3-line class="icon-color" />
               </a>
             </div>
           </div>
@@ -54,10 +55,10 @@
                 type="text"
                 readonly
                 @focus="$event.target.select()"
-                :value="`PID: ${item.cid}`"
+                :value="generateLink(item)"
               />
             </label>
-            <a title="Copy PID" @click="copyPID(item)">
+            <a title="Copy link" @click="copyFileLink(item)">
               <i-ri-clipboard-line class="icon-color" />
             </a>
           </div>
@@ -69,47 +70,54 @@
 <script>
 import { ref, computed, inject } from "vue";
 /* Import our Pinia Store */
-import { useStore } from "../store";
+import { useStore } from "../../store";
+
 /* Import our helpers */
-import { fileSize, copyToClipboard, generateLink } from "../services/helpers";
+import {
+  fileSize,
+  copyToClipboard,
+  generateLink,
+} from "../../services/helpers";
+
 /* Components */
-import SearchDeals from "./SearchDeals.vue";
+import SearchResult from "./SearchResult.vue";
+
 /* LFG */
 export default {
-  name: "DealsList",
+  name: "PanelResult",
   components: {
-    SearchDeals,
+    SearchResult,
   },
-  setup() {
+  emits: ["onChecked", "onNewCollectionClick"],
+  setup(props, { emit }) {
     /* Inject Notyf */
     const notyf = inject("notyf");
+
     /* Init Store */
     const store = useStore();
     const search = ref("");
 
     /**
-     * Create a Deal with single CID
+     * Create a Collection with a single File
      */
-    const placeSingleDealBid = (item) => {
-      const cid = item.cid;
-      console.log("Create SingleDeal CID", cid);
-      notyf.success(`Storage deal processing ${item.cid}`);
+    const createSingleCollection = (item) => {
+      emit("onNewCollectionClick", item);
     };
 
     /**
      * Copy to Clipboard function
      */
-    const copyPID = (item) => {
+    const copyFileLink = (item) => {
       const url = generateLink(item);
       copyToClipboard(url);
-      notyf.success("PID copied to clipboard!");
+      notyf.success("Link copied to clipboard!");
     };
     /* Update search value */
     const onSearchChanged = ($event) => {
       search.value = $event.target.value;
     };
-    /* Filters deals to find by search value */
-    const deals = computed(() =>
+    /* Filters files to find by search value */
+    const files = computed(() =>
       store.results
         .slice()
         .reverse()
@@ -123,10 +131,10 @@ export default {
 
     return {
       search,
-      deals,
+      files,
       fileSize,
-      placeSingleDealBid,
-      copyPID,
+      createSingleCollection,
+      copyFileLink,
       generateLink,
       onSearchChanged,
     };
@@ -134,8 +142,8 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "../assets/styles/variables.scss";
-@import "../assets/styles/mixins.scss";
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/mixins.scss";
 
 section#panel-result {
   width: 100%;
@@ -192,7 +200,7 @@ section#panel-result {
           width: 100%;
           display: flex;
           flex-direction: row;
-          align-items: center;
+          align-items: flex-start;
 
           .item-icon {
             padding: 0 0.5rem 0.5rem 0;

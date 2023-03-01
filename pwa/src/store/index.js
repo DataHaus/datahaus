@@ -36,6 +36,7 @@ export const useStore = defineStore({
       dealsResults: db.data.deals,
       files: [],
       results: db.data.results,
+      transactions: [],
     };
   },
   getters: {
@@ -83,6 +84,9 @@ export const useStore = defineStore({
     },
     getResults(state) {
       return state.results;
+    },
+    getTransactions(state) {
+      return state.transactions;
     },
   },
   actions: {
@@ -171,6 +175,13 @@ export const useStore = defineStore({
       });
       db.data.results = [...this.results];
       db.write();
+    },
+     /* Transaction from Beryx API  */
+     resetTransactions() {
+      this.transactions = [];
+    },
+    addTransactions(transactions) {
+      this.transactions = transactions;
     },
     /**
      * Update Shorten Link for File

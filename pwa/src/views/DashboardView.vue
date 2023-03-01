@@ -73,7 +73,7 @@
       <div class="row">
         <div class="column">
           <div class="transactions-box">
-            <div class="search-bar">
+            <!-- <div class="search-bar">
               <input
                 type="text"
                 v-model="searchValue"
@@ -83,11 +83,12 @@
               <button @click="searchFn()" class="search-button">
                 <i-mdi-magnify class="icon-color" />Search
               </button>
-            </div>
+            </div> -->
             <div class="transactions-title">
               Latest Transactions by Account : {{ account }}
             </div>
-            <div class="transactions-list">
+            <TransactionsList />
+            <!-- <div class="transactions-list">
               <template
                 v-for="transaction in transactionsByAddress.transactions"
                 :key="transaction.name"
@@ -122,16 +123,41 @@
                     v-if="transaction.tx_metadata.cid"
                     class="transaction-item"
                   >
-                    Metadata : <br /><br />
+                    Metadata :
+                  </div>
+                  <div
+                    v-if="transaction.tx_metadata.cid"
+                    class="transaction-item"
+                  >
                     CID: {{ transaction.tx_metadata.cid }}<br />
+                  </div>
+                  <div
+                    v-if="transaction.tx_metadata.cid"
+                    class="transaction-item"
+                  >
                     ethAdd: {{ transaction.tx_metadata.ethAdd }}<br />
+                  </div>
+                  <div
+                    v-if="transaction.tx_metadata.cid"
+                    class="transaction-item"
+                  >
                     ethHash: {{ transaction.tx_metadata.ethHash }}<br />
+                  </div>
+                  <div
+                    v-if="transaction.tx_metadata.cid"
+                    class="transaction-item"
+                  >
                     ethLogs: {{ transaction.tx_metadata.ethLogs[0] }}<br />
+                  </div>
+                  <div
+                    v-if="transaction.tx_metadata.cid"
+                    class="transaction-item"
+                  >
                     robustAdd: {{ transaction.tx_metadata.robustAdd }}
                   </div>
                 </div>
               </template>
-            </div>
+            </div> -->
           </div>
           <!-- <div class="transactions-box">
             <h3>Transactions by Hash : {{ hash }}</h3>
@@ -241,11 +267,15 @@ import { Notyf } from "notyf";
 /* Import our helpers */
 import { copyToClipboard } from "../services/helpers";
 
+/* Components */
+import TransactionsList from "../components/DashboardComponents/TransactionsList.vue";
+
 /* Import our Services and APIs */
 import beryxApi from "../services/beryxApi.js";
 
 const store = useStore();
-const { account, balance, currency, decimals } = storeToRefs(store);
+const { account, balance, currency, decimals, transactions } =
+  storeToRefs(store);
 
 console.log("account", account.value);
 console.log("balance", balance.value);
@@ -338,28 +368,28 @@ const copyClipboard = (item) => {
   NotfyProvider.success("Copied to clipboard!");
 };
 
-async function searchFn() {
-  console.log("searchValue", searchValue);
+// async function searchFn() {
+// console.log("searchValue", searchValue);
 
-  // transactionsByAddress.value = await beryx.getTransactionsByAddress(
-  //   account.value,
-  //   1
-  // );
-  // console.log("transactionsByAddress", transactionsByAddress.value);
+// transactionsByAddress.value = await beryx.getTransactionsByAddress(
+//   account.value,
+//   1
+// );
+// console.log("transactionsByAddress", transactionsByAddress.value);
 
-  /* Just a Test Value */
-  // tipsetHeight.value = await beryx.getTipset(23766);
-  // console.log("tipsetHeight", tipsetHeight.value);
+/* Just a Test Value */
+// tipsetHeight.value = await beryx.getTipset(23766);
+// console.log("tipsetHeight", tipsetHeight.value);
 
-  /* Just a Test Value */
-  // transactionsByHash.value = await beryx.getTransactionsByHash(hash.value, 1);
-  // console.log("hash.value", hash.value);
-  // console.log("transactionsByHash", transactionsByHash.value);
+/* Just a Test Value */
+// transactionsByHash.value = await beryx.getTransactionsByHash(hash.value, 1);
+// console.log("hash.value", hash.value);
+// console.log("transactionsByHash", transactionsByHash.value);
 
-  /* Just a Test Value */
-  // transactionsByHeight.value = await beryx.getTransactionsByHeight(23766, 1);
-  // console.log("transactionsByHeight", transactionsByHeight.value);
-}
+/* Just a Test Value */
+// transactionsByHeight.value = await beryx.getTransactionsByHeight(23766, 1);
+// console.log("transactionsByHeight", transactionsByHeight.value);
+// }
 
 async function getTipset() {
   const beryx = new beryxApi();
@@ -380,6 +410,10 @@ onMounted(async () => {
       account.value,
       1
     );
+
+    console.log("Transactions :", transactionsByAddress.value.transactions);
+    store.addTransactions(transactionsByAddress.value.transactions);
+
     await getTipset();
   } catch (error) {
     console.error(error);
@@ -616,13 +650,13 @@ section#content {
         .transactions-title {
           width: 94%;
           padding: 2% 3%;
-          color: $grey-80;
-          background-color: rgba(0, 0, 0, 0.05);
+          color: $grey-70;
+          background-color: rgba(0, 0, 0, 0.1);
           border-radius: 1rem;
           font-size: 14px;
           font-weight: normal;
           text-align: left;
-          margin: 0 0 10px;
+          margin: 0;
 
           @include breakpoint($break-ssm) {
             width: 94%;

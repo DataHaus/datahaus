@@ -29,9 +29,9 @@
       <div class="row">
         {{ miners.miners }}
       </div>
-      <!-- <div class="row">
+      <div class="row">
         <DealsList />
-      </div> -->
+      </div>
     </div>
   </section>
 </template>
@@ -44,7 +44,7 @@ import { Notyf } from "notyf";
 /* Import our Services and APIs */
 import filrepApi from "../services/filrepApi";
 
-import DealsList from "../components/DealsList.vue";
+import DealsList from "../components/DealsComponents/DealsList.vue";
 
 const store = useStore();
 const { account, deals } = storeToRefs(store);

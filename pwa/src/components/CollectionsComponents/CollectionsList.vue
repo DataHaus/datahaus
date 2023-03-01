@@ -1,7 +1,7 @@
 <template>
   <section id="panel-result">
     <div class="panel-result--content">
-      <SearchResult
+      <SearchCollections
         :search="search"
         :count="files.length"
         @onChanged="onSearchChanged"
@@ -12,7 +12,7 @@
           <span v-if="search !== ''"
             >No results found. Try another file name.</span
           >
-          <span v-else>List of files that you upload will appear here.</span>
+          <span v-else>List of available files will appear here.</span>
         </div>
 
         <div
@@ -40,11 +40,8 @@
             </div>
             <div class="item-icon"></div>
             <div class="item-action">
-              <a
-                title="Create a Collection"
-                @click="createSingleCollection(item)"
-              >
-                <i-ri-file-list-3-line class="icon-color" />
+              <a title="Create COD Job" @click="createSingleCODJob(item)">
+                <i-mdi-locker class="icon-color bigger" />
               </a>
             </div>
           </div>
@@ -55,10 +52,10 @@
                 type="text"
                 readonly
                 @focus="$event.target.select()"
-                :value="generateLink(item)"
+                :value="`CID: ${item.cid}`"
               />
             </label>
-            <a title="Copy link" @click="copyFileLink(item)">
+            <a title="Copy CID" @click="copyCID(item)">
               <i-ri-clipboard-line class="icon-color" />
             </a>
           </div>
@@ -70,21 +67,25 @@
 <script>
 import { ref, computed, inject } from "vue";
 /* Import our Pinia Store */
-import { useStore } from "../store";
+import { useStore } from "../../store";
 
 /* Import our helpers */
-import { fileSize, copyToClipboard, generateLink } from "../services/helpers";
+import {
+  fileSize,
+  copyToClipboard,
+  generateLink,
+} from "../../services/helpers";
 
 /* Components */
-import SearchResult from "../components/SearchResult.vue";
+import SearchCollections from "./SearchCollections.vue";
 
 /* LFG */
 export default {
-  name: "PanelResult",
+  name: "CollectionsList",
   components: {
-    SearchResult,
+    SearchCollections,
   },
-  emits: ["onChecked", "onNewCollectionClick"],
+  emits: ["onChecked", "onJobClick"],
   setup(props, { emit }) {
     /* Inject Notyf */
     const notyf = inject("notyf");
@@ -94,24 +95,25 @@ export default {
     const search = ref("");
 
     /**
-     * Create a Collection with a single File
+     * Create a COD job with a single File
      */
-    const createSingleCollection = (item) => {
-      emit("onNewCollectionClick", item);
+    const createSingleCODJob = (item) => {
+      emit("onJobClick", item);
     };
 
     /**
-     * Copy to Clipboard function
+     * Copy CID to Clipboard function
      */
-    const copyFileLink = (item) => {
-      const url = generateLink(item);
-      copyToClipboard(url);
-      notyf.success("Link copied to clipboard!");
+    const copyCID = (item) => {
+      copyToClipboard(item.cid);
+      notyf.success("CID copied to clipboard!");
     };
+
     /* Update search value */
     const onSearchChanged = ($event) => {
       search.value = $event.target.value;
     };
+
     /* Filters files to find by search value */
     const files = computed(() =>
       store.results
@@ -129,8 +131,8 @@ export default {
       search,
       files,
       fileSize,
-      createSingleCollection,
-      copyFileLink,
+      createSingleCODJob,
+      copyCID,
       generateLink,
       onSearchChanged,
     };
@@ -138,8 +140,8 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "../assets/styles/variables.scss";
-@import "../assets/styles/mixins.scss";
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/mixins.scss";
 
 section#panel-result {
   width: 100%;
@@ -196,7 +198,7 @@ section#panel-result {
           width: 100%;
           display: flex;
           flex-direction: row;
-          align-items: center;
+          align-items: flex-start;
 
           .item-icon {
             padding: 0 0.5rem 0.5rem 0;

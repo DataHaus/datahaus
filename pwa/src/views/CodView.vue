@@ -46,7 +46,7 @@ import { useStore } from "../store";
 
 /* Components */
 import BacalhauBlue from "../assets/svgs/BacalhauBlue.vue";
-import CollectionsList from "../components/CollectionsList.vue";
+import CollectionsList from "../components/CollectionsComponents/CollectionsList.vue";
 import CodModalPopup from "../components/modals/CodModalPopup.vue";
 
 const store = useStore();

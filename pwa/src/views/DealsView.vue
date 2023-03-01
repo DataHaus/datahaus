@@ -62,7 +62,7 @@ import { useStore } from "../store";
 import filrepApi from "../services/filrepApi.js";
 
 /* Components */
-import DealsList from "../components/DealsList.vue";
+import DealsList from "../components/DealsComponents/DealsList.vue";
 import DealsModalPopup from "../components/modals/DealsModalPopup.vue";
 
 const store = useStore();

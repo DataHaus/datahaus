@@ -50,8 +50,8 @@ import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 
 /* Components */
-import PanelUpload from "../components/PanelUpload.vue";
-import PanelResult from "../components/PanelResult.vue";
+import PanelUpload from "../components/StorageComponents/PanelUpload.vue";
+import PanelResult from "../components/StorageComponents/PanelResult.vue";
 import CollectionsModalPopup from "../components/modals/CollectionsModalPopup.vue";
 import ViewCollectionModalPopup from "../components/modals/ViewCollectionModalPopup.vue";
 

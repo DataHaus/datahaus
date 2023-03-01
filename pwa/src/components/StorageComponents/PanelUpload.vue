@@ -57,7 +57,7 @@
           <!-- Uploader Icon -->
           <i-mdi-timer-sand v-if="isUploading" class="icon-color" />
           <div v-else class="upload-logo">
-            <img alt="DataHaus" src="../assets/images/DataHaus-Icon.png" />
+            <img alt="DataHaus" src="../../assets/images/DataHaus-Icon.png" />
           </div>
           <span>Drop files or click to upload</span>
           <div class="dropzone-is-loading" :class="{ active: isUploading }">
@@ -122,25 +122,25 @@
 <script>
 import { ref, computed, inject } from "vue";
 import { storeToRefs } from "pinia";
-import { useStore } from "../store";
+import { useStore } from "../../store";
 
-import { uploadBlobIPFS } from "../services/ipfs.js";
-import { uploadBlobNFTStorage } from "../services/nftStorage.js";
-import { uploadBlobWeb3Storage } from "../services/web3Storage.js";
+import { uploadBlobIPFS } from "../../services/ipfs";
+import { uploadBlobNFTStorage } from "../../services/nftStorage";
+import { uploadBlobWeb3Storage } from "../../services/web3Storage";
 import {
   uploadBufferLightHouse,
   encryptLightHouse,
-} from "../services/lighthouse.js";
-import estuaryStorage from "../services/estuaryStorage.js";
+} from "../../services/lighthouse";
+import estuaryStorage from "../../services/estuaryStorage";
 
-import { fileSize } from "../services/helpers";
+import { fileSize } from "../../services/helpers";
 
 /* Components */
-import IPFSModalPopup from "../components/modals/IPFSModalPopup.vue";
-import NftStorageModalPopup from "../components/modals/NftStorageModalPopup.vue";
-import Web3StorageModalPopup from "../components/modals/Web3StorageModalPopup.vue";
-import EstuaryModalPopup from "../components/modals/EstuaryModalPopup.vue";
-import LightHouseModalPopup from "../components/modals/LightHouseModalPopup.vue";
+import IPFSModalPopup from "../modals/IPFSModalPopup.vue";
+import NftStorageModalPopup from "../modals/NftStorageModalPopup.vue";
+import Web3StorageModalPopup from "../modals/Web3StorageModalPopup.vue";
+import EstuaryModalPopup from "../modals/EstuaryModalPopup.vue";
+import LightHouseModalPopup from "../modals/LightHouseModalPopup.vue";
 
 /* LFG */
 export default {
@@ -373,8 +373,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/styles/variables.scss";
-@import "../assets/styles/mixins.scss";
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/mixins.scss";
 
 section#panel-upload {
   width: 270px;
