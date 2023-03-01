@@ -284,9 +284,14 @@ export default class beryxApi {
         }
       });
 
+    console.log("results", results);
+
     const tipset = {
+      hash: results.hash,
       height: results.height,
       timestamp: results.timestamp,
+      miner: results.blocks_info[0].Miner,
+      blockcid: results.blocks_info[0].BlockCid,
     };
     return tipset;
   }

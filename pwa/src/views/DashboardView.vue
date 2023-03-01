@@ -7,45 +7,11 @@
           <div class="title-name">
             <h1>Dashboard</h1>
           </div>
-          <div class="title-actions">
-            <input
-              type="text"
-              v-model="searchValue"
-              class="search-input"
-              placeholder="Search by Transaction ID / Tipset / Address / Contract"
-            />
-            <button @click="searchFn()" class="create-button">
-              <i-mdi-magnify class="icon-color" />Search
-            </button>
-            <!-- <button @click="$router.push('storage')" class="create-button">
-              <i-mdi-file-outline class="icon-color" />Storage
-            </button> -->
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="account-box">
-          <div class="balance">
-            Balance {{ currency }}
-            {{ balance / 1000000000000000000 }}
-          </div>
-          <div class="profile">
-            <div class="account-address">ETH Address : {{ account }}</div>
-            <div class="account-address">
-              Filecoin Address : {{ accountInfo.robust }}
-            </div>
-            <div class="account-address">
-              Short Address : {{ accountInfo.short }}
-            </div>
-            <div class="account-address">
-              Actor Type : {{ accountInfo.actor_type }}
-            </div>
-          </div>
         </div>
       </div>
       <div class="row">
         <div class="metric-box">
-          <h3>Latest Tipset Height</h3>
+          <h3>Tipset Height</h3>
           <div class="metric-box-value">
             {{ latestTipsetHeight }}
           </div>
@@ -57,15 +23,67 @@
           </div>
         </div>
         <div class="metric-box">
-          <h3>Latest Tipset Time</h3>
+          <h3>Miner</h3>
           <div class="metric-box-value">
-            {{ latestTipsetTime }}
+            {{ tipsetMiner }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="account-box">
+          <div class="balance">
+            Balance {{ currency }}
+            {{ balance / 1000000000000000000 }}
+          </div>
+          <div class="profile">
+            <div class="account-address">
+              Actor Type :<a
+                title="Copy Actor Type"
+                @click="copyClipboard(accountInfo.actor_type)"
+              >
+                {{ accountInfo.actor_type }}
+                <i-ri-clipboard-line class="icon-color" />
+              </a>
+            </div>
+            <div class="account-address">
+              Short Address :
+              <a title="Copy Address" @click="copyClipboard(accountInfo.short)">
+                {{ accountInfo.short }} <i-ri-clipboard-line class="icon-color"
+              /></a>
+            </div>
+            <div class="account-address">
+              Filecoin Address :
+              <a
+                title="Copy Address"
+                @click="copyClipboard(accountInfo.robust)"
+              >
+                {{ accountInfo.robust }}
+                <i-ri-clipboard-line class="icon-color" />
+              </a>
+            </div>
+            <div class="account-address">
+              ETH Address :
+              <a title="Copy Address" @click="copyClipboard(account)">
+                {{ account }} <i-ri-clipboard-line class="icon-color"
+              /></a>
+            </div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="column">
           <div class="transactions-box">
+            <div class="search-bar">
+              <input
+                type="text"
+                v-model="searchValue"
+                class="search-input"
+                placeholder="Search by Transaction ID / Tipset / Address / Contract"
+              />
+              <button @click="searchFn()" class="search-button">
+                <i-mdi-magnify class="icon-color" />Search
+              </button>
+            </div>
             <div class="transactions-title">
               Latest Transactions by Account : {{ account }}
             </div>
@@ -220,6 +238,9 @@ import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 import { Notyf } from "notyf";
 
+/* Import our helpers */
+import { copyToClipboard } from "../services/helpers";
+
 /* Import our Services and APIs */
 import beryxApi from "../services/beryxApi.js";
 
@@ -293,6 +314,7 @@ provide("notyf", NotfyProvider);
 const latestTipsetHeight = computed(() => {
   return tipsetLatest.value.height;
 });
+
 const latestTipsetTime = computed(() => {
   const date = new Date(tipsetLatest.value.timestamp);
   return new Intl.DateTimeFormat("en-ZA", {
@@ -303,6 +325,18 @@ const latestTipsetTime = computed(() => {
     // timeZone: "Africa/Johannesburg",
   }).format(date);
 });
+
+const tipsetMiner = computed(() => {
+  return tipsetLatest.value.miner;
+});
+
+/**
+ * Copy to Clipboard function
+ */
+const copyClipboard = (item) => {
+  copyToClipboard(item);
+  NotfyProvider.success("Copied to clipboard!");
+};
 
 async function searchFn() {
   console.log("searchValue", searchValue);
@@ -341,16 +375,16 @@ onMounted(async () => {
 
     let accountBalance = await beryx.getAccountBalance(account.value);
     store.setBalance(accountBalance.amount);
+
     transactionsByAddress.value = await beryx.getTransactionsByAddress(
       account.value,
       1
     );
+    await getTipset();
   } catch (error) {
     console.error(error);
     throw error;
   }
-
-  await getTipset();
 });
 </script>
 <style lang="scss" scoped>
@@ -394,103 +428,6 @@ section#content {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 0;
-
-        .title-actions {
-          display: flex;
-          flex-direction: row;
-          align-content: center;
-          align-items: center;
-          justify-content: space-between;
-
-          input.search-input {
-            color: $haus-blue;
-            background-color: #ffffff;
-            border: 1px solid $haus-blue;
-            border-radius: 30px;
-            letter-spacing: 1px;
-            font-size: 13px;
-            min-width: 420px;
-            padding: 11px 10px 9px;
-            margin: 0 10px 0 0;
-            text-align: left;
-            @include breakpoint($break-md) {
-              min-width: 200px;
-            }
-            @include breakpoint($break-sm) {
-              width: 80%;
-              margin: 0 1% 1% 1%;
-            }
-            @include breakpoint($break-xs) {
-              width: 80%;
-              margin: 0 1% 1% 1%;
-            }
-          }
-          input.search-input::placeholder {
-            color: $haus-blue;
-            letter-spacing: 1px;
-          }
-          input.search-input:focus {
-            border: 1px solid $black;
-            outline: none;
-          }
-          .search-button {
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-            color: $white;
-            background-color: $haus-blue;
-            font-size: 14px;
-            font-weight: bold;
-            width: auto;
-            height: 35px;
-            border: 2px solid $haus-blue;
-            border-radius: 30px;
-            padding-left: 20px;
-            padding-right: 20px;
-            margin-right: 10px;
-            transition: 0.6s;
-            cursor: pointer;
-
-            .icon-color {
-              margin: 0 3px 0 0;
-            }
-
-            &:hover {
-              color: $haus-cyan;
-              border: 2px solid $haus-cyan;
-            }
-          }
-          .create-button {
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-            color: $haus-blue;
-            background-color: $haus-cyan;
-            font-size: 14px;
-            font-weight: bold;
-            width: auto;
-            height: 35px;
-            border: 2px solid $haus-cyan;
-            border-radius: 30px;
-            padding-left: 20px;
-            padding-right: 20px;
-            margin-right: 10px;
-            transition: 0.6s;
-            cursor: pointer;
-
-            .icon-color {
-              margin: 0 3px 0 0;
-            }
-
-            &:hover {
-              border: 2px solid $haus-blue;
-            }
-          }
-        }
       }
     }
     .row {
@@ -500,7 +437,7 @@ section#content {
       align-content: center;
       align-items: center;
       justify-content: flex-start;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
 
       @include breakpoint($break-ssm) {
         width: 100%;
@@ -519,12 +456,13 @@ section#content {
       }
 
       .account-box {
-        width: 100%;
-        padding: 3% 3% 2% 3%;
+        width: 92%;
+        padding: 2% 3% 1% 3%;
         color: $white;
-        background: $haus-blue;
         border-radius: 10px;
+        background: $haus-blue;
         background-image: $gradient;
+        margin: 0 3% 0 1%;
 
         @include breakpoint($break-ssm) {
           width: 94%;
@@ -532,7 +470,7 @@ section#content {
 
         .balance {
           color: $white;
-          font-size: 16px;
+          font-size: 14px;
           text-align: left;
           margin-bottom: 10px;
         }
@@ -550,7 +488,7 @@ section#content {
           }
           h3 {
             color: $white;
-            font-size: 16px;
+            font-size: 13px;
             margin: 0 0 15px 0;
             text-align: left;
           }
@@ -558,7 +496,7 @@ section#content {
           .account-address {
             width: 100%;
             color: $white;
-            font-size: 16px;
+            font-size: 14px;
             margin-bottom: 10px;
             // white-space: nowrap;
             // overflow: hidden;
@@ -567,12 +505,12 @@ section#content {
         }
       }
       .metric-box {
-        width: 42%;
-        min-height: 30px;
-        padding: 0 3% 0 3%;
+        width: 40%;
+        min-height: 55px;
+        padding: 0 1%;
         border-radius: 40px;
         border: 2px solid $haus-cyan;
-        margin: 0 1%;
+        margin: 0 3% 0 1%;
         display: flex;
         flex-direction: column;
         align-content: center;
@@ -600,22 +538,91 @@ section#content {
           margin-bottom: 0.4em;
         }
       }
-      .transactions-box {
+
+      .search-bar {
         width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: flex-end;
+        margin: 0 auto 20px;
+
+        input.search-input {
+          width: 100%;
+          color: $haus-blue;
+          background-color: #ffffff;
+          border: 2px solid $haus-blue;
+          border-radius: 30px;
+          letter-spacing: 1px;
+          font-size: 13px;
+          padding: 11px 14px 9px;
+          margin: 0 10px 0 0;
+          text-align: left;
+          @include breakpoint($break-md) {
+            min-width: 200px;
+          }
+          @include breakpoint($break-sm) {
+            width: 80%;
+            margin: 0 1% 1% 1%;
+          }
+          @include breakpoint($break-xs) {
+            width: 80%;
+            margin: 0 1% 1% 1%;
+          }
+        }
+        input.search-input::placeholder {
+          color: $haus-blue;
+          letter-spacing: 1px;
+        }
+        input.search-input:focus {
+          border: 2px solid $haus-cyan;
+          outline: none;
+        }
+        .search-button {
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          align-items: center;
+          justify-content: center;
+          color: $haus-blue;
+          background-color: $white;
+          font-size: 14px;
+          font-weight: bold;
+          width: auto;
+          height: 35px;
+          border: 2px solid $haus-blue;
+          border-radius: 30px;
+          padding-left: 20px;
+          padding-right: 20px;
+          transition: 0.6s;
+          cursor: pointer;
+
+          .icon-color {
+            margin: 0 3px 0 0;
+          }
+
+          &:hover {
+            border: 2px solid $haus-blue;
+          }
+        }
+      }
+
+      .transactions-box {
+        width: 96%;
         padding: 0;
+        margin: 0 1%;
 
         .transactions-title {
           width: 94%;
-          padding: 3%;
-          color: $white;
-          background: $haus-blue;
-          background-image: $gradient;
-          border: 1px solid $haus-blue;
-          border-radius: 10px;
-          font-size: 16px;
+          padding: 2% 3%;
+          color: $grey-80;
+          background-color: rgba(0, 0, 0, 0.05);
+          border-radius: 1rem;
+          font-size: 14px;
           font-weight: normal;
-          margin: 0 0 20px 0;
           text-align: left;
+          margin: 0 0 10px;
 
           @include breakpoint($break-ssm) {
             width: 94%;
@@ -642,6 +649,7 @@ section#content {
         margin-bottom: 20px;
         padding: 2% 3% 1% 3%;
         border-radius: 1rem;
+        color: $grey-80;
         background-color: rgba(0, 0, 0, 0.05);
       }
     }

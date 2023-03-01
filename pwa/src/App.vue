@@ -8,7 +8,6 @@ export default {
   components: [AppHeader, ReloadPrompt],
 };
 </script>
-
 <template>
   <AppHeader />
   <router-view v-slot="{ Component }">

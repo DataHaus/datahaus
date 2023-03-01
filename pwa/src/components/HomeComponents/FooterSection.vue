@@ -85,7 +85,6 @@
         }
 
         &:hover {
-          font-weight: bold;
           border-bottom: 0.5px solid $haus-cyan;
         }
 
