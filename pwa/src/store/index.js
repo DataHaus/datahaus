@@ -18,39 +18,35 @@ export const useStore = defineStore({
   id: "store",
   state() {
     return {
-      errorCode: null,
-      errorStatus: null,
-      errorMessage: "",
-      account: null,
+      account: undefined,
+      chainId: undefined,
       balance: 0,
       currency: 'FIL',
       decimals: 18,
       loading: false,
       minting: false,
-      collection: [],
-      deal: {},
+      errorCode: undefined,
+      errorStatus: undefined,
+      errorMessage: "",
       cod: {},
+      transactions: [],
+      collection: [],
       collections: [],
       collectionsResults: db.data.collections,
+      deal: {},
       deals: [],
       dealsResults: db.data.deals,
       files: [],
       results: db.data.results,
-      transactions: [],
+      
     };
   },
   getters: {
-    isErrorCode(state) {
-      return state.errorCode;
-    },
-    isErrorStatus(state) {
-      return state.errorStatus;
-    },
-    isErrorMessage(state) {
-      return state.errorMessage;
-    },
     getAccount(state) {
       return state.account;
+    },
+    getChainId(state) {
+      return state.chainId;
     },
     getBalance(state) {
       return state.balance;
@@ -66,6 +62,15 @@ export const useStore = defineStore({
     },
     isMinting(state) {
       return state.minting;
+    },
+    isErrorCode(state) {
+      return state.errorCode;
+    },
+    isErrorStatus(state) {
+      return state.errorStatus;
+    },
+    isErrorMessage(state) {
+      return state.errorMessage;
     },
     getCollection(state) {
       return state.collection;
@@ -90,17 +95,11 @@ export const useStore = defineStore({
     },
   },
   actions: {
-    setErrorCode(value) {
-      this.errorCode = value;
-    },
-    setErrorStatus(value) {
-      this.errorStatus = value;
-    },
-    setErrorMessage(value) {
-      this.errorMessage = value;
-    },
     setAccount(account) {
       this.account = account;
+    },
+    setChainId(chainId) {
+      this.chainId = chainId;
     },
     setBalance(balance) {
       this.balance = balance;
@@ -116,6 +115,15 @@ export const useStore = defineStore({
     },
     setMinting(value) {
       this.minting = value;
+    },
+    setErrorCode(value) {
+      this.errorCode = value;
+    },
+    setErrorStatus(value) {
+      this.errorStatus = value;
+    },
+    setErrorMessage(value) {
+      this.errorMessage = value;
     },
     /* Single Collection */
     setCollection(collection) {

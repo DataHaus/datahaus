@@ -73,6 +73,7 @@ declare module '@vue/runtime-core' {
     IRiFileList: typeof import('~icons/ri/file-list')['default']
     IRiFileList3Line: typeof import('~icons/ri/file-list3-line')['default']
     LightHouseModalPopup: typeof import('./src/components/Modals/LightHouseModalPopup.vue')['default']
+    MetricBoxes: typeof import('./src/components/DashboardComponents/MetricBoxes.vue')['default']
     ModalPopup: typeof import('./src/components/ModalPopup.vue')['default']
     NftStorageModalPopup: typeof import('./src/components/Modals/NftStorageModalPopup.vue')['default']
     PanelResult: typeof import('./src/components/StorageComponents/PanelResult.vue')['default']

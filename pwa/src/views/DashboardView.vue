@@ -9,26 +9,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="metric-box">
-          <h3>Tipset Height</h3>
-          <div class="metric-box-value">
-            {{ latestTipsetHeight }}
-          </div>
-        </div>
-        <div class="metric-box">
-          <h3>Latest Tipset Time</h3>
-          <div class="metric-box-value">
-            {{ latestTipsetTime }}
-          </div>
-        </div>
-        <div class="metric-box">
-          <h3>Miner</h3>
-          <div class="metric-box-value">
-            {{ tipsetMiner }}
-          </div>
-        </div>
-      </div>
+      <MetricBoxes />
       <div class="row">
         <div class="account-box">
           <div class="balance">
@@ -73,17 +54,6 @@
       <div class="row">
         <div class="column">
           <div class="transactions-box">
-            <!-- <div class="search-bar">
-              <input
-                type="text"
-                v-model="searchValue"
-                class="search-input"
-                placeholder="Search by Transaction ID / Tipset / Address / Contract"
-              />
-              <button @click="searchFn()" class="search-button">
-                <i-mdi-magnify class="icon-color" />Search
-              </button>
-            </div> -->
             <div class="transactions-title">
               Latest Transactions by Account : {{ account }}
             </div>
@@ -259,7 +229,7 @@
   </section>
 </template>
 <script setup>
-import { ref, computed, provide, onMounted } from "vue";
+import { ref, provide, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 import { Notyf } from "notyf";
@@ -277,17 +247,14 @@ const store = useStore();
 const { account, balance, currency, decimals, transactions } =
   storeToRefs(store);
 
-console.log("account", account.value);
-console.log("balance", balance.value);
-console.log("currency", currency.value);
-console.log("decimals", decimals.value);
+// console.log("account", account.value);
+// console.log("balance", balance.value);
+// console.log("currency", currency.value);
+// console.log("decimals", decimals.value);
 
 const searchValue = ref();
 const accountInfo = ref({ robust: null, short: null, actor_type: null });
-const tipsetLatest = ref({
-  height: null,
-  timestamp: null,
-});
+
 // const tipsetHeight = ref({
 //   height: null,
 //   timestamp: null,
@@ -340,26 +307,6 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-/* Computed Values for Dashboard */
-const latestTipsetHeight = computed(() => {
-  return tipsetLatest.value.height;
-});
-
-const latestTipsetTime = computed(() => {
-  const date = new Date(tipsetLatest.value.timestamp);
-  return new Intl.DateTimeFormat("en-ZA", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-    // timeZone: "Africa/Johannesburg",
-  }).format(date);
-});
-
-const tipsetMiner = computed(() => {
-  return tipsetLatest.value.miner;
-});
-
 /**
  * Copy to Clipboard function
  */
@@ -391,12 +338,6 @@ const copyClipboard = (item) => {
 // console.log("transactionsByHeight", transactionsByHeight.value);
 // }
 
-async function getTipset() {
-  const beryx = new beryxApi();
-  tipsetLatest.value = await beryx.getTipsetLatest();
-  // console.log("tipsetLatest", tipsetLatest.value);
-}
-
 onMounted(async () => {
   try {
     /* Load Beryx API for Filecoin */
@@ -405,16 +346,14 @@ onMounted(async () => {
 
     let accountBalance = await beryx.getAccountBalance(account.value);
     store.setBalance(accountBalance.amount);
+    store.setCurrency(accountBalance.currency);
+    store.setDecimals(accountBalance.decimals);
 
     transactionsByAddress.value = await beryx.getTransactionsByAddress(
       account.value,
       1
     );
-
-    console.log("Transactions :", transactionsByAddress.value.transactions);
     store.addTransactions(transactionsByAddress.value.transactions);
-
-    await getTipset();
   } catch (error) {
     console.error(error);
     throw error;
@@ -471,7 +410,7 @@ section#content {
       align-content: center;
       align-items: center;
       justify-content: flex-start;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
 
       @include breakpoint($break-ssm) {
         width: 100%;
@@ -538,110 +477,6 @@ section#content {
           }
         }
       }
-      .metric-box {
-        width: 40%;
-        min-height: 55px;
-        padding: 0 1%;
-        border-radius: 40px;
-        border: 2px solid $haus-cyan;
-        margin: 0 3% 0 1%;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        align-items: center;
-        justify-content: flex-start;
-
-        @include breakpoint($break-ssm) {
-          width: 94%;
-        }
-
-        h3 {
-          color: $haus-blue;
-          font-size: 16px;
-          margin: 0;
-          text-align: center;
-          margin-block-start: 0.6em;
-          margin-block-end: 0.15em;
-          margin-inline-start: 0px;
-          margin-inline-end: 0px;
-          font-weight: bold;
-        }
-        .metric-box-value {
-          font-size: 16px;
-          font-weight: 400;
-          margin-bottom: 0.4em;
-        }
-      }
-
-      .search-bar {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        align-items: center;
-        justify-content: flex-end;
-        margin: 0 auto 20px;
-
-        input.search-input {
-          width: 100%;
-          color: $haus-blue;
-          background-color: #ffffff;
-          border: 2px solid $haus-blue;
-          border-radius: 30px;
-          letter-spacing: 1px;
-          font-size: 13px;
-          padding: 11px 14px 9px;
-          margin: 0 10px 0 0;
-          text-align: left;
-          @include breakpoint($break-md) {
-            min-width: 200px;
-          }
-          @include breakpoint($break-sm) {
-            width: 80%;
-            margin: 0 1% 1% 1%;
-          }
-          @include breakpoint($break-xs) {
-            width: 80%;
-            margin: 0 1% 1% 1%;
-          }
-        }
-        input.search-input::placeholder {
-          color: $haus-blue;
-          letter-spacing: 1px;
-        }
-        input.search-input:focus {
-          border: 2px solid $haus-cyan;
-          outline: none;
-        }
-        .search-button {
-          display: flex;
-          flex-direction: row;
-          align-content: center;
-          align-items: center;
-          justify-content: center;
-          color: $haus-blue;
-          background-color: $white;
-          font-size: 14px;
-          font-weight: bold;
-          width: auto;
-          height: 35px;
-          border: 2px solid $haus-blue;
-          border-radius: 30px;
-          padding-left: 20px;
-          padding-right: 20px;
-          transition: 0.6s;
-          cursor: pointer;
-
-          .icon-color {
-            margin: 0 3px 0 0;
-          }
-
-          &:hover {
-            border: 2px solid $haus-blue;
-          }
-        }
-      }
-
       .transactions-box {
         width: 96%;
         padding: 0;

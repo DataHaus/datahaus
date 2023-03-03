@@ -6,7 +6,6 @@
         :count="transactions.length"
         @onChanged="onSearchChanged"
       />
-
       <div class="content-file--items">
         <div class="content-file--item empty" v-if="transactions.length === 0">
           <span v-if="search !== ''"

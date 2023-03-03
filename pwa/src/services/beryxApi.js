@@ -1,11 +1,8 @@
 import axios from "axios";
 import { useStore } from "../store";
-
 import { Beryx } from "@zondax/beryx";
 
 const beryxAPIKEY = import.meta.env.VITE_BERYX_API_KEY;
-
-console.log("beryxAPIKEY", beryxAPIKEY);
 
 export default class beryxApi {
   constructor() {
@@ -107,8 +104,6 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results);
-
     const balance = {
       amount: results.balances[0].value,
       currency: results.balances[0].currency.symbol,
@@ -116,25 +111,6 @@ export default class beryxApi {
     };
     return balance;
   }
-
-  /**
-   * Get Account Info
-   * @param {String} accountAddress
-   * @returns {Promise<Array|Error>}
-   */
-  // async getAccountInfo(accountAddress) {
-  //   const client = new Beryx.Filecoin({ beryxAPIKEY, network: "hyperspace" });
-  //   try {
-  //     const accountInfo = await client.data.getAccountInfo(accountAddress);
-  //     console.log("accountInfo : ", accountInfo);
-
-  //     return accountInfo;
-  //   } catch (error) {
-  //     console.error(error);
-  //     throw error;
-  //   }
-  //   return;
-  // }
 
   /**
    * Get Account Vesting
@@ -224,25 +200,6 @@ export default class beryxApi {
     };
     return tipset;
   }
-
-  /**
-   * Get Tipset Height
-   * @param {Number} height
-   * @returns {Promise<Array|Error>}
-   */
-  // async getTipset(height) {
-  //   const client = new Beryx.Filecoin({ beryxAPIKEY, network: "hyperspace" });
-  //   try {
-  //     const tipsetHeight = await client.data.getTipset(height);
-  //     console.log("tipsetHeight : ", tipsetHeight);
-
-  //     return tipsetHeight;
-  //   } catch (error) {
-  //     console.error(error);
-  //     throw error;
-  //   }
-  //   return;
-  // }
 
   /**
    * Get Tipset Latest
