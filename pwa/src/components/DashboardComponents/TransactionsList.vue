@@ -19,23 +19,28 @@
           v-for="(item, index) in transactions"
           :key="index"
         >
-          <div class="item-content">
-            <div class="item-icon">
+          <div class="item-cid">
+            <label>
               <input
-                type="checkbox"
-                class="cid"
-                name="tx_hash"
-                :value="item.tx_hash"
-                @input="$emit('onChecked', $event)"
+                class="input-cid"
+                type="text"
+                readonly
+                @focus="$event.target.select()"
+                :value="`Txn Hash: ${item.tx_hash}`"
               />
-            </div>
+            </label>
+            <a title="Copy Txn Hash" @click="copyTxn(item)">
+              <i-ri-clipboard-line class="icon-color" />
+            </a>
+          </div>
+          <div class="item-content">
             <div class="item-detail">
-              <span class="item-detail--title" :title="item.tx_hash">{{
-                item.tx_hash
-              }}</span>
-              <span class="item-detail--subtitle"
-                >Amount : {{ item.gas_used }} • {{ item.status }}</span
+              <span class="item-detail--title" :title="item.amount"
+                >Amount : {{ item.amount }}</span
               >
+              <span class="item-detail--subtitle"
+                >Status : {{ item.status }}
+              </span>
               <span class="item-detail--subtitle"
                 >Gas Used : {{ item.gas_used }}
               </span>
@@ -86,20 +91,6 @@
               </a>
             </div> -->
           </div>
-          <div class="item-cid">
-            <label>
-              <input
-                class="input-cid"
-                type="text"
-                readonly
-                @focus="$event.target.select()"
-                :value="`Txn Hash: ${item.tx_hash}`"
-              />
-            </label>
-            <a title="Copy Txn Hash" @click="copyTxn(item)">
-              <i-ri-clipboard-line class="icon-color" />
-            </a>
-          </div>
         </div>
       </div>
     </div>
@@ -134,6 +125,16 @@ export default {
     /* Init Store */
     const store = useStore();
     const search = ref("");
+
+    // const tipsetHeight = ref({
+    //   height: null,
+    //   timestamp: null,
+    // });
+    // const hash = ref(
+    //   "bafy2bzacedjgclfkdcqjxwzwcl3jckojovknjceqlyw4ooe4nmajlhl7k3nx6"
+    // );
+    // const transactionsByHash = ref({});
+    // const transactionsByHeight = ref({});
 
     /**
      * Create a COD job with a single File
@@ -317,7 +318,7 @@ section#panel-result {
         .item-cid {
           display: flex;
           align-items: center;
-          margin-top: 0.7rem;
+          margin-bottom: 0.5rem;
           width: 100%;
 
           label {

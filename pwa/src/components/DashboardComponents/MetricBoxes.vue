@@ -24,7 +24,6 @@
 import { ref, computed, onMounted } from "vue";
 /* Import our Services and APIs */
 import beryxApi from "../../services/beryxApi.js";
-
 /* LFG */
 export default {
   name: "MetricBoxes",

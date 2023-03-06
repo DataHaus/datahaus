@@ -18,7 +18,8 @@
           </div>
           <div class="profile">
             <div class="account-address">
-              Actor Type :<a
+              Actor Type :
+              <a
                 title="Copy Actor Type"
                 @click="copyClipboard(accountInfo.actor_type)"
               >
@@ -58,171 +59,7 @@
               Latest Transactions by Account : {{ account }}
             </div>
             <TransactionsList />
-            <!-- <div class="transactions-list">
-              <template
-                v-for="transaction in transactionsByAddress.transactions"
-                :key="transaction.name"
-              >
-                <div class="transaction-card">
-                  <div class="transaction-item">
-                    Type : {{ transaction.tx_type }}
-                  </div>
-                  <div class="transaction-item">
-                    Amount : {{ transaction.amount }}
-                  </div>
-                  <div class="transaction-item">
-                    Status : {{ transaction.status }}
-                  </div>
-                  <div class="transaction-item">
-                    Height : {{ transaction.height }}
-                  </div>
-                  <div class="transaction-item">
-                    Timestamp : {{ transaction.tx_timestamp }}
-                  </div>
-                  <div class="transaction-item">
-                    From : {{ transaction.tx_from }}
-                  </div>
-                  <div class="transaction-item">
-                    To : {{ transaction.tx_to }}
-                  </div>
-                  <div class="transaction-item">
-                    Hash : {{ transaction.tx_hash }}
-                  </div>
-
-                  <div
-                    v-if="transaction.tx_metadata.cid"
-                    class="transaction-item"
-                  >
-                    Metadata :
-                  </div>
-                  <div
-                    v-if="transaction.tx_metadata.cid"
-                    class="transaction-item"
-                  >
-                    CID: {{ transaction.tx_metadata.cid }}<br />
-                  </div>
-                  <div
-                    v-if="transaction.tx_metadata.cid"
-                    class="transaction-item"
-                  >
-                    ethAdd: {{ transaction.tx_metadata.ethAdd }}<br />
-                  </div>
-                  <div
-                    v-if="transaction.tx_metadata.cid"
-                    class="transaction-item"
-                  >
-                    ethHash: {{ transaction.tx_metadata.ethHash }}<br />
-                  </div>
-                  <div
-                    v-if="transaction.tx_metadata.cid"
-                    class="transaction-item"
-                  >
-                    ethLogs: {{ transaction.tx_metadata.ethLogs[0] }}<br />
-                  </div>
-                  <div
-                    v-if="transaction.tx_metadata.cid"
-                    class="transaction-item"
-                  >
-                    robustAdd: {{ transaction.tx_metadata.robustAdd }}
-                  </div>
-                </div>
-              </template>
-            </div> -->
           </div>
-          <!-- <div class="transactions-box">
-            <h3>Transactions by Hash : {{ hash }}</h3>
-            <div class="transactions-list">
-              <template
-                v-for="transaction in transactionsByHash.transactions"
-                :key="transaction.name"
-              >
-                <div class="transaction-card">
-                  <div class="transaction-item">
-                    Height : {{ transaction.height }}
-                  </div>
-                  <div class="transaction-item">
-                    Timestamp : {{ transaction.tx_timestamp }}
-                  </div>
-                  <div class="transaction-item">
-                    From : {{ transaction.tx_from }}
-                  </div>
-                  <div class="transaction-item">
-                    To : {{ transaction.tx_to }}
-                  </div>
-                  <div class="transaction-item">
-                    Hash : {{ transaction.tx_hash }}
-                  </div>
-                  <div class="transaction-item">
-                    Amount : {{ transaction.amount }}
-                  </div>
-                  <div class="transaction-item">
-                    Status : {{ transaction.status }}
-                  </div>
-                  <div class="transaction-item">
-                    Type : {{ transaction.tx_type }}
-                  </div>
-                  <div
-                    class="transaction-item"
-                    v-if="transaction.tx_metadata.cid"
-                  >
-                    Metadata : <br /><br />
-                    CID: {{ transaction.tx_metadata.cid }}<br />
-                    ethAdd: {{ transaction.tx_metadata.ethAdd }}<br />
-                    ethHash: {{ transaction.tx_metadata.ethHash }}<br />
-                    ethLogs: {{ transaction.tx_metadata.ethLogs[0] }}<br />
-                    robustAdd: {{ transaction.tx_metadata.robustAdd }}
-                  </div>
-                </div>
-              </template>
-            </div>
-          </div> -->
-          <!-- <div class="transactions-box">
-            <h3>Transactions by Height : {{ tipsetHeight.height }}</h3>
-            <div class="transactions-list">
-              <template
-                v-for="transaction in transactionsByHeight.transactions"
-                :key="transaction.name"
-              >
-                <div class="transaction-card">
-                  <div class="transaction-item">
-                    Height : {{ transaction.height }}
-                  </div>
-                  <div class="transaction-item">
-                    Timestamp : {{ transaction.tx_timestamp }}
-                  </div>
-                  <div class="transaction-item">
-                    From : {{ transaction.tx_from }}
-                  </div>
-                  <div class="transaction-item">
-                    To : {{ transaction.tx_to }}
-                  </div>
-                  <div class="transaction-item">
-                    Hash : {{ transaction.tx_hash }}
-                  </div>
-                  <div class="transaction-item">
-                    Amount : {{ transaction.amount }}
-                  </div>
-                  <div class="transaction-item">
-                    Status : {{ transaction.status }}
-                  </div>
-                  <div class="transaction-item">
-                    Type : {{ transaction.tx_type }}
-                  </div>
-                  <div
-                    class="transaction-item"
-                    v-if="transaction.tx_metadata.cid"
-                  >
-                    Metadata : <br /><br />
-                    CID: {{ transaction.tx_metadata.cid }}<br />
-                    ethAdd: {{ transaction.tx_metadata.ethAdd }}<br />
-                    ethHash: {{ transaction.tx_metadata.ethHash }}<br />
-                    ethLogs: {{ transaction.tx_metadata.ethLogs[0] }}<br />
-                    robustAdd: {{ transaction.tx_metadata.robustAdd }}
-                  </div>
-                </div>
-              </template>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -244,26 +81,9 @@ import TransactionsList from "../components/DashboardComponents/TransactionsList
 import beryxApi from "../services/beryxApi.js";
 
 const store = useStore();
-const { account, balance, currency, decimals, transactions } =
-  storeToRefs(store);
+const { account, balance, currency } = storeToRefs(store);
 
-// console.log("account", account.value);
-// console.log("balance", balance.value);
-// console.log("currency", currency.value);
-// console.log("decimals", decimals.value);
-
-const searchValue = ref();
 const accountInfo = ref({ robust: null, short: null, actor_type: null });
-
-// const tipsetHeight = ref({
-//   height: null,
-//   timestamp: null,
-// });
-// const hash = ref(
-//   "bafy2bzacedjgclfkdcqjxwzwcl3jckojovknjceqlyw4ooe4nmajlhl7k3nx6"
-// );
-// const transactionsByHash = ref({});
-// const transactionsByHeight = ref({});
 const transactionsByAddress = ref({});
 
 const NotfyProvider = new Notyf({
@@ -315,40 +135,21 @@ const copyClipboard = (item) => {
   NotfyProvider.success("Copied to clipboard!");
 };
 
-// async function searchFn() {
-// console.log("searchValue", searchValue);
-
-// transactionsByAddress.value = await beryx.getTransactionsByAddress(
-//   account.value,
-//   1
-// );
-// console.log("transactionsByAddress", transactionsByAddress.value);
-
-/* Just a Test Value */
-// tipsetHeight.value = await beryx.getTipset(23766);
-// console.log("tipsetHeight", tipsetHeight.value);
-
-/* Just a Test Value */
-// transactionsByHash.value = await beryx.getTransactionsByHash(hash.value, 1);
-// console.log("hash.value", hash.value);
-// console.log("transactionsByHash", transactionsByHash.value);
-
-/* Just a Test Value */
-// transactionsByHeight.value = await beryx.getTransactionsByHeight(23766, 1);
-// console.log("transactionsByHeight", transactionsByHeight.value);
-// }
-
 onMounted(async () => {
   try {
     /* Load Beryx API for Filecoin */
     const beryx = new beryxApi();
+
+    /* Load the Account Info */
     accountInfo.value = await beryx.getAccountInfo(account.value);
 
+    /* Load the Account Balances */
     let accountBalance = await beryx.getAccountBalance(account.value);
     store.setBalance(accountBalance.amount);
     store.setCurrency(accountBalance.currency);
     store.setDecimals(accountBalance.decimals);
 
+    /* Load the Account Transactions */
     transactionsByAddress.value = await beryx.getTransactionsByAddress(
       account.value,
       1
@@ -474,6 +275,10 @@ section#content {
             // white-space: nowrap;
             // overflow: hidden;
             // text-overflow: ellipsis;
+            a {
+              position: relative;
+              left: 0;
+            }
           }
         }
       }
