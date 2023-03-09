@@ -17,18 +17,11 @@
           >github</a
         >
         <a
-          href="https://twitter.com/webmoss"
+          href="https://twitter.com/DataHaus_"
           alt="Twitter"
           target="_blank"
           rel="noopener"
           >twitter</a
-        >
-        <a
-          href="https://www.linkedin.com/in/craig-moss-21822628/"
-          alt="LinkedIn"
-          target="_blank"
-          rel="noopener"
-          >linkedIn</a
         >
       </nav>
     </div>
