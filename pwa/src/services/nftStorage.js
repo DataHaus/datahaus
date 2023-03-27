@@ -2,7 +2,6 @@ import { NFTStorage } from "nft.storage";
 
 const NFT_STORAGE_KEY = import.meta.env.VITE_NFT_STORAGE_KEY;
 
-
 /**
  * Upload Blob to NFT Storage
  *
@@ -36,7 +35,6 @@ export const uploadBlobNFTStorage = async (file) => {
     return { error, data: detail };
   }
 };
-
 
 /** 
 * Fetch pinning info from NFT.Storage

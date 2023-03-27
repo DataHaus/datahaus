@@ -1,19 +1,19 @@
 <template>
-  <div class="row">
+  <div class="metric-col">
     <div class="metric-box">
-      <h3>Tipset Height</h3>
+      <div class="metric-box-label">Tipset Height :</div>
       <div class="metric-box-value">
         {{ latestTipsetHeight }}
       </div>
     </div>
     <div class="metric-box">
-      <h3>Latest Tipset Time</h3>
+      <div class="metric-box-label">Tipset Time :</div>
       <div class="metric-box-value">
         {{ latestTipsetTime }}
       </div>
     </div>
     <div class="metric-box">
-      <h3>Miner</h3>
+      <div class="metric-box-label">Miner :</div>
       <div class="metric-box-value">
         {{ tipsetMiner }}
       </div>
@@ -29,8 +29,11 @@ export default {
   name: "MetricBoxes",
   setup() {
     const tipsetLatest = ref({
+      hash: null,
       height: null,
       timestamp: null,
+      miner: null,
+      blockcid: null,
     });
 
     /* Computed Values for Dashboard */
@@ -74,47 +77,43 @@ export default {
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
 
-.row {
+.metric-col {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-content: center;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
-  margin-bottom: 15px;
 
   .metric-box {
-    width: 40%;
-    min-height: 55px;
-    padding: 0 1%;
+    width: 260px;
+    min-height: 35px;
+    padding: 0 10px;
     border-radius: 40px;
-    border: 2px solid $haus-cyan;
-    margin: 0 3% 0 1%;
+    color: $white;
+    background: $haus-blue;
+    border: 1px solid $haus-cyan;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-content: center;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    margin-bottom: 10px;
 
     @include breakpoint($break-ssm) {
       width: 94%;
     }
 
-    h3 {
-      color: $haus-blue;
+    .metric-box-label {
+      color: $white;
       font-size: 16px;
-      margin: 0;
-      text-align: center;
-      margin-block-start: 0.6em;
-      margin-block-end: 0.15em;
-      margin-inline-start: 0px;
-      margin-inline-end: 0px;
       font-weight: bold;
     }
     .metric-box-value {
+      color: $white;
       font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 0.4em;
+      font-weight: bold;
+      margin-left: 0.4em;
     }
   }
 }

@@ -9,46 +9,54 @@
           </div>
         </div>
       </div>
-      <MetricBoxes />
       <div class="row">
         <div class="account-box">
-          <div class="balance">
-            Balance {{ currency }}
-            {{ balance / 1000000000000000000 }}
+          <div class="column-60">
+            <div class="balance">
+              BALANCE ~ {{ currency }}
+              {{ balance / 1000000000000000000 }}
+            </div>
+            <div class="profile">
+              <div class="account-address">
+                FIL ADDRESS ~
+                <a
+                  title="Copy Address"
+                  @click="copyClipboard(accountInfo.robust)"
+                >
+                  {{ accountInfo.robust }}
+                  <i-ri-clipboard-line class="icon-color" />
+                </a>
+              </div>
+              <div class="account-address">
+                ETH ADDRESS ~
+                <a title="Copy Address" @click="copyClipboard(account)">
+                  {{ account }} <i-ri-clipboard-line class="icon-color"
+                /></a>
+              </div>
+              <div class="account-address">
+                ACTOR TYPE ~
+                <a
+                  title="Copy Actor Type"
+                  @click="copyClipboard(accountInfo.actor_type)"
+                >
+                  {{ accountInfo.actor_type }}
+                  <i-ri-clipboard-line class="icon-color" />
+                </a>
+              </div>
+              <div class="account-address">
+                SHORT ADDRESS ~
+                <a
+                  title="Copy Address"
+                  @click="copyClipboard(accountInfo.short)"
+                >
+                  {{ accountInfo.short }}
+                  <i-ri-clipboard-line class="icon-color"
+                /></a>
+              </div>
+            </div>
           </div>
-          <div class="profile">
-            <div class="account-address">
-              Actor Type :
-              <a
-                title="Copy Actor Type"
-                @click="copyClipboard(accountInfo.actor_type)"
-              >
-                {{ accountInfo.actor_type }}
-                <i-ri-clipboard-line class="icon-color" />
-              </a>
-            </div>
-            <div class="account-address">
-              Short Address :
-              <a title="Copy Address" @click="copyClipboard(accountInfo.short)">
-                {{ accountInfo.short }} <i-ri-clipboard-line class="icon-color"
-              /></a>
-            </div>
-            <div class="account-address">
-              Filecoin Address :
-              <a
-                title="Copy Address"
-                @click="copyClipboard(accountInfo.robust)"
-              >
-                {{ accountInfo.robust }}
-                <i-ri-clipboard-line class="icon-color" />
-              </a>
-            </div>
-            <div class="account-address">
-              ETH Address :
-              <a title="Copy Address" @click="copyClipboard(account)">
-                {{ account }} <i-ri-clipboard-line class="icon-color"
-              /></a>
-            </div>
+          <div class="column-40">
+            <MetricBoxes />
           </div>
         </div>
       </div>
@@ -56,7 +64,7 @@
         <div class="column">
           <div class="transactions-box">
             <div class="transactions-title">
-              Latest Transactions by Account : {{ account }}
+              Latest Transactions by Fil Account : {{ accountInfo.robust }}
             </div>
             <TransactionsList />
           </div>
@@ -140,21 +148,23 @@ onMounted(async () => {
     /* Load Beryx API for Filecoin */
     const beryx = new beryxApi();
 
-    /* Load the Account Info */
-    accountInfo.value = await beryx.getAccountInfo(account.value);
+    if (account.value) {
+      /* Load the Account Info */
+      accountInfo.value = await beryx.getAccountInfo(account.value);
 
-    /* Load the Account Balances */
-    let accountBalance = await beryx.getAccountBalance(account.value);
-    store.setBalance(accountBalance.amount);
-    store.setCurrency(accountBalance.currency);
-    store.setDecimals(accountBalance.decimals);
+      /* Load the Account Balances */
+      let accountBalance = await beryx.getAccountBalance(account.value);
+      store.setBalance(accountBalance.amount);
+      store.setCurrency(accountBalance.currency);
+      store.setDecimals(accountBalance.decimals);
 
-    /* Load the Account Transactions */
-    transactionsByAddress.value = await beryx.getTransactionsByAddress(
-      account.value,
-      1
-    );
-    store.addTransactions(transactionsByAddress.value.transactions);
+      /* Load the Account Transactions */
+      transactionsByAddress.value = await beryx.getTransactionsByAddress(
+        account.value,
+        1
+      );
+      store.addTransactions(transactionsByAddress.value.transactions);
+    }
   } catch (error) {
     console.error(error);
     throw error;
@@ -229,14 +239,38 @@ section#content {
         justify-content: flex-start;
       }
 
+      .column-60 {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
+      .column-40 {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
       .account-box {
-        width: 92%;
-        padding: 2% 3% 1% 3%;
+        width: 94%;
+        padding: 2% 2% 1%;
         color: $white;
         border-radius: 10px;
         background: $haus-blue;
         background-image: $gradient;
         margin: 0 3% 0 1%;
+
+        display: flex;
+        flex-direction: row;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: flex-start;
 
         @include breakpoint($break-ssm) {
           width: 94%;

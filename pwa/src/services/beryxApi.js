@@ -197,6 +197,8 @@ export default class beryxApi {
     const tipset = {
       height: results.height,
       timestamp: results.timestamp,
+      miner: results.blocks_info[0].Miner,
+      blockcid: results.blocks_info[0].BlockCid,
     };
     return tipset;
   }
@@ -241,7 +243,7 @@ export default class beryxApi {
         }
       });
 
-    console.log("results", results);
+    console.log("getTipsetLatest results", results);
 
     const tipset = {
       hash: results.hash,
