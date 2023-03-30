@@ -37,7 +37,6 @@ export default class filrepApi {
     const results = await axios
       .request(options)
       .then(function (response) {
-        console.log("response.data", response.data);
         const data = response.data;
         return data;
       })

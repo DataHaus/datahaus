@@ -36,6 +36,9 @@ export const useStore = defineStore({
       deal: {},
       deals: [],
       dealsResults: db.data.deals,
+      miner: {},
+      miners: [],
+      minersResults: db.data.miners,
       files: [],
       results: db.data.results,
       
@@ -78,6 +81,9 @@ export const useStore = defineStore({
     getDeal(state) {
       return state.deal;
     },
+    getMiner(state) {
+      return state.miner;
+    },
     getCod(state) {
       return state.cod;
     },
@@ -86,6 +92,9 @@ export const useStore = defineStore({
     },
     getDealsResults(state) {
       return state.dealsResults;
+    },
+    getMinersResults(state) {
+      return state.minersResults;
     },
     getResults(state) {
       return state.results;
@@ -150,6 +159,10 @@ export const useStore = defineStore({
     setDeal(deal) {
       this.deal = deal;
     },
+    /* Single Miner */
+    setMiner(miner) {
+      this.miner = miner;
+    },
     /* Single COD Job */
     setCod(cod) {
       this.cod = cod;
@@ -169,6 +182,18 @@ export const useStore = defineStore({
       db.data.dealsResults = [...this.dealsResults];
       db.write();
     },
+    addMiners(...miner) {
+      this.miners.push(...miner);
+    },
+    addMinersResults(...deal) {
+      this.minersResults.push(...deal);
+      this.minersResults = this.minersResults.filter(function (address) {
+        return !!pid;
+      });
+      db.data.minersResults = [...this.minersResults];
+      db.write();
+    },
+    
     /* Uploaded Files Storage  */
     resetFiles() {
       this.files = [];

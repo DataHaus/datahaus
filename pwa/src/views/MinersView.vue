@@ -8,9 +8,6 @@
             <h1>Miners</h1>
           </div>
           <div class="title-actions">
-            <button @click="placeBid()" class="back-button">
-              <i-mdi-coin class="icon-color" /> Place Bid
-            </button>
             <button @click="viewPods()" class="create-button">
               <i-mdi-cards-outline class="icon-color" /> PODs
             </button>
@@ -25,76 +22,17 @@
           Proof-of-Deal.<br />
         </p>
       </div>
-      <div class="row"></div>
       <div class="row">
-        {{ miners.miners }}
-      </div>
-      <div class="row">
-        <DealsList />
+        <MinersList />
       </div>
     </div>
   </section>
 </template>
 <script setup>
-import { ref, provide, onMounted } from "vue";
-import { storeToRefs } from "pinia";
-import { useStore } from "../store";
+import { provide } from "vue";
 import { Notyf } from "notyf";
-
-/* Import our Services and APIs */
-import filrepApi from "../services/filrepApi";
-
-import DealsList from "../components/DealsComponents/DealsList.vue";
-
-const store = useStore();
-const { account, deals } = storeToRefs(store);
-
-console.log("account", account.value);
-console.log("deals", deals.value);
-
-const miners = ref([]);
-const offset = ref(); // Number of miners to be skipped. Example: 0
-const limit = ref(); // The length of response Example: 10
-const sortByOptions = ref([
-  "uptime",
-  "rawPower",
-  "qualityAdjPower",
-  "freeSpace",
-  "score",
-  "averageStorageDealsPrice",
-  "noPenalties",
-  "dataStored",
-]);
-console.log("sortByOptions", sortByOptions.value);
-
-const sortBy = ref("score");
-const order = ref("desc"); // Option to order miners. Valid: "asc", "desc"
-const orderOptions = ref(["asc", "desc"]); // Option to order miners. Valid: "asc", "desc"
-console.log("orderOptions", orderOptions.value);
-
-const search = ref(""); // Keyword to search miners by. Example: "f0010"
-const region = ref();
-const regionOptions = ref([
-  "Asia",
-  "Europe",
-  "Africa",
-  "Oceania",
-  "South America",
-  "Central America",
-  "North America",
-]); // Option to filter miners by region. Valid: "Asia", "Europe", "Africa", "Oceania", "South America", "Central America", "North America"
-console.log("regionOptions", regionOptions.value);
-
-const pid = ref(null);
-const dealRef = ref(null);
-const isUploaded = ref(false);
-const dealAccepted = ref(0);
-
-console.log("pid", pid.value);
-console.log("dealRef", dealRef.value);
-console.log("isUploaded", isUploaded.value);
-console.log("dealAccepted", dealAccepted.value);
-
+/* Components */
+import MinersList from "../components/MinersComponents/MinersList.vue";
 /* LFG */
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -137,30 +75,10 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-const placeBid = () => {
-  console.log("Place Bid Clicked");
-  NotfyProvider.success("Place Bid Clicked");
-  // NotfyProvider.success(`Collection created ${newCollection.title}`);
-};
-
 const viewPods = () => {
   console.log("View PODS Clicked");
   NotfyProvider.success("View PODS Clicked");
-  // NotfyProvider.success(`Collection created ${newCollection.title}`);
 };
-
-const getMiners = async () => {
-  /* Load Filerep API for Filecoin */
-  const filrep = new filrepApi();
-
-  /* Get Miners Details */
-  miners.value = await filrep.getMiners(0, 10, "score", "desc", null, null);
-  console.log("miners.value", miners.value.miners);
-};
-
-onMounted(async () => {
-  await getMiners();
-});
 </script>
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";
